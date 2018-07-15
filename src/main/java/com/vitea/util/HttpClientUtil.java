@@ -183,6 +183,48 @@ public class HttpClientUtil {
         return responseBody;
     }
 	
-	
+    /**
+     * 执行GET 请求
+     *
+     * @param uri
+     * @return
+     */
+    public static String execute(String url) {
+        long startTime = System.currentTimeMillis();
+        HttpEntity httpEntity = null;
+        HttpRequestBase method = null;
+        String responseBody = "";
+        try {
+            if (httpClient == null) {
+                initPools();
+            }
+            method = getRequest(url, HttpGet.METHOD_NAME, DEFAULT_CONTENT_TYPE, 0);
+            HttpContext context = HttpClientContext.create();
+            CloseableHttpResponse httpResponse = httpClient.execute(method, context);
+            httpEntity = httpResponse.getEntity();
+            if (httpEntity != null) {
+                responseBody = EntityUtils.toString(httpEntity, "UTF-8");
+                logger.info("请求URL: "+url+"+  返回状态码："+httpResponse.getStatusLine().getStatusCode());
+            }
+        } catch (Exception e) {
+            if(method != null){
+                method.abort();
+            }
+            e.printStackTrace();
+            logger.error("execute get request exception, url:" + url + ", exception:" + e.toString() + ",cost time(ms):"
+                    + (System.currentTimeMillis() - startTime));
+        } finally {
+            if (httpEntity != null) {
+                try {
+                    EntityUtils.consumeQuietly(httpEntity);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    logger.error("close response exception, url:" + url + ", exception:" + e.toString() + ",cost time(ms):"
+                            + (System.currentTimeMillis() - startTime));
+                }
+            }
+        }
+        return responseBody;
+    }
 	
 }
