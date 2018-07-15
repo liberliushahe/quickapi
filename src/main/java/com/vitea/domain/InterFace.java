@@ -5,11 +5,19 @@ package com.vitea.domain;
  *
  */
 public class InterFace {
+	private int id;
 	private String url;
 	private String requestport;
 	private String method;
 	private String type;
 	private String description;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getUrl() {
 		return url;
 	}
