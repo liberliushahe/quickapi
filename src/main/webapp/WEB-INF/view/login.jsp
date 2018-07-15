@@ -10,8 +10,29 @@
 <meta http-equiv="Expires" content="0"> 
 <title>后台管理</title>
 <link href="${ctx }/resources/css/login.css" rel="stylesheet" type="text/css" />
-</head>
 
+</head>
+<style>
+
+.service{
+width:100%; 
+float:left;
+text-align:center;
+margin-top:20px;
+}
+.service ul
+{
+    list-style:none; 
+}
+
+.service ul li
+{
+    display:inline;
+    padding:100px;
+    text-align:center;
+}
+
+</style>
 <body>
 <div class="login_box">
       <div class="login_l_img"><img src="${ctx }/resources/images/login-img.png" /></div>
@@ -27,8 +48,9 @@
               <input value="登录" style="width:100%;" type="submit">
           </form>
       </div>
-      <div class="copyright">quickapi版权所有©2016-2018</div>
+      
 </div>
 
+      <div class="copyright">quickapi版权所有©2016-2018</div>
 </body>
 </html>
