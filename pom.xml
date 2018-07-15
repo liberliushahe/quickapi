@@ -243,6 +243,24 @@
     <artifactId>jstl</artifactId>
     <version>1.2</version>
 </dependency>
+<!--thymeleaf -->
+<dependency>
+    <groupId>org.thymeleaf</groupId>
+    <artifactId>thymeleaf</artifactId>
+    <version>2.1.4.RELEASE</version>
+</dependency>
+  <!--thymeleaf-extras-springsecurity4 -->
+<dependency>
+    <groupId>org.thymeleaf.extras</groupId>
+    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+    <version>3.0.2.RELEASE</version>
+</dependency>
+<!--spring-security-web -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>4.2.3.RELEASE</version>
+</dependency>
   
 	</dependencies>
 	<build>
