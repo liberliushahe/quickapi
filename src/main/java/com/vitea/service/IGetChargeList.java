@@ -10,7 +10,7 @@ import org.dom4j.DocumentException;
 @WebService
 public abstract interface IGetChargeList
 {
-  @WebMethod(operationName="endpointReset")
+  @WebMethod(operationName="getCharge")
   @WebResult(name="response")
   public abstract String endpointReset(@WebParam(name="cmd") String paramString)
   throws IOException, DocumentException;
