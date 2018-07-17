@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 public class SocketTools
 {
+	  
+  private static Logger logger = LoggerFactory.getLogger(SocketTools.class);
   private static String FILL_ALIGN_LEFT = "left";
   private static char FILL_CHARBLANK = '\000';
   
@@ -220,6 +222,5 @@ public class SocketTools
     }
     return sb.toString().trim();
   }
-  
-  private static Logger logger = LoggerFactory.getLogger(SocketTools.class);
+
 }

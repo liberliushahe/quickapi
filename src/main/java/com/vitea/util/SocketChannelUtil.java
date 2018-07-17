@@ -9,7 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
- * 处理socket请求工具类
+ * 处理socketchannel请求工具类
  * @author liushahe
  *
  */
