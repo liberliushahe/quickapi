@@ -17,13 +17,19 @@ import com.vitea.domain.User;
 @Repository
 public interface IUserDao {
 	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public User getUserByUsername(String username);
+	/**
 	 * {@docRoot}
 	 * 
 	 * @param id
 	 * @return
 	 * 
 	 */
-	public User getUserById(String id);
+	public User getUserById(int id);
 
 	/**
 	 * {@docRoot}
