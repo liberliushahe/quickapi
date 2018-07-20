@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context    
+            http://www.springframework.org/schema/context/spring-context.xsd    
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security.xsd" >
+    
+  <!-- 打印调试信息，仅在开发环境中使用 -->
+  <!-- <debug/>   -->
+    
+
+  <!-- 不需要被拦截的请求 -->
+    <http pattern="/login.jsp" security="none"/>
+    <http pattern="/resources/css/**" security="none"/>
+    <http pattern="/resources/images/**" security="none"/>
+    <http pattern="/resources/js/**" security="none"/>
+    <http pattern="/resources/framework/**" security="none"/>
+    <http pattern="/resources/font/**" security="none"/>
+    <http pattern="/ws/**" security="none"/>
+    <http pattern="/druid/**" security="none"/>
+    <http>
+    <!-- 防止多个地点登录 -->
+    <session-management session-authentication-error-url="/login.html?error=alreadyLoggedin" >
+    <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"
+              expired-url="/login.html?error=alreadyLoggedin"/>
+  </session-management>
+    <!-- 所有请求拦截认证 -->
+	<intercept-url pattern="/**" access="authenticated"/>
+	<form-login	
+	login-page="/login.jsp" 
+	 default-target-url="/index.do"
+     authentication-failure-handler-ref="AuthenticationFailureHandler"
+	 authentication-success-handler-ref="AuthenticationSuccessHandler" 
+	/>
+	<!-- 禁用csrf 默认启用-->
+	<csrf disabled="true" />
+	<!-- 记住我 有效时间时14天，通过token-validity-seconds属性自定义有效时长（单位：秒） -->
+	<remember-me />
+	<logout invalidate-session="true" logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
+	</http>
+    
+     <authentication-manager>
+     
+     <authentication-provider user-service-ref="userDetailService">
+     <password-encoder ref="passwordEncoder"/>
+      </authentication-provider>
+</authentication-manager>
+   
+    <!-- MD5加密算法 -->
+    <beans:bean id="passwordEncoder" class="com.vitea.util.MD5PasswordEncoder"/>
+    
+    <!-- 在这个类中，读入用户的密码，角色信息，是否锁定，账号是否过期等属性信息  -->
+    <beans:bean id="userDetailService" class="com.vitea.service.impl.UserServiceImpl" />
+    <!-- 登录成功执行操作 -->
+    <beans:bean id="AuthenticationSuccessHandler" class="com.vitea.interceptor.UserAuthenticationSuccessHandler">
+    <beans:property name="defaultTargetUrl" value="index.do"></beans:property>
+	<beans:property name="forwardToDestination" value="true"></beans:property>
+    </beans:bean>
+        <!-- 登录成功执行操作 -->
+    <beans:bean id="AuthenticationFailureHandler" class="com.vitea.interceptor.AuthenticationFailureHandler"/>
+
+    
+</beans:beans>   
