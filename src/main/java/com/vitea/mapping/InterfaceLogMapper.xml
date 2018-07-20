@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vitea.dao.InterfaceLogDao">
+  <resultMap id="BaseResultMap" type="com.vitea.domain.InterfaceLog">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="INTERFACE_ID" jdbcType="VARCHAR" property="interfaceId" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="IN_PARAM" jdbcType="VARCHAR" property="inParam" />
+    <result column="OUT_PARAM" jdbcType="VARCHAR" property="outParam" />
+    <result column="TRANSFER_TIME" jdbcType="TIMESTAMP" property="transferTime" />
+    <result column="USED_TIME" jdbcType="VARCHAR" property="usedTime" />
+  </resultMap>
+ 
+  <insert id="insert" parameterType="com.vitea.gener.InterfaceLog">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
+     SELECT SEQ_QUICK_INTERFACE_LOG.NEXTVAL AS Id FROM DUAL
+    </selectKey>
+    insert into QK_INTERFACE_LOG (ID, INTERFACE_ID, URL, 
+      IN_PARAM, OUT_PARAM, TRANSFER_TIME, 
+      USED_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{interfaceId,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{inParam,jdbcType=VARCHAR}, #{outParam,jdbcType=VARCHAR}, #{transferTime,jdbcType=TIMESTAMP}, 
+      #{usedTime,jdbcType=VARCHAR})
+  </insert>
+  
+</mapper>

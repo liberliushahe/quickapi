@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vitea.dao.IUserLogDao">
+  <resultMap id="BaseResultMap" type="com.vitea.domain.Userlog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="latesttime" jdbcType="TIMESTAMP" property="latesttime" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+ 
+    delete from qk_users_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.vitea.domain.Userlog">
+  
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT SEQ_QUICK.NEXTVAL AS logId FROM DUAL
+    </selectKey>
+    insert into qk_users_log (id,username, latesttime, ip)
+    values (#{id,jdbcType=INTEGER},#{username,jdbcType=VARCHAR}, #{latesttime,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectUserLogByUsername" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		id,
+		username,
+		latesttime,
+		ip
+		from qk_users_log
+		where username = #{username,jdbcType=VARCHAR}
+	</select>
+</mapper>

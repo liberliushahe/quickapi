@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vitea.dao.IResourceDao">
+	<resultMap id="BaseResultMap"
+		type="com.vitea.domain.Resource">
+		<id column="RESID" jdbcType="DECIMAL" property="resid" />
+		<result column="RESURL" jdbcType="VARCHAR" property="resurl" />
+		<result column="RESDESC" jdbcType="VARCHAR" property="resdesc" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+		delete from QK_RESOURCE
+		where RESID = #{resid,jdbcType=DECIMAL}
+	</delete>
+
+	<insert id="insert" parameterType="com.vitea.vitea.Resource">
+		insert into QK_RESOURCE (RESID, RESURL, RESDESC
+		)
+		values (#{resid,jdbcType=DECIMAL}, #{resurl,jdbcType=VARCHAR},
+		#{resdesc,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.vitea.vitea.Resource">
+		update QK_RESOURCE
+		<set>
+			<if test="resurl != null">
+				RESURL = #{resurl,jdbcType=VARCHAR},
+			</if>
+			<if test="resdesc != null">
+				RESDESC = #{resdesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where RESID = #{resid,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.vitea.vitea.Resource">
+		update QK_RESOURCE
+		set RESURL = #{resurl,jdbcType=VARCHAR},
+		RESDESC = #{resdesc,jdbcType=VARCHAR}
+		where RESID = #{resid,jdbcType=DECIMAL}
+	</update>
+</mapper>
