@@ -21,7 +21,6 @@ import com.vitea.dao.IPortDao;
 import com.vitea.domain.InterFace;
 import com.vitea.model.ListQryBSN;
 import com.vitea.service.IGetChargeList;
-import com.vitea.util.PropertiesUtil;
 import com.vitea.util.SocketTools;
 /**
  * 处理socket请求
