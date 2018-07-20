@@ -16,5 +16,15 @@ public class PropertiesUtil {
 		}
 	   return p.getProperty(address);
 	}
-
+	public static String getRedisProperties(String config) {
+		Properties p=new Properties();
+		// 使用ClassLoader加载properties配置文件生成对应的输入流
+	   InputStream in = PropertiesUtil.class.getClassLoader().getResourceAsStream("redis.properties");
+		try {
+			p.load(in);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	   return p.getProperty(config);
+	}
 }

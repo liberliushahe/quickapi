@@ -2,9 +2,14 @@ package com.vitea.model;
 
 public class ListQryBSN
 {
+
+  //账本编号
   private String listTypeId;
+  //障碍号码
   private String accNbr;
+  //账期
   private String billMonth;
+  //区域编码
   private String areaCode;
   
   public String getAreaCode()

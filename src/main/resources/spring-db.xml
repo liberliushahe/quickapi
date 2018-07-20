@@ -22,7 +22,7 @@
         <property name="username" value="${druid.username}" />
         <property name="password" value="${druid.password}" />
         <property name = "driverClassName" value = "${druid.driverClassName}" />  
-
+        <property name="dbType" value = "oracle" />
         <!-- 初始化连接数量 -->
         <property name="initialSize" value="${druid.initialSize}" />
         <!-- 最小空闲连接数 -->

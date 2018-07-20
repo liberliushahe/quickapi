@@ -20,11 +20,22 @@ import com.vitea.domain.User;
 public class UserDaoTest {
 	@Autowired
 	private IUserDao iUserDao;
+	/**
+	 * 根据编号查询用户信息
+	 */
 	@Test
-	public void getUser(){
-		User u=iUserDao.getUserById("1");
-		System.out.println(u.getUsername());
+	public void getUserById(){
+		User u=iUserDao.getUserById(1);
+		System.out.println(u.toString());
 		
 	}
-
+	/**
+	 * 根据用户username 查询用户信息
+	 */
+	@Test
+	public void getUserByUsername(){
+		User u=iUserDao.getUserByUsername("admin");
+		System.out.println(u.toString());
+		
+	}
 }

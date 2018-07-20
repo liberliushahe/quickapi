@@ -7,7 +7,7 @@ package com.vitea.domain;
 public class InterFace {
 	private int id;
 	private String url;
-	private String requestport;
+	private String port;
 	private String method;
 	private String type;
 	private String description;
@@ -37,11 +37,11 @@ public class InterFace {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getRequestport() {
-		return requestport;
+	public String getPort() {
+		return port;
 	}
-	public void setRequestport(String requestport) {
-		this.requestport = requestport;
+	public void setPort(String port) {
+		this.port =port;
 	}
 	public String getDescription() {
 		return description;
@@ -51,7 +51,7 @@ public class InterFace {
 	}
 	@Override
 	public String toString() {
-		return "InterFace [url=" + url + ", requestport=" + requestport + ", method=" + method + ", type=" + type
+		return "InterFace [url=" + url + ", requestport=" + port + ", method=" + method + ", type=" + type
 				+ ", description=" + description + "]";
 	}
 	

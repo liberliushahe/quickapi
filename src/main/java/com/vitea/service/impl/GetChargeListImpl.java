@@ -21,6 +21,7 @@ import com.vitea.dao.IPortDao;
 import com.vitea.domain.InterFace;
 import com.vitea.model.ListQryBSN;
 import com.vitea.service.IGetChargeList;
+import com.vitea.util.PropertiesUtil;
 import com.vitea.util.SocketTools;
 /**
  * 处理socket请求
@@ -40,7 +41,7 @@ public class GetChargeListImpl implements IGetChargeList {
 					new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(), listQryBSN.getAreaCode(),
 							listQryBSN.getListTypeId() });
 			try {
-				Socket sock = new Socket(inter.getUrl(), Integer.parseInt(inter.getRequestport()));
+				Socket sock = new Socket(inter.getUrl(), Integer.parseInt(inter.getPort()));
 				this.logger.info("连接开始:{}", sock.toString());
 				if (sock.isConnected()) {
 					this.logger.info("连接成功!");

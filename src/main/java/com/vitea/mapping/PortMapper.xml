@@ -5,7 +5,7 @@
 
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="url" jdbcType="VARCHAR" property="url" />
-		<result column="requestport" jdbcType="VARCHAR" property="requestport" />
+		<result column="port" jdbcType="VARCHAR" property="port" />
 		<result column="method" jdbcType="VARCHAR" property="method" />
 		<result column="type" jdbcType="VARCHAR" property="type" />
 		<result column="description" jdbcType="VARCHAR" property="description" />
@@ -14,9 +14,9 @@
 	<select id="getPortById" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
-		id,url,method,requestport,description,type
-		from interface
-		where id = #{id,jdbcType=VARCHAR}
+		id,url,method,port,description,type
+		from qk_interface
+		where id = #{id,jdbcType=INTEGER}
 	</select>
 	
 </mapper>

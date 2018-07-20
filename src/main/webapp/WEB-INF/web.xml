@@ -2,14 +2,20 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>Archetype Created Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>login.html</welcome-file>
   </welcome-file-list>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:application.xml</param-value>
   </context-param>
-
+  <filter>  
+        <filter-name>springSecurityFilterChain</filter-name>  
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>springSecurityFilterChain</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>
         <!-- 编码过滤器 -->  
     <filter>  
         <filter-name>encodingFilter</filter-name>  
@@ -79,7 +85,6 @@
   <filter-name>druidWebStatFilter</filter-name> 
   <url-pattern>/*</url-pattern> 
  </filter-mapping>
-  
   <servlet>
     <servlet-name>cxf</servlet-name>
     <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
@@ -89,4 +94,44 @@
     <servlet-name>cxf</servlet-name>
     <url-pattern>/ws/*</url-pattern>
   </servlet-mapping>
+  
+<!-- 使用H2控制台的Servlet H2控制台是一个独立的应用程序，包括它自己的Web服务器-->  
+<!--    <servlet>  
+        <servlet-name>H2Console</servlet-name>  
+        <servlet-class>org.h2.server.web.WebServlet</servlet-class>  
+         <init-param>  
+            <param-name>webAllowOthers</param-name>  
+            <param-value></param-value>  
+        </init-param>  
+        <init-param>  
+            <param-name>trace</param-name>  
+            <param-value></param-value>  
+        </init-param>  
+        <load-on-startup>1</load-on-startup>  
+    </servlet> 
+--> 
+    <!-- 映射H2控制台的访问路径 -->  
+<!--    <servlet-mapping>  
+        <servlet-name>H2Console</servlet-name>  
+        <url-pattern>/console/*</url-pattern>  
+    </servlet-mapping>  
+ --> 
+ <!-- session N分钟超时 -->
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	
+	<!-- 404 500 Throwable 基于安全考虑-->
+	<error-page> 
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/404.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/views/500.jsp</location>
+	</error-page>
 </web-app>

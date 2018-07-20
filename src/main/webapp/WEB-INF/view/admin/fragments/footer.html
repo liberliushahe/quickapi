@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8"/>
-<title>QuickApi</title>
-</head>
+
 <body>
-<footer class="footer" data-th-fragment="footer">
-	<ul>
-		<li><a href="#">联系我们</a></li>
-		<li>--</li>
-		<li><a href="#">加入我们</a></li>
-	    <li>--</li>
-		<li><a href="#">联系我们</a></li>
-		<li>--</li>
-		<li><a href="#">联系我们</a></li>
-	</ul>
-	<p>Copyright © 2017, All Rights Reserved Powered By blog
-</p>
-<!-- javascript -->
-    <script src="js/jquery-3.1.1.min.js" th:src="@{../js/jquery-3.1.1.min.js}"></script>
-    <script src="js/bootstrap.min.js" th:src="@{../js/bootstrap.min.js}"></script>  
-    <script src="js/main.js" th:src="@{../js/main.js}"></script>	
-     <script src="js/main.js" th:src="@{../js/jquery.validate.min.js}"></script>	
+<footer th:fragment="footer">
+    <!-- javascript -->
+    <script src="./resources/js/jquery-3.1.1.min.js" th:src="@{./resources/framework/jquery-3.3.1.min.js}"></script>
+    <script src="./resources/js/popper.js" th:src="@{./resources/framework/popper.js}"></script>
+    <script src="./resources/js/bootstrap.min.js" th:src="@{./resources/framework/bootstrap.min.js}"></script>  
+	<script src="./resources/js/main.js" th:src="@{./resources/js/main.js}"></script>  
+	
     
 </footer>
 </body>

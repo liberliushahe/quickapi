@@ -2,28 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.vitea.dao.IUserDao">
 	<resultMap id="BaseResultMap" type="com.vitea.domain.User">
-		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="username" property="userName" jdbcType="VARCHAR" />
-		<result column="password" property="passWord" jdbcType="VARCHAR" />
+		<id column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="register" property="register" jdbcType="DATE" />
+		<result column="enabled" property="enabled" jdbcType="INTEGER" />
+		<result column="islocked" property="islocked" jdbcType="INTEGER" />
+		<result column="role" property="role" jdbcType="INTEGER" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
 	</resultMap>
 	<!-- 新增用户 -->
 	<insert id="save" parameterType="com.vitea.domain.User">
-		insert into user
+		insert into qk_users
 	</insert>
     <!-- 修改用户 -->
 	<update id="update" parameterType="com.vitea.domain.User">
-		update user
+		update qk_users
 	</update>
     <!-- 删除用户 -->
-	<delete id="delete" parameterType="java.lang.Integer">
-		delete from user where id=#{id}
+	<delete id="delete" parameterType="java.lang.String">
+		delete from qk_users where username=#{username}
 	</delete>
-	<!-- 查找用户通过编号 -->
-	<select id="getUserById" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+
+	<select id="getUserByUsername" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
 		select
-		username
-		from user
-		where id = #{id,jdbcType=VARCHAR}
+		username,
+		password,
+		email,
+		url,
+		enabled,
+		islocked,
+		register,
+		phone
+		from qk_users
+		where username = #{username,jdbcType=VARCHAR}
 	</select>
+	
 </mapper>

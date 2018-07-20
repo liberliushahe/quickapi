@@ -3,33 +3,49 @@
     PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" 
            "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-   <properties  resource="classpath:db.properties"/>
-   <context  id="mysqlTables"   targetRuntime="MyBatis3">
-      <jdbcConnection  driverClass="com.mysql.jdbc.Driver"
-         connectionURL="${druid.url}"  userId="${druid.username}"  password="${druid.password}"/>
+
+<classPathEntry
+        location="F:\repos\com\oracle\ojdbc6\11.2.0.3/ojdbc6-11.2.0.3.jar" />  
+   <context  id="oracleTables"   targetRuntime="MyBatis3">
+      <jdbcConnection  driverClass="oracle.jdbc.driver.OracleDriver"
+         connectionURL="jdbc:oracle:thin:@135.149.96.53:1621:sscpdb"  userId="csss"  password="gs_YCL_94"/>
       <!--指定生成的类型为java类型，避免数据库中number等类型字段 -->
       <javaTypeResolver>
         <property name ="forceBigDecimals"  value="false"/>
       </javaTypeResolver>
       <!--自动生成的实体的存放包路径 -->
-      <javaModelGenerator  targetPackage="com.vitea.domain"
+      <javaModelGenerator  targetPackage="com.vitea.gener"
          targetProject="src/main/java">
         <property  name="enableSubPackages"  value="true"/>
           <property  name="trimStrings"  value="true"/>
       </javaModelGenerator>
       <!--自动生成的*Mapper.xml文件存放路径 -->
-      <sqlMapGenerator  targetPackage="com.vitea.mapping"
+      <sqlMapGenerator  targetPackage="com.vitea.gener"
           targetProject="src/main/java">
         <property  name="enableSubPackages"  value="true"/>
       </sqlMapGenerator>
       <!--自动生成的*Mapper.java存放路径 -->
       <javaClientGenerator type="XMLMAPPER"
-         targetPackage="com.vitea.dao"  targetProject="src/main/java">
+         targetPackage="com.vitea.gener"  targetProject="src/main/java">
         <property  name="enableSubPackages"  value="true"/>
       </javaClientGenerator>
-  
-      <table  tableName="interface"   domainObjectName="Interface">
+      
+         <table  tableName="QK_INTERFACE_LOG"   domainObjectName="InterfaceLog">
          <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="false"/>
       </table>
+       <table  tableName="QK_ROLE"   domainObjectName="Role">
+         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
+      </table>
+        <table  tableName="QK_USER_ROLE"   domainObjectName="UserRole">
+         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
+      </table>
+        <table  tableName="QK_RESOURCE"   domainObjectName="Resource">
+         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
+      </table>
+        <table  tableName="QK_ROLE_RESOURCE"   domainObjectName="RoleResource">
+         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
+      </table> 
+      
+      
    </context>
 </generatorConfiguration>

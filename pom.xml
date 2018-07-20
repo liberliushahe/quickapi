@@ -108,9 +108,8 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.196</version>
+			<version>1.4.196</version>	
 			<scope>test</scope>
-
 		</dependency>
 		<!--netty-all -->
 		<dependency>
@@ -166,17 +165,21 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.1.9</version>
+			<version>0.2.25</version>
 		</dependency>
 		<!-- Mysql驱动 -->
-		<dependency>
+		<!--   <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.38</version>
 		</dependency>
+         -->
 		<!--ojdbc -->
-		<!-- <dependency> <groupId>ojdbc</groupId> <artifactId>ojdbc</artifactId> 
-			<version>14</version> </dependency> -->
+     <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.3</version>
+        </dependency>
 			<!-- jedis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -249,19 +252,49 @@
     <artifactId>thymeleaf</artifactId>
     <version>2.1.4.RELEASE</version>
 </dependency>
+
   <!--thymeleaf-extras-springsecurity4 -->
 <dependency>
     <groupId>org.thymeleaf.extras</groupId>
     <artifactId>thymeleaf-extras-springsecurity4</artifactId>
     <version>3.0.2.RELEASE</version>
 </dependency>
-<!--spring-security-web -->
+<!--thymeleaf-spring4 -->
+<dependency>
+    <groupId>org.thymeleaf</groupId>
+    <artifactId>thymeleaf-spring4</artifactId>
+    <version>2.1.4.RELEASE</version>
+</dependency>
+
+<!-- Spring Security -->
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-web</artifactId>
-    <version>4.2.3.RELEASE</version>
+    <version>4.2.2.RELEASE</version>
 </dependency>
-  
+ <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>4.2.2.RELEASE</version>
+    </dependency>
+ <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-taglibs</artifactId>
+         <version>4.2.2.RELEASE</version>
+     </dependency>  
+     
+     <dependency>
+         <groupId>org.springframework.security</groupId>
+         <artifactId>spring-security-core</artifactId>
+         <version>4.2.2.RELEASE</version>
+     </dependency>
+   <!--fastjson -->
+    <dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.47</version>
+    </dependency>
+   
 	</dependencies>
 	<build>
 		<plugins>
@@ -309,10 +342,7 @@
                  <version>3.2.6</version>
               </dependency>
            </dependencies>
-        </plugin>
-			
-			
-			
+        </plugin>					
 		</plugins>
 		<finalName>quickapi</finalName>
 	</build>
