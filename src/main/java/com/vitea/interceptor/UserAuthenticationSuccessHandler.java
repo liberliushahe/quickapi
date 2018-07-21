@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import com.vitea.dao.IUserLogDao;
 import com.vitea.domain.User;
 import com.vitea.domain.Userlog;
-import com.vitea.service.impl.UserServiceImpl;
 import com.vitea.util.DateFormatUtil;
 import com.vitea.util.IpAddressUtil;
 /**
