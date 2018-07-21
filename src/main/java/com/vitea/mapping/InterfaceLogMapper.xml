@@ -11,7 +11,7 @@
     <result column="USED_TIME" jdbcType="VARCHAR" property="usedTime" />
   </resultMap>
  
-  <insert id="insert" parameterType="com.vitea.gener.InterfaceLog">
+  <insert id="insert" parameterType="com.vitea.domain.InterfaceLog">
     <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
      SELECT SEQ_QUICK_INTERFACE_LOG.NEXTVAL AS Id FROM DUAL
     </selectKey>

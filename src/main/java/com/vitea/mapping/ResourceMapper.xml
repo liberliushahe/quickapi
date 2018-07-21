@@ -12,28 +12,19 @@
 		where RESID = #{resid,jdbcType=DECIMAL}
 	</delete>
 
-	<insert id="insert" parameterType="com.vitea.vitea.Resource">
+	<insert id="insert" parameterType="com.vitea.domain.Resource">
 		insert into QK_RESOURCE (RESID, RESURL, RESDESC
 		)
 		values (#{resid,jdbcType=DECIMAL}, #{resurl,jdbcType=VARCHAR},
 		#{resdesc,jdbcType=VARCHAR}
 		)
 	</insert>
-	<update id="updateByPrimaryKeySelective"
-		parameterType="com.vitea.vitea.Resource">
-		update QK_RESOURCE
-		<set>
-			<if test="resurl != null">
-				RESURL = #{resurl,jdbcType=VARCHAR},
-			</if>
-			<if test="resdesc != null">
-				RESDESC = #{resdesc,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where RESID = #{resid,jdbcType=DECIMAL}
-	</update>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+			select resid,resurl,resdesc from QK_RESOURCE
+		    where RESID = #{resid,jdbcType=DECIMAL}
+	</select>
 	<update id="updateByPrimaryKey"
-		parameterType="com.vitea.vitea.Resource">
+		parameterType="com.vitea.domain.Resource">
 		update QK_RESOURCE
 		set RESURL = #{resurl,jdbcType=VARCHAR},
 		RESDESC = #{resdesc,jdbcType=VARCHAR}
