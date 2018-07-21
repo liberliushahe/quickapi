@@ -11,7 +11,7 @@ public class UserRole {
      *
      *用户编号
      */
-    private Short usid;
+    private String usid;
 
     /**
      *角色编号
@@ -29,12 +29,12 @@ public class UserRole {
     }
 
    
-    public Short getUsid() {
+    public String getUsid() {
         return usid;
     }
 
    
-    public void setUsid(Short usid) {
+    public void setUsid(String usid) {
         this.usid = usid;
     }
 
