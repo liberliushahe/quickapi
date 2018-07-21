@@ -16,5 +16,5 @@ public class ApplicationContext implements ServletContextAware {
         String ctx = context.getContextPath();
         context.setAttribute("ctx", ctx);
     }
-
+ 
 }
