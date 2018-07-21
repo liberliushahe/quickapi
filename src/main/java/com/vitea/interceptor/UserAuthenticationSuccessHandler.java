@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.vitea.dao.IUserLogDao;
 import com.vitea.domain.User;
 import com.vitea.domain.Userlog;
+import com.vitea.service.impl.UserServiceImpl;
 import com.vitea.util.DateFormatUtil;
 import com.vitea.util.IpAddressUtil;
 /**
@@ -41,6 +43,10 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
 			Authentication authentication) throws IOException, ServletException {
 		//保存登录信息
 		this.saveUserLoginInfo(request, authentication);
+		// 认证成功后，获取用户信息并添加到session中
+		UserDetails user = (UserDetails) authentication.getPrincipal();
+		request.getSession().setAttribute("user", user);
+
 		if(this.forwardToDestination) {
 			request.getRequestDispatcher(this.defaultTargetUrl).forward(request, response);
 		}else {
