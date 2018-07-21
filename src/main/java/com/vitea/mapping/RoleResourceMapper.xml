@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vitea.dao.IRoleResourceDao">
+	<resultMap id="BaseResultMap"
+		type="com.vitea.domain.RoleResource">
+		<id column="RRID" jdbcType="DECIMAL" property="rrid" />
+		<result column="RESID" jdbcType="DECIMAL" property="resid" />
+		<result column="RID" jdbcType="DECIMAL" property="rid" />
+	</resultMap>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Short"
+		resultMap="BaseResultMap">
+		select
+        rrid,resid,rid
+		from QK_ROLE_RESOURCE
+		where RRID = #{rrid,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+
+		delete from QK_ROLE_RESOURCE
+		where RRID = #{rrid,jdbcType=DECIMAL}
+	</delete>
+
+	<insert id="insert"
+		parameterType="com.vitea.domain.RoleResource">
+
+		insert into QK_ROLE_RESOURCE (RRID, RESID, RID
+		)
+		values (#{rrid,jdbcType=DECIMAL}, #{resid,jdbcType=DECIMAL},
+		#{rid,jdbcType=DECIMAL}
+		)
+	</insert>
+
+	<update id="updateByPrimaryKey"
+		parameterType="com.vitea.domain.RoleResource">
+		update QK_ROLE_RESOURCE
+		set RESID = #{resid,jdbcType=DECIMAL},
+		RID = #{rid,jdbcType=DECIMAL}
+		where RRID = #{rrid,jdbcType=DECIMAL}
+	</update>
+</mapper>

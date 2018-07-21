@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vitea.dao.IUserRoleDao">
+  <resultMap id="BaseResultMap" type="com.vitea.domain.UserRole">
+    <id column="URID" jdbcType="DECIMAL" property="urid" />
+    <result column="USID" jdbcType="VARCHAR" property="usid" />
+    <result column="RID" jdbcType="DECIMAL" property="rid" />
+  </resultMap>
+ 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    urid,usid,rid
+    from QK_USER_ROLE
+    where URID = #{urid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from QK_USER_ROLE
+    where URID = #{urid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.vitea.domain.UserRole">
+    insert into QK_USER_ROLE (URID, USID, RID
+      )
+    values (#{urid,jdbcType=DECIMAL}, #{usid,jdbcType=DECIMAL}, #{rid,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.vitea.domain.UserRole">
+    update QK_USER_ROLE
+    set USID = #{usid,jdbcType=DECIMAL},
+      RID = #{rid,jdbcType=DECIMAL}
+    where URID = #{urid,jdbcType=DECIMAL}
+  </update>
+</mapper>
