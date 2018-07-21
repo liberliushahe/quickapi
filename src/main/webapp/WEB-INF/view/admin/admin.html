@@ -1,7 +1,8 @@
-<html  xmlns:th="http://www.thymeleaf.org" >
-
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security4">
 <head th:replace="admin/fragments/header :: header"/>
-
 <body class="app sidebar-mini rtl">
 <header th:replace="admin/fragments/nav :: head"/>
 <aside th:replace="admin/fragments/menu :: aside"/>
@@ -10,7 +11,11 @@
       <div class="app-title">
         <div>
           <h1><i class="fa fa-dashboard"></i> quickapi</h1>
-          <p>系统接口调用信息和服务器信息</p>
+          <p>系统接口调用信息和服务器信息
+           <span sec:authorize="isAuthenticated()">
+                Logged user: <span sec:authentication="principal.username"></span> |
+            </span>
+          </p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -54,7 +59,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="tile">
-            <h3 class="tile-title">周调用量</h3>
+            <h3 class="tile-title">本周调用量</h3>
             <div class="embed-responsive embed-responsive-16by9">
               <div class="embed-responsive-item" id="lineChart"></div>
             </div>
@@ -62,9 +67,9 @@
         </div>
         <div class="col-md-6">
           <div class="tile">
-            <h3 class="tile-title">日调用量</h3>
+            <h3 class="tile-title">实时调用量</h3>
             <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
+              <div class="embed-responsive-item" id="currentChart"></div>
             </div>
           </div>
         </div>
@@ -72,7 +77,23 @@
       <div class="row">
         <div class="col-md-6">
           <div class="tile">
-            <h3 class="tile-title">系统通知</h3>
+            <h3 class="tile-title">内存信息</h3>
+            <div class="embed-responsive embed-responsive-16by9">
+              <div class="embed-responsive-item" id="memoryChart"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">系统更新通知</h3>
+            <p>本月系统未更新.</p>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="tile">
+            <h3 class="tile-title">服务器信息</h3>
             <ul>
               <li>本月上线后台管理和用户管理</li>
               <li>上线用户信息认证</li>
@@ -90,96 +111,13 @@
             </div>
         </div>
       </div>
-
     </main>
 
-
-
-
-
 <!-- 主内容结束 -->
-<script src="./resources/framework/echarts.simple.min.js" th:src="@{./resources/framework/echarts.simple.min.js}"></script>
+<script src="./resources/framework/echarts.min.js" th:src="@{./resources/framework/echarts.min.js}"></script>
+<script src="./resources/framework/timeline.js" th:src="@{./resources/framework/timeline.js}"></script>
 
 <footer th:replace="admin/fragments/footer :: footer"/>
-<script>
-$(function(){
-	postChart();
-});
-function postChart(){
-	var myChart = echarts.init(document.getElementById('lineChart')); 
-var option = {
-	    title : {
-	        text: '未来一周气温变化',
-	        subtext: '纯属虚构'
-	    },
-	    tooltip : {
-	        trigger: 'axis'
-	    },
-	    legend: {
-	        data:['最高气温','最低气温']
-	    },
-	    toolbox: {
-	        show : true,
-	        feature : {
-	            mark : {show: true},
-	            dataView : {show: true, readOnly: false},
-	            magicType : {show: true, type: ['line', 'bar']},
-	            restore : {show: true},
-	            saveAsImage : {show: true}
-	        }
-	    },
-	    calculable : true,
-	    xAxis : [
-	        {
-	            type : 'category',
-	            boundaryGap : false,
-	            data : ['周一','周二','周三','周四','周五','周六','周日']
-	        }
-	    ],
-	    yAxis : [
-	        {
-	            type : 'value',
-	            axisLabel : {
-	                formatter: '{value} °C'
-	            }
-	        }
-	    ],
-	    series : [
-	        {
-	            name:'最高气温',
-	            type:'line',
-	            data:[11, 11, 15, 13, 12, 13, 10],
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
-	            markLine : {
-	                data : [
-	                    {type : 'average', name: '平均值'}
-	                ]
-	            }
-	        },
-	        {
-	            name:'最低气温',
-	            type:'line',
-	            data:[1, -2, 2, 5, 3, 2, 0],
-	            markPoint : {
-	                data : [
-	                    {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-	                ]
-	            },
-	            markLine : {
-	                data : [
-	                    {type : 'average', name : '平均值'}
-	                ]
-	            }
-	        }
-	    ]
-	};
-myChart.setOption(option);
-}	                    
-</script>
+<script src="./resources/framework/echarts.simple.min.js" th:src="@{./resources/js/admin.js}"></script>
 </body>
 </html>
