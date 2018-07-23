@@ -90,7 +90,16 @@ rrid number not null primary key,
 resid number,
 rid number
 )
-
+9.开放接口用户表
+create table QK_API_USER(
+type VARCHAR2(10) not null primary key,
+appid VARCHAR2(100),
+appsecret VARCHAR2(100),
+whitelist VARCHAR2(100),
+name VARCHAR2(30),
+description VARCHAR2(100),
+time    date
+)
 
 
 

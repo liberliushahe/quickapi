@@ -6,34 +6,31 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context    
-            http://www.springframework.org/schema/context/spring-context.xsd    
+            http://www.springframework.org/schema/context/spring-context.xsd  
             http://www.springframework.org/schema/security
             http://www.springframework.org/schema/security/spring-security.xsd" >
     
   <!-- 打印调试信息，仅在开发环境中使用 -->
   <!-- <debug/>   -->
-    
 
+ 
   <!-- 不需要被拦截的请求 -->
     <http pattern="/login.jsp" security="none"/>
-    <http pattern="/resources/css/**" security="none"/>
-    <http pattern="/resources/images/**" security="none"/>
-    <http pattern="/resources/js/**" security="none"/>
-    <http pattern="/resources/framework/**" security="none"/>
-    <http pattern="/resources/font/**" security="none"/>
+    <http pattern="/resources/**" security="none"/>
     <http pattern="/ws/**" security="none"/>
     <http pattern="/druid/**" security="none"/>
+    <http pattern="/api/**" security="none"/>
+     
     <http>
     <!-- 防止多个地点登录 -->
-    <session-management session-authentication-error-url="/login.html?error=alreadyLoggedin" >
+    <session-management session-authentication-error-url="/login.jsp?error=alreadyLoggedin" >
     <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"
-              expired-url="/login.html?error=alreadyLoggedin"/>
+              expired-url="/login.jsp?error=alreadyLoggedin"/>
   </session-management>
     <!-- 所有请求拦截认证 -->
 	<intercept-url pattern="/**" access="authenticated"/>
 	<form-login	
-	login-page="/login.jsp" 
-	 default-target-url="/index.do"
+	 login-page="/login.jsp" 
      authentication-failure-handler-ref="AuthenticationFailureHandler"
 	 authentication-success-handler-ref="AuthenticationSuccessHandler" 
 	/>
@@ -58,11 +55,24 @@
     <beans:bean id="userDetailService" class="com.vitea.service.impl.UserServiceImpl" />
     <!-- 登录成功执行操作 -->
     <beans:bean id="AuthenticationSuccessHandler" class="com.vitea.interceptor.UserAuthenticationSuccessHandler">
-    <beans:property name="defaultTargetUrl" value="index.do"></beans:property>
+    <beans:property name="defaultTargetUrl" value="admin.do"></beans:property>
 	<beans:property name="forwardToDestination" value="true"></beans:property>
     </beans:bean>
         <!-- 登录成功执行操作 -->
     <beans:bean id="AuthenticationFailureHandler" class="com.vitea.interceptor.AuthenticationFailureHandler"/>
-
+<!--  
+     <beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore"/>
+    -->
+    <!--  <beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.JdbcTokenStore">
+        <beans:constructor-arg index="0" ref="dataSource"/>
+    </beans:bean>
+    -->
+    <!--  <beans:bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+        <beans:property name="tokenStore" ref="tokenStore"/>
+        <beans:property name="supportRefreshToken" value="true"/>
+    </beans:bean>
+   --> 
+    
+    
     
 </beans:beans>   

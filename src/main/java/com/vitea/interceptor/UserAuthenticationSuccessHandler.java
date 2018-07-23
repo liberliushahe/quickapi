@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -43,8 +42,8 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		//保存登录信息
 		this.saveUserLoginInfo(request, authentication);
 		// 认证成功后，获取用户信息并添加到session中
-		UserDetails user = (UserDetails) authentication.getPrincipal();
-		request.getSession().setAttribute("user", user);
+		//UserDetails user = (UserDetails) authentication.getPrincipal();
+		//request.getSession().setAttribute("user", user);
 
 		if(this.forwardToDestination) {
 			request.getRequestDispatcher(this.defaultTargetUrl).forward(request, response);

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminController {
-	@RequestMapping("index.do")
+	@RequestMapping("admin.do")
 	public ModelAndView getIndex(Model model){
 		
 		model.addAttribute("name", "admintest");

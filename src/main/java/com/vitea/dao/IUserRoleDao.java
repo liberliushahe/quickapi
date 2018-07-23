@@ -17,6 +17,7 @@ public interface IUserRoleDao {
     List<UserRole> selectAllUserRoleByPage();
 
     UserRole selectByPrimaryKey(Short urid);
-
+    UserRole selectByUsername(String urid);
+   
     int updateByPrimaryKey(UserRole record);
 }

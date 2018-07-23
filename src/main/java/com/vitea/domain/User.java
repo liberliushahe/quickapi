@@ -19,11 +19,11 @@ public class User implements UserDetails{
     private int enabled;
     private int islocked;
     private Date register;
-    private List<Authority> authorities;
+    private List<GrantedAuthority> authorities;
 
 
 
-	public void setAuthorities(List<Authority> authorities) {
+	public void setAuthorities(List<GrantedAuthority> authorities) {
 		this.authorities = authorities;
 	}
 

@@ -11,8 +11,18 @@
     select 
     urid,usid,rid
     from QK_USER_ROLE
-    where URID = #{urid,jdbcType=DECIMAL}
+    where URID = #{usid,jdbcType=DECIMAL}
   </select>
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    urid,usid,rid
+    from QK_USER_ROLE
+    where USID = #{urid,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
     delete from QK_USER_ROLE
     where URID = #{urid,jdbcType=DECIMAL}

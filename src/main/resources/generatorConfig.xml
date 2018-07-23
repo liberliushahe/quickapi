@@ -14,35 +14,24 @@
         <property name ="forceBigDecimals"  value="false"/>
       </javaTypeResolver>
       <!--自动生成的实体的存放包路径 -->
-      <javaModelGenerator  targetPackage="com.vitea.gener"
+      <javaModelGenerator  targetPackage="com.vitea.domain"
          targetProject="src/main/java">
         <property  name="enableSubPackages"  value="true"/>
           <property  name="trimStrings"  value="true"/>
       </javaModelGenerator>
       <!--自动生成的*Mapper.xml文件存放路径 -->
-      <sqlMapGenerator  targetPackage="com.vitea.gener"
+      <sqlMapGenerator  targetPackage="com.vitea.mapping"
           targetProject="src/main/java">
         <property  name="enableSubPackages"  value="true"/>
       </sqlMapGenerator>
       <!--自动生成的*Mapper.java存放路径 -->
       <javaClientGenerator type="XMLMAPPER"
-         targetPackage="com.vitea.gener"  targetProject="src/main/java">
+         targetPackage="com.vitea.dao"  targetProject="src/main/java">
         <property  name="enableSubPackages"  value="true"/>
       </javaClientGenerator>
       
-         <table  tableName="QK_INTERFACE_LOG"   domainObjectName="InterfaceLog">
-         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="false"/>
-      </table>
-       <table  tableName="QK_ROLE"   domainObjectName="Role">
-         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
-      </table>
-        <table  tableName="QK_USER_ROLE"   domainObjectName="UserRole">
-         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
-      </table>
-        <table  tableName="QK_RESOURCE"   domainObjectName="Resource">
-         <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
-      </table>
-        <table  tableName="QK_ROLE_RESOURCE"   domainObjectName="RoleResource">
+        
+        <table  tableName="QK_API_USER"   domainObjectName="ApiUser">
          <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
       </table> 
       
