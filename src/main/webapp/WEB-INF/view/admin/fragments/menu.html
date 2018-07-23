@@ -9,8 +9,8 @@
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" style="width:30px;height:30px;" src="./resources/images/head.jpg" alt="User Image"/>
-        <div>
-          <p class="app-sidebar__user-name">admin</p>
+        <div> 
+          <p class="app-sidebar__user-name"><span sec:authentication="name"></span> </p>
           <p class="app-sidebar__user-designation">系统管理员</p>
         </div>
       </div>

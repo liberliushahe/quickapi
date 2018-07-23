@@ -1,16 +1,17 @@
-<html  xmlns:th="http://www.thymeleaf.org" >
+<html  xmlns:th="http://www.thymeleaf.org" 
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 	<head th:fragment="header">
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>管理首页</title>   
-		<link rel="shortcut icon" href="./resources/images/icon.ico" th:href="@{./resources/images/icon.ico}" />
+		<link rel="shortcut icon" href="./resources/images/icon.ico" th:href="@{resources/images/icon.ico}" />
 	     <!-- 系统样式 -->
-		<link rel="stylesheet" href="./resources/css/bootstrap.min.css" th:href="@{./resources/css/bootstrap.min.css}"/>
+		<link rel="stylesheet" href="./resources/css/bootstrap.min.css" th:href="@{resources/css/bootstrap.min.css}"/>
 		<!-- 自定义样式 -->          
-		<link rel="stylesheet" href="./resources/css/main.css" th:href="@{./resources/css/main.css}"/>
+		<link rel="stylesheet" href="./resources/css/main.css" th:href="@{resources/css/main.css}"/>
 	    <!-- Font-icon css-->
-        <link rel="stylesheet" type="text/css" href="./resources/css/font-awesome.min.css" th:href="@{./resources/css/font-awesome.min.css}"/>
+        <link rel="stylesheet" type="text/css" href="./resources/css/font-awesome.min.css" th:href="@{resources/css/font-awesome.min.css}"/>
 	
 	</head>
 

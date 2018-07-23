@@ -55,6 +55,11 @@
     
         <url-pattern>*.do</url-pattern>  
     </servlet-mapping> 
+    <servlet-mapping>  
+        <servlet-name>SpringMVC</servlet-name>  
+    
+        <url-pattern>/api/*</url-pattern>  
+    </servlet-mapping> 
       <!-- druid web配置 -->
     <servlet> 
      <servlet-name>DruidStatView</servlet-name> 
