@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vitea.dao.IPortDao;
+import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
 import com.vitea.model.ListQryBSN;
 import com.vitea.service.IGetChargeList;
@@ -29,11 +29,11 @@ import com.vitea.util.SocketTools;
  */
 public class GetChargeListImpl implements IGetChargeList {
 	@Autowired
-	private IPortDao iPortDao;
+	private InterfaceDao iPortDao;
 	private Logger logger = LoggerFactory.getLogger(GetChargeListImpl.class);
 	private String resultcode;
 	public String endpointReset(String accNmr) throws IOException, DocumentException {
-		InterFace inter=iPortDao.getPortById(3);
+		InterFace inter=iPortDao.getPortById(201803);
 		ListQryBSN listQryBSN = parseInput(accNmr);
 		if (listQryBSN != null) {
 			this.logger.info("清单查询：号码{}，账期：{}，本地网：{}，清单类型：{}：",

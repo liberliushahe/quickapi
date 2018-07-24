@@ -7,7 +7,7 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.vitea.dao.IPortDao;
+import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
 import com.vitea.service.ISendMessage;
 import com.vitea.util.HttpClientUtil;
@@ -20,7 +20,7 @@ import com.vitea.util.HttpClientUtil;
  */
 public class SendMessageImpl implements ISendMessage {
 	@Autowired
-	private IPortDao iPortDao;
+	private InterfaceDao iPortDao;
 
 	private Logger logger = LoggerFactory.getLogger("com.vitea.service.impl.SendMessageImpl");
 
@@ -45,7 +45,7 @@ public class SendMessageImpl implements ISendMessage {
 	 * @return
 	 */
 	public String sendMessage(String xml) {
-		InterFace inter1 = iPortDao.getPortById(1);
+		InterFace inter1 = iPortDao.getPortById(201801);
 		String retStr = "";
 		Element rootElt=null;
 		try {
@@ -70,7 +70,7 @@ public class SendMessageImpl implements ISendMessage {
 	@Override
 	public String queryMessageLog(String xml) {
 
-		InterFace inter2 = iPortDao.getPortById(2);
+		InterFace inter2 = iPortDao.getPortById(201802);
 		String retStr = "";
 		Element rootElt=null;
 		try {
