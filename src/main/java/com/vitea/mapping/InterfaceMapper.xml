@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.vitea.dao.IPortDao">
+<mapper namespace="com.vitea.dao.InterfaceDao">
 	<resultMap id="BaseResultMap" type="com.vitea.domain.InterFace">
 
 		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="sysid" jdbcType="INTEGER" property="sysid" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="stat" jdbcType="INTEGER" property="stat" />
 		<result column="url" jdbcType="VARCHAR" property="url" />
 		<result column="port" jdbcType="VARCHAR" property="port" />
 		<result column="method" jdbcType="VARCHAR" property="method" />
@@ -14,9 +17,11 @@
 	<select id="getPortById" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
-		id,url,method,port,description,type
+		id,url,method,port,description,type,name,stat
 		from qk_interface
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	
+<select id="findAll" resultMap="BaseResultMap">
+   select ID,SYSID,NAME,URL,PORT,METHOD,STAT,DESCRIPTION from QK_INTERFACE  order BY ID ASC
+</select>	
 </mapper>

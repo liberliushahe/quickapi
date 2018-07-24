@@ -39,5 +39,16 @@
 		from qk_users
 		where username = #{username,jdbcType=VARCHAR}
 	</select>
-	
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		username,
+		password,
+		email,
+		url,
+		enabled,
+		islocked,
+		register,
+		phone
+		from qk_users
+	</select>
 </mapper>

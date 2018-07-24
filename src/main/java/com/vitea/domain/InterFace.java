@@ -6,12 +6,33 @@ package com.vitea.domain;
  */
 public class InterFace {
 	private int id;
+	private int sysid;
+	private String name;
+	private int stat;
 	private String url;
 	private String port;
 	private String method;
 	private String type;
 	private String description;
 	
+	public int getSysid() {
+		return sysid;
+	}
+	public void setSysid(int sysid) {
+		this.sysid = sysid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getStat() {
+		return stat;
+	}
+	public void setStat(int stat) {
+		this.stat = stat;
+	}
 	public int getId() {
 		return id;
 	}

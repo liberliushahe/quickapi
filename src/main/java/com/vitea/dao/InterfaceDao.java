@@ -10,7 +10,13 @@ import com.vitea.domain.InterFace;
 
 
 
-public interface IPortDao {
+public interface InterfaceDao {
+	/**
+	 * 返回总记录
+	 * @return
+	 */
+	public Integer getAllInterfaceCount();
+	
 	/**
 	 * 
 	 * @param id
