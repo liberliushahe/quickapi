@@ -27,7 +27,7 @@ public class SystemInfoTest {
 	@Test
 	public void getCpu() {
 		try {
-			SystemInfoUtil.cpu();
+			SystemInfoUtil.getCpuInfo();
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +36,8 @@ public class SystemInfoTest {
 	@Test
 	public void getNet() {
 		try {
-			SystemInfoUtil.ethernet();
+			//SystemInfoUtil.ethernet();
+			SystemInfoUtil.net();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
