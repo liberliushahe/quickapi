@@ -18,11 +18,11 @@ import com.vitea.domain.InterFace;
 @ContextConfiguration("/spring-db.xml")
 public class PortDaoTest {
 	@Autowired
-	private IPortDao iPortDao;
+	private InterfaceDao iPortDao;
 	@Test
 	public void getPort(){
 		//通过编号获取接口
-		InterFace inter=iPortDao.getPortById(1);
+		InterFace inter=iPortDao.getPortById(201801);
 		System.out.println(inter.toString());
 		
 	}
