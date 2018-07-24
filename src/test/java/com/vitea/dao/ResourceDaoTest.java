@@ -19,8 +19,8 @@ public class ResourceDaoTest {
 	@Autowired
 	private IResourceDao iResourceDao;
 	@Test
-	public void getPort(){
-		//通过编号获取接口
+	public void getResource(){
+		//通过编号资源
 		Resource res=iResourceDao.selectByPrimaryKey(new Short("1"));
 		System.out.println(res.toString());
 		
