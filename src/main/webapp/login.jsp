@@ -64,7 +64,7 @@ input.error {border: 1px solid red !important;}
 			</form>
 		</div>
 	</div>
-	<div class="copyright">Copyright © 2017-2018 jijiuxue All rightsReserved</div>
+	<div class="copyright">Copyright © 2017-2018 jijiuxue All rightsReserved quickapi v1.0</div>
 	<script type="text/javascript" src="${ctx }/resources/framework/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="${ctx }/resources/js/login.js"></script>
 </body>

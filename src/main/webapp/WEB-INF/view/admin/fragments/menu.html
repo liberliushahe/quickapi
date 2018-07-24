@@ -15,7 +15,7 @@
         </div>
       </div>
       <ul class="app-menu">
-        <li><a class="app-menu__item active" href="index.html"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">仪表盘</span></a></li>
+        <li><a class="app-menu__item active" href="admin.do"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">仪表盘</span></a></li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">系统管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="bootstrap-components.html"><i class="icon fa fa-circle-o"></i>邮件设置</a></li>
@@ -27,12 +27,20 @@
         <li><a class="app-menu__item" href="charts.html"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">统计信息</span></a></li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">用户管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> 增加用户</a></li>
-            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> 查询用户</a></li>
-            <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> 删除用户</a></li>
+            <li><a class="treeview-item" href="getUserList.do"><i class="icon fa fa-circle-o"></i>用户查询</a></li>
+            <li><a class="treeview-item" href="setUserRole.do"><i class="icon fa fa-circle-o"></i>权限添加</a></li>
+            <li><a class="treeview-item" href="addUser.do"><i class="icon fa fa-circle-o"></i>增加用户</a></li>
 
           </ul>
         </li>
+         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">接口管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="getInterfaceInfo.do"><i class="icon fa fa-circle-o"></i> 接口查询</a></li>
+            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> 接口状态</a></li>
+
+          </ul>
+        </li>
+        
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">测试用例</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="table-basic.html"><i class="icon fa fa-circle-o"></i>http测试</a></li>

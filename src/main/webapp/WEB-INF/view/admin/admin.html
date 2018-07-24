@@ -72,38 +72,62 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="tile">
-            <h3 class="tile-title">CPU信息</h3>
-            <div class="embed-responsive embed-responsive-4by3">
+            <h3 class="tile-title">内存信息</h3>
+            <div class="embed-responsive embed-responsive-16by9">
               <div class="embed-responsive-item" id="cpuChart"></div>
               
             </div>
            
           </div>
         </div>
-       <div class="col-md-4">
+       <div class="col-md-6">
           <div class="tile">
-            <h3 class="tile-title">内存信息</h3>
-            <div class="embed-responsive embed-responsive-4by3">
+            <h3 class="tile-title">CPU信息</h3>
+            <div class="embed-responsive embed-responsive-16by9">
               <div class="embed-responsive-item" id="memoryChart"></div>
               
             </div>
            
           </div>
         </div>
-        
-        <div class="col-md-4">
+      
+      </div>
+      
+      <div class="row">
+       <div class="col-md-6">
           <div class="tile">
-            <h3 class="tile-title">磁盘信息</h3>
-            <div class="embed-responsive embed-responsive-4by3">
-              <div class="embed-responsive-item" id="diskChart"></div>
+            <div class="embed-responsive embed-responsive-21by9">
+              <div style="padding:-30px;" class="embed-responsive-item" id="cpudetail"></div>
+              
+            </div>
+           
+          </div>
+        </div>
+         <div class="col-md-6">
+          <div class="tile">
+            <div class="embed-responsive embed-responsive-21by9">
+              <div class="embed-responsive-item" id="memorydetail"></div>
               
             </div>
            
           </div>
         </div>
       </div>
+      <!-- 网络信息开始 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <h3 class="tile-title">网络信息</h3>
+             <div class="embed-responsive embed-responsive-21by9">
+              <div class="embed-responsive-item" id="currentNetChart"></div>
+            </div>
+           </div>
+           </div>
+      </div>
+     <!-- 网络信息结束 -->
+      <!-- 服务器信息开始 -->
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
@@ -111,91 +135,64 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>信息</th>
+                  <th>名称</th>
                   <th>详情</th>
-                   <th>详情</th>
+                   <th>名称</th>
                     <th>详情</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="table-info">
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                   <td>服务器计算机名</td>
-                  <td>CSSS</td>
+                  <td>用户名</td>
+                  <td th:text="${hostInfo.hostname}">CSSS</td>
+                   <td>计算机名</td>
+                  <td th:text="${hostInfo.computerName}">CSSS</td>
                 </tr>
                 <tr class="table-success">
-                  <td>服务器操作系统 </td>
-                  <td>Jacob</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
+                  <td>计算机域名</td>
+                  <td th:text="${hostInfo.hostname}">Jacob</td>
+                  <td>JVM总内存(M)</td>
+                  <td th:text="${hostInfo.totalMemory}">CSSS</td>
                 </tr>
                 <tr class="table-danger">
-                  <td>服务器操作系统 </td>
-                  <td>Larry</td>
-                 <td>服务器操作系统 </td>
-                  <td>Larry</td>
+                  <td>JVM可用内存 (M)</td>
+                  <td th:text="${hostInfo.freeMemory}">Larry</td>
+                 <td>JVM处理器(个) </td>
+                  <td th:text="${hostInfo.availableProcessors}">Larry</td>
                 </tr>
                 <tr class="table-warning">
-                  <td>服务器操作系统 </td>
-                  <td>Jacob</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td> 
+                  <td>JVM虚拟机版本 </td>
+                  <td th:text="${hostInfo.javaversion}">Jacob</td>
+                  <td>JVM虚拟机供应商</td>
+                  <td th:text="${hostInfo.javavendor}">CSSS</td> 
                 </tr>
                  <tr class="table-info">
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                   <td>服务器计算机名</td>
-                  <td>CSSS</td>
+                  <td>Java的安装路径</td>
+                  <td th:text="${hostInfo.javahome}">CSSS</td>
+                   <td>Java的类格式版本号</td>
+                  <td th:text="${hostInfo.javaclassversion}">CSSS</td>
                 </tr>
                 <tr class="table-success">
-                  <td>服务器操作系统 </td>
-                  <td>Jacob</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
+                  <td>操作系统的构架 </td>
+                  <td th:text="${hostInfo.osarch}">Jacob</td>
+                  <td>操作系统的版本</td>
+                  <td th:text="${hostInfo.osversion}">CSSS</td>
                 </tr>
                 <tr class="table-danger">
-                  <td>服务器操作系统 </td>
-                  <td>Larry</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
+                  <td>操作系统名称 </td>
+                  <td th:text="${hostInfo.osname}">Larry</td>
+                  <td>JVM名称</td>
+                  <td th:text="${hostInfo.jvmname}">CSSS</td>
                 </tr>
-                <tr class="table-warning">
-                  <td>服务器操作系统 </td>
-                  <td>Jacob</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                </tr>
-                 <tr class="table-info">
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                   <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                </tr>
-                <tr class="table-success">
-                  <td>服务器操作系统 </td>
-                  <td>Jacob</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                </tr>
-                <tr class="table-danger">
-                  <td>服务器操作系统 </td>
-                  <td>Larry</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                </tr>
-                <tr class="table-warning">
-                  <td>服务器操作系统 </td>
-                  <td>Jacob</td>
-                  <td>服务器计算机名</td>
-                  <td>CSSS</td>
-                </tr>
+               
+       
               </tbody>
             </table>
           </div>
         </div>
 
       </div>
+      <!-- 服务器信息开结束-->
     </main>
 
 <!-- 主内容结束 -->

@@ -23,15 +23,23 @@ cache 20;
 create table QK_INTERFACE
 (
   id          NUMBER,
+  sysid       NUMBER,
+  name        VARCHAR2(100),
   url         VARCHAR2(100),
   port        VARCHAR2(10),
   type        VARCHAR2(10),
   method      VARCHAR2(10),
+  stat        NUMBER,
   description VARCHAR2(100)
 )
-INSERT INTO interface VALUES ('1', 'http://135.149.33.87:7001/smsProxySender', '7001', 'POST', 'http', '网厅发送短信接口');
-INSERT INTO interface VALUES ('2', 'http://135.149.33.87:7001/searchSendMessage', '7001', 'POST', 'http', '网厅短信日志查询');
-INSERT INTO interface VALUES ('3', '135.149.16.170', '8080', 'SOCKET', 'SOCKET', '计费清单查询');
+insert into QK_INTERFACE (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION)
+values (201801, 1, '指令短信', 'http://135.149.33.87:7001/smsProxySender', '7001', 'http', 'http', 1, null);
+
+insert into QK_INTERFACE (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION)
+values (201802, 1, '短信日志', 'http://135.149.33.87:7001/searchSendMessage', '7001', 'http', 'http', 1, null);
+
+insert into QK_INTERFACE (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION)
+values (201803, 2, '计费清单', '135.149.16.170', '8080', 'socket', 'socket', 1, null);
 2.用户表
 create table QK_USERS
 (
@@ -100,7 +108,16 @@ name VARCHAR2(30),
 description VARCHAR2(100),
 time    date
 )
-
+10,接口系统分类表
+ create table QK_INTERFACE_SYSTEM(
+  sysid       NUMBER,
+  sysname     VARCHAR2(50)
+)
+insert into QK_INTERFACE_SYSTEM (SYSID, SYSNAME)
+values (1, '短厅');
+insert into QK_INTERFACE_SYSTEM (SYSID, SYSNAME)
+values (2, '计费');
+ 
 
 
 
