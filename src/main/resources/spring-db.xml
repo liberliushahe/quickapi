@@ -87,6 +87,6 @@
     </bean>
 
     <!-- 使用annotation注解方式配置事务 -->
-    <!--<tx:annotation-driven transaction-manager="transactionManager" />   -->
+   <tx:annotation-driven transaction-manager="transactionManager" /> 
     
 </beans>
