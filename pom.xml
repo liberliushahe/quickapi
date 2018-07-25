@@ -204,7 +204,7 @@
         <groupId>org.mybatis.generator</groupId>
         <artifactId>mybatis-generator-core</artifactId>
         <version>1.3.5</version>
-
+       <scope>test</scope>
       </dependency>
       <!-- fastjsckson -->
 		 <dependency>
@@ -315,7 +315,24 @@
     <artifactId>pagehelper</artifactId>
     <version>4.1.6</version>
 </dependency>
-   
+<!--json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20160810</version>
+</dependency>
+ <!--quartz -->
+<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz</artifactId>
+    <version>2.3.0</version>
+</dependency>
+<!--sigar 需要本地生成依赖包-->
+<dependency>
+    <groupId>org.hyperic</groupId>
+    <artifactId>sigar</artifactId>
+    <version>1.6.4</version>
+</dependency>
 	</dependencies>
 	<build>
 		<plugins>
