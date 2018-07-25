@@ -138,7 +138,7 @@ public class HttpClientUtil {
 	 * @param data
 	 * @return
 	 */
-    public static String execute(String url, String data) {
+    public static String execute(String url, String data,String contentType) {
         long startTime = System.currentTimeMillis();
         HttpEntity httpEntity = null;
         HttpEntityEnclosingRequestBase method = null;
@@ -147,7 +147,7 @@ public class HttpClientUtil {
             if (httpClient == null) {
                 initPools();
             }
-            method = (HttpEntityEnclosingRequestBase) getRequest(url, HttpPost.METHOD_NAME, DEFAULT_CONTENT_TYPE, 0);
+            method = (HttpEntityEnclosingRequestBase) getRequest(url, HttpPost.METHOD_NAME, contentType, 0);
             method.setEntity(new StringEntity(data,"UTF-8"));
             HttpContext context = HttpClientContext.create();
             CloseableHttpResponse httpResponse = httpClient.execute(method, context);
