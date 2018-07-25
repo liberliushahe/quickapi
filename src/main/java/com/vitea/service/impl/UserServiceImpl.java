@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.vitea.dao.IRoleDao;
 import com.vitea.dao.IUserDao;
 import com.vitea.dao.IUserRoleDao;
@@ -17,6 +19,7 @@ import com.vitea.domain.Role;
 import com.vitea.domain.User;
 import com.vitea.domain.UserRole;
 @Service
+@Transactional
 public class UserServiceImpl implements UserDetailsService {
 	@Autowired
 	private IUserDao iUserDao;

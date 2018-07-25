@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -11,6 +12,7 @@ import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
 import com.vitea.service.IGetInterface;
 @Service
+@Transactional
 public class GetInterfaceImpl implements IGetInterface {
     @Autowired
     InterfaceDao interfaceDao;
