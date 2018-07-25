@@ -15,11 +15,15 @@
 
 	<jaxws:endpoint 
 	    id="socketImpl" 
-	    implementor="com.vitea.service.impl.GetChargeListImpl" 
+	    implementor="com.vitea.endpoint.GetChargeListImpl" 
 	    address="/getChargeInfo" />
 	<jaxws:endpoint 
 	    id="sendMsg" 
-	    implementor="com.vitea.service.impl.SendMessageImpl" 
+	    implementor="com.vitea.endpoint.SendMessageImpl" 
 	    address="/sendMsgtoUser" />
+	<jaxws:endpoint 
+	    id="queryVolte" 
+	    implementor="com.vitea.endpoint.QueryVolteInfoImpl" 
+	    address="/queryVolteInfo" />
 	           
 </beans>
