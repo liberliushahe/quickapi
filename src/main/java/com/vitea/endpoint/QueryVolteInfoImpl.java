@@ -1,5 +1,4 @@
 package com.vitea.endpoint;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -7,9 +6,9 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
+import com.vitea.util.DateFormatUtil;
 import com.vitea.util.HttpClientUtil;
 import com.vitea.util.XmlJsonParseUtil;
 
@@ -32,6 +31,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			rootElt = parseXML(xml);
 			String busivalue = rootElt.elementTextTrim("busivalue");
 			String type = rootElt.elementTextTrim("type");
+			String time=DateFormatUtil.getFormatDateMill();
 			// 拼接请求报文
 			String json = "{\r\n" + 
 					"	\"Envelope\": {\r\n" + 
@@ -40,7 +40,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 					"				\"Router\": {\r\n" + 
 					"					\"Sender\": \"62.1176.01\",\r\n" + 
 					"					\"AuthCode\": \"\",\r\n" + 
-					"					\"Time\": \"2018-06-31 04:35:48.778\",\r\n" + 
+					"					\"Time\": \""+time+"\",\r\n" + 
 					"					\"ServTestFlag\": \"\",\r\n" + 
 					"					\"CarryType\": \"\",\r\n" + 
 					"					\"TransId\": \"62.1176.01201707310435481043548778\",\r\n" + 
@@ -54,13 +54,14 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 					"			}\r\n" + 
 					"		},\r\n" + 
 					"		\"Body\": {\r\n" + 
-					"			\"mdn\": \"18202822858\",\r\n" + 
-					"			\"type\": \"hss\"\r\n" + 
+					"			\"mdn\": \""+busivalue+"\",\r\n" + 
+					"			\"type\": \""+type+"\"\r\n" + 
 					"		}\r\n" + 
 					"	}\r\n" + 
 					"}";
 			this.logger.info("volte信息查询,号码：{},编码：{}", new Object[] { busivalue, type });
 			retStr = HttpClientUtil.execute(inter.getUrl(), json,"application/json");
+			System.out.println(json);
             //json数据解析为xml数据
 			retStr=XmlJsonParseUtil.JsonToXml(retStr);
 		} catch (DocumentException e) {
