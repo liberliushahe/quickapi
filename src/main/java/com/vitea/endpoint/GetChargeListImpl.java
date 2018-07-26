@@ -39,25 +39,19 @@ public class GetChargeListImpl implements IGetChargeList {
 		InterFace inter=iPortDao.getPortById(201803);
 		ListQryBsn listQryBSN = parseInput(accNmr);
 		if (listQryBSN != null) {
-			this.logger.info("清单查询：号码{}，账期：{}，本地网：{}，清单类型：{}：",
-					new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(), listQryBSN.getAreaCode(),
-							listQryBSN.getListTypeId() });
 			try {
 				Socket sock = new Socket(inter.getUrl(), Integer.parseInt(inter.getPort()));
-				this.logger.info("连接开始:{}", sock.toString());
 				if (sock.isConnected()) {
-					this.logger.info("连接成功!");
+				     long startTime = System.currentTimeMillis();
 					String[] arr = getArrayForReq(listQryBSN);
 					byte[] reqBytes = SocketTools.arraYtoBytes(arr);
 					DataOutputStream dataOutputStream = new DataOutputStream(
 							new BufferedOutputStream(sock.getOutputStream(), 2048));
 					dataOutputStream.write(reqBytes);
 					dataOutputStream.flush();
-					this.logger.info("请求发送完毕!");
 					DataInputStream dataInputStream = new DataInputStream(
 							new BufferedInputStream(sock.getInputStream()));
 					byte[] byteSrc = SocketTools.getBytesFromStream(dataInputStream);
-					this.logger.info("解析接口返回开始!");
 					StringBuffer sbout = new StringBuffer();
 					sbout.append("<root><public>");
 					String totalInfo = "";
@@ -87,7 +81,7 @@ public class GetChargeListImpl implements IGetChargeList {
 					}
 					sbout.append("</root>");
 					this.resultcode = sbout.toString();
-					this.logger.info("解析接口返回成功!");
+				    this.logger.info("计费清单：号码：{},账期:{},调用时间:{}", new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(),(System.currentTimeMillis() - startTime)});
 					sock.close();
 				} else {
 					this.logger.error("连接失败!");

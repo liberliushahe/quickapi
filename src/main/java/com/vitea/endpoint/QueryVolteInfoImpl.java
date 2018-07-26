@@ -31,25 +31,34 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			rootElt = parseXML(xml);
 			String busivalue = rootElt.elementTextTrim("busivalue");
 			String type = rootElt.elementTextTrim("type");
+			String sender = rootElt.elementTextTrim("sender");
+			String transid = rootElt.elementTextTrim("transid");
+			String servcode = rootElt.elementTextTrim("servcode");
+			String msgid = rootElt.elementTextTrim("msgid");
+			String version = rootElt.elementTextTrim("version");
 			String time=DateFormatUtil.getFormatDateMill();
-			// 拼接请求报文
+			/*
+			 * 2018.7.26 14:58
+			 * 此处拼接报文为了提高接口查询速度 故而没有保存在数据库，
+			 * 将所有变量抽离出来防止以后有变,如果报文有变修改以下报文即可
+			 * */
 			String json = "{\r\n" + 
 					"	\"Envelope\": {\r\n" + 
 					"		\"Header\": {\r\n" + 
 					"			\"Esb\": {\r\n" + 
 					"				\"Router\": {\r\n" + 
-					"					\"Sender\": \"62.1176.01\",\r\n" + 
+					"					\"Sender\": \""+sender+"\",\r\n" + 
 					"					\"AuthCode\": \"\",\r\n" + 
 					"					\"Time\": \""+time+"\",\r\n" + 
 					"					\"ServTestFlag\": \"\",\r\n" + 
 					"					\"CarryType\": \"\",\r\n" + 
-					"					\"TransId\": \"62.1176.01201707310435481043548778\",\r\n" + 
-					"					\"MsgId\": \"62.1176.01201707310435481043548778\",\r\n" + 
+					"					\"TransId\": \""+transid+"\",\r\n" + 
+					"					\"MsgId\": \""+msgid+"\",\r\n" + 
 					"					\"MsgType\": \"\",\r\n" + 
 					"					\"EsbId\": \"\",\r\n" + 
 					"					\"AuthType\": \"\",\r\n" + 
-					"					\"ServCode\": \"10.1160.VOLTEYHQYXXCX_subscriptioninfo.SynReq\",\r\n" + 
-					"					\"Version\": \"V0.1\"\r\n" + 
+					"					\"ServCode\": \""+servcode+"\",\r\n" + 
+					"					\"Version\": \""+version+"\"\r\n" + 
 					"				}\r\n" + 
 					"			}\r\n" + 
 					"		},\r\n" + 
@@ -59,10 +68,10 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 					"		}\r\n" + 
 					"	}\r\n" + 
 					"}";
-			this.logger.info("volte信息查询,号码：{},编码：{}", new Object[] { busivalue, type });
-			retStr = HttpClientUtil.execute(inter.getUrl(), json,"application/json");
-			System.out.println(json);
-            //json数据解析为xml数据
+		     long startTime = System.currentTimeMillis();
+			 retStr = HttpClientUtil.execute(inter.getUrl(), json,inter.getType(),inter.getTimeout());
+			 this.logger.info("volte信息查询,号码：{},编码：{},调用时间:{}", new Object[] { busivalue, type,(System.currentTimeMillis() - startTime)});
+            //JSON数据解析为XML数据
 			retStr=XmlJsonParseUtil.jsonToXml(retStr);
 		} catch (DocumentException e) {
 			retStr = "<response><code>-1<code><msg>入参格式非法<msg></response>";

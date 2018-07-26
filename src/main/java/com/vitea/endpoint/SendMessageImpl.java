@@ -58,8 +58,10 @@ public class SendMessageImpl implements ISendMessage {
 				String reqStr = "smsmsg=<sms><systemid>10000</systemid><smstype>smspush</smstype><msisdn>" + msisdn
 						+ "</msisdn><actionCode>" + actionCode + "</actionCode><msgcontent>" + msgcontent
 						+ "</msgcontent></sms>";
-				this.logger.info("代发短信,号码：{},编码：{},其他内容：{}", new Object[] { msisdn, actionCode, msgcontent });
-				retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,"application/x-www-form-urlencoded");
+		        long startTime = System.currentTimeMillis();
+				retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,inter1.getType(),inter1.getTimeout());
+				this.logger.info("代发短信,号码：{},编码：{},其他内容：{},调用时间:{}", new Object[] { msisdn, actionCode, msgcontent,(System.currentTimeMillis() - startTime) });
+
 		} catch (DocumentException e) {
 
 			retStr = "<response><code>-1<code><msg>入参格式非法<msg></response>";
@@ -92,8 +94,10 @@ public class SendMessageImpl implements ISendMessage {
 		          "</beginDate><endDate>" + endDate + 
 		          "</endDate><index>" + index + "</index><pageSize>" + 
 		          pageSize + "</pageSize></sms>";
-		    this.logger.info("短厅日志查询报文：号码：{},开始时间：{},结束时间：{}", new Object[] { serviceNbr, beginDate, endDate });
-			retStr = HttpClientUtil.execute(inter2.getUrl(), reqStr.trim(),"application/x-www-form-urlencoded");
+		     long startTime = System.currentTimeMillis();
+			 retStr = HttpClientUtil.execute(inter2.getUrl(), reqStr.trim(),inter2.getType(),inter2.getTimeout());
+		     this.logger.info("短厅日志查询报文：号码：{},开始时间：{},结束时间：{},调用时间:{}", new Object[] { serviceNbr, beginDate, endDate,(System.currentTimeMillis() - startTime)});
+
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,8 +119,10 @@ public class SendMessageImpl implements ISendMessage {
 			String reqStr = "smsmsg=<sms><systemid>wss_wap</systemid><smstype>test</smstype><msisdn>" + msisdn
 					+ "</msisdn><srctermid>" + srctermid + "</srctermid><msgcontent>" + msgcontent
 					+ "</msgcontent></sms>";
-			this.logger.info("代发短信,号码：{},内容：{}", new Object[] { msisdn, msgcontent });
-			retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,"application/x-www-form-urlencoded");
+		     long startTime = System.currentTimeMillis();
+			retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,inter1.getType(),inter1.getTimeout());
+			this.logger.info("代发短信,号码：{},内容：{},调用时间:{}", new Object[] { msisdn, msgcontent,(System.currentTimeMillis() - startTime)});
+
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
