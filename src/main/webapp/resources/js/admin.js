@@ -3,8 +3,7 @@ $(function(){
 	currentTrans();
 	currentCpu();
 	memoryInfo();
-	getCpuDetail();
-	getMemoryDetail();
+	diskInfo();
 	currentNetInfo();
 });
 //周调用量
@@ -77,7 +76,7 @@ lineChart.setOption(option);
 
 //CPU实时信息
 function currentCpu(){
-var memoryChart = echarts.init(document.getElementById('cpuChart')); 	
+var memoryChart = echarts.init(document.getElementById('currentCpu')); 	
 option = {
 	    tooltip : {
 	        formatter: "{a} <br/>{b} : {c}%"
@@ -171,7 +170,6 @@ function currentTrans(){
 		        {
 		            type : 'value',
 		            scale: true,
-		            name : '预购量',
 		            boundaryGap: [0.2, 0.2]
 		        }
 		    ],
@@ -221,7 +219,7 @@ function currentTrans(){
 }
 //内存信息
 function memoryInfo(){
-	var interfaceChart = echarts.init(document.getElementById('memoryChart')); 	
+	var interfaceChart = echarts.init(document.getElementById('currentMemory')); 	
 	option = {
 		    tooltip : {
 		        formatter: "{a} <br/>{b} : {c}%"
@@ -257,32 +255,71 @@ function memoryInfo(){
 
 }
 
-//磁盘使用量
+//内存使用量
 function diskInfo(){
- var diskChart = echarts.init(document.getElementById('diskChart')); 	
+ var memoryChart = echarts.init(document.getElementById('memoryChart')); 	
  	
 
- diskChart.setOption({
-  series : [
- {
-     name: '访问来源',
-     type: 'pie',
-     radius: '70%',
-     data:[
-         {value:235, name:'网厅'},
-         {value:274, name:'计费'},
-         {value:310, name:'客户关系'},
-         {value:335, name:'计费系统'},
-         {value:400, name:'激活系统'}
-     ]
- }
-]
-})			                   
+var option={
+		tooltip : {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b} : {c}(G)"
+		    },
+     series : [
+        {
+           name: '使用量',
+           type: 'pie',
+          radius: '70%'
+    
+        }
+       ]
+}
+	var info=[];
+	$.ajax({
+        url:"currentmemory.do",
+          type:"POST",
+          dataType:"JSON",
+          success:function(data){ 
+        	  console.log(data);
+             info = [{
+               	    value: parseInt(data.total),
+               	    name: '内存总大小'
+               	}, {
+               	    value: parseInt(data.free),
+               	    name: '剩余大小'
+               	}, {
+               	    value: parseInt(data.used),
+               	    name: '被使用'
+               	},
+               	{
+               	    value: parseInt(data.swaptotal),
+               	    name: '交换区总大小'
+               	},
+               	{
+               	    value: parseInt(data.swapfree),
+               	    name: '交换区剩余'
+               	},
+               	{
+               	    value: parseInt(data.swapused),
+               	    name: '交换区被使用'
+               	}
+               	];  
+             option.series[0].data =info;
+             memoryChart.setOption(option);
+          },
+          error:function(){
+        	  console.log(error)
+          }
+	})
+
+
 }
 
-//CPU详细信息
-function getCpuDetail(){
-	var cpudetail = echarts.init(document.getElementById('cpudetail')); 	
+//内存详细信息
+function getMemoryDetail(){
+	var cpudetail = echarts.init(document.getElementById('cpudetail'));
+	
+
     var option = {
     	  
     	    tooltip : {
@@ -296,7 +333,7 @@ function getCpuDetail(){
     	    calculable : false,
     	    series : [
     	        {
-    	        	name:'CPU使用信息',
+    	        	name:'内存使用信息',
     	            type:'treemap',
     	            itemStyle: {
     	                normal: {
@@ -310,109 +347,22 @@ function getCpuDetail(){
     	                    label: {
     	                        show: true
     	                    }
-    	                }
-    	            },
-    	            data:[
-    	                {
-    	                    name: '总内存',
-    	                    value: 6
     	                },
-    	                {
-    	                    name: '被使用',
-    	                    value: 4
-    	                },
-    	                {
-    	                    name: '未使用',
-    	                    value: 4
-    	                },
-    	                {
-    	                    name: '交换分区总大小',
-    	                    value: 2
-    	                },
-    	                {
-    	                    name: '交换分区已使用',
-    	                    value: 2
-    	                },
-    	                {
-    	                    name: '交换分区未使用',
-    	                    value: 1
-    	                }
     	               
-    	            ]
+    	            }
+
+    	               
+    	            
     	        }
     	    ]
     	};
-    	                    
 	
-    cpudetail.setOption(option);
+
+	 
 }
 
 
 
-//内存详细信息
-function getMemoryDetail(){
-  var memorydetail = echarts.init(document.getElementById('memorydetail')); 	
-  var option = {
-    	  
-  	    tooltip : {
-  	        trigger: 'item',
-  	        formatter: "{b}: {c}"
-  	    },
-  	    toolbox: {
-  	        show : true
-  	       
-  	    },
-  	    calculable : false,
-  	    series : [
-  	        {
-  	        	name:'服务器内存使用信息',
-  	            type:'treemap',
-  	            itemStyle: {
-  	                normal: {
-  	                    label: {
-  	                        show: true,
-  	                        formatter: "{b}"
-  	                    },
-  	                    borderWidth: 1
-  	                },
-  	                emphasis: {
-  	                    label: {
-  	                        show: true
-  	                    }
-  	                }
-  	            },
-  	            data:[
-  	                {
-  	                    name: '总内存',
-  	                    value: 6
-  	                },
-  	                {
-  	                    name: '被使用',
-  	                    value: 4
-  	                },
-  	                {
-  	                    name: '未使用',
-  	                    value: 4
-  	                },
-  	                {
-  	                    name: '交换分区总大小',
-  	                    value: 2
-  	                },
-  	                {
-  	                    name: '交换分区已使用',
-  	                    value: 2
-  	                },
-  	                {
-  	                    name: '交换分区未使用',
-  	                    value: 1
-  	                }
-  	               
-  	            ]
-  	        }
-  	    ]
-  	};
-  memorydetail.setOption(option);
-}
 
 //显示实时网络信息
 function currentNetInfo(){
@@ -469,7 +419,6 @@ function currentNetInfo(){
 		        {
 		            type : 'value',
 		            scale: true,
-		            name : '预购量',
 		            boundaryGap: [0.2, 0.2]
 		        }
 		    ],
