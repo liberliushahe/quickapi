@@ -16,15 +16,19 @@ public class VoiceMessage extends Message{
 	public String getmediaId() {
 		return mediaId;
 	}
-	public void setmediaId(String mediaId) {
-		mediaId = mediaId;
+	public String getMediaId() {
+		return mediaId;
 	}
-	public String getformat() {
+	public void setMediaId(String mediaId) {
+		this.mediaId = mediaId;
+	}
+	public String getFormat() {
 		return format;
 	}
-	public void setformat(String format) {
-		format = format;
+	public void setFormat(String format) {
+		this.format = format;
 	}
+	
 	
 	
 }

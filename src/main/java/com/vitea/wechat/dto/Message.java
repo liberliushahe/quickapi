@@ -29,42 +29,44 @@ public class Message {
 	 * 消息id
 	 */
 	private String msgId;
-	
-	public long getcreateTime() {
-		return createTime;
-	}
-	public void setcreateTime(long createTime) {
-		createTime = createTime;
-	}
-	public String gettoUserName() {
+	public String getToUserName() {
 		return toUserName;
 	}
-	public void settoUserName(String toUserName) {
-		toUserName = toUserName;
+	public void setToUserName(String toUserName) {
+		this.toUserName = toUserName;
 	}
-	public String getfromUserName() {
+	public String getFromUserName() {
 		return fromUserName;
 	}
-	public void setfromUserName(String fromUserName) {
-		fromUserName = fromUserName;
+	public void setFromUserName(String fromUserName) {
+		this.fromUserName = fromUserName;
 	}
-	public String getmsgType() {
+	public long getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
+	}
+	public String getMsgType() {
 		return msgType;
 	}
-	public void setmsgType(String msgType) {
-		msgType = msgType;
+	public void setMsgType(String msgType) {
+		this.msgType = msgType;
 	}
-	public String getcontent() {
+	public String getContent() {
 		return content;
 	}
-	public void setcontent(String content) {
-		content = content;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getmsgId() {
+	public String getMsgId() {
 		return msgId;
 	}
-	public void setmsgId(String msgId) {
-		msgId = msgId;
+	public void setMsgId(String msgId) {
+		this.msgId = msgId;
 	}
+	
+	
+
 
 }

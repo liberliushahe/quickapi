@@ -13,18 +13,17 @@ public class ImageMessage extends Message{
 	 * 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
 	 */
 	private String mediaId;
-	public String getpicUrl() {
+	public String getPicUrl() {
 		return picUrl;
 	}
-	public void setpicUrl(String picUrl) {
-		picUrl = picUrl;
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
 	}
-	public String getmediaId() {
+	public String getMediaId() {
 		return mediaId;
 	}
-	public void setmediaId(String mediaId) {
-		mediaId = mediaId;
+	public void setMediaId(String mediaId) {
+		this.mediaId = mediaId;
 	}
 	
-
 }
