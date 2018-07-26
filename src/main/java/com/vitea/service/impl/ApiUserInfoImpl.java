@@ -14,7 +14,7 @@ import com.vitea.service.IApiUserInfo;
  *
  */
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 public class ApiUserInfoImpl implements IApiUserInfo {
 	@Autowired
     IApiUserDao iApiUserDao;

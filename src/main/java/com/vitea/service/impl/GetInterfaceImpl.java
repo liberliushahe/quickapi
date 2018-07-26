@@ -17,7 +17,7 @@ import com.vitea.service.IGetInterface;
  *
  */
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 public class GetInterfaceImpl implements IGetInterface {
     @Autowired
     InterfaceDao interfaceDao;

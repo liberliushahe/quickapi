@@ -19,7 +19,7 @@ import com.vitea.domain.Role;
 import com.vitea.domain.User;
 import com.vitea.domain.UserRole;
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 /**
  * user service
  * @author liushahe

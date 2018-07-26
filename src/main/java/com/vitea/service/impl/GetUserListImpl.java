@@ -12,7 +12,7 @@ import com.vitea.dao.IUserDao;
 import com.vitea.domain.User;
 import com.vitea.service.IGetUserList;
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 /**
  * 
  * @author liushahe
