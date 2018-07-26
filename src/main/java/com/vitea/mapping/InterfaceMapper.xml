@@ -5,6 +5,8 @@
 
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="sysid" jdbcType="INTEGER" property="sysid" />
+		<result column="timeout" jdbcType="INTEGER" property="timeout" />
+		<result column="input" jdbcType="VARCHAR" property="input" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="stat" jdbcType="INTEGER" property="stat" />
 		<result column="url" jdbcType="VARCHAR" property="url" />
@@ -17,7 +19,7 @@
 	<select id="getPortById" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
-		id,url,method,port,description,type,name,stat
+		id,url,method,port,description,type,name,stat,timeout,input
 		from qk_interface
 		where id = #{id,jdbcType=INTEGER}
 	</select>
