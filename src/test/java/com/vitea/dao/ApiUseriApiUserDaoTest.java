@@ -16,13 +16,13 @@ import com.vitea.domain.ApiUser;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring-db.xml")
-public class ApiUserDaoTest {
+public class ApiUseriApiUserDaoTest {
 	@Autowired
-	private IApiUserDao Dao;
+	private IApiUserDao dao;
 	@Test
 	public void getApiUser(){
 	
-		ApiUser a=Dao.selectByPrimaryKey("ycl");
+		ApiUser a=dao.selectByPrimaryKey("ycl");
 		System.out.println(a);
 		
 	}

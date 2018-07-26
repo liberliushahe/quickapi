@@ -4,7 +4,11 @@ import java.net.UnknownHostException;
 
 import org.hyperic.sigar.SigarException;
 import org.junit.Test;
-
+/**
+ * 
+ * @author liushahe
+ *
+ */
 public class SystemInfoTest {
 	@Test
 	public void getMemory() {

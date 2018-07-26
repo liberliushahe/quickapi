@@ -25,8 +25,8 @@ public class UserLogDaoTest {
 	 */
 	@Test
 	public void getUserLogByUsername(){
-		Userlog u=iUserLogDao.selectUserLogByUsername("admin");
-		System.out.println(u.toString());
+		//Userlog u=iUserLogDao.selectUserLogByUsername("admin");
+		//System.out.println(u.toString());
 		
 	}	
 }

@@ -25,8 +25,8 @@ public class UserDaoTest {
 	 */
 	@Test
 	public void getUserById(){
-		User u=iUserDao.getUserById(1);
-		System.out.println(u.toString());
+		//User u=iUserDao.getUserById(1);
+		//System.out.println(u.toString());
 		
 	}
 	/**
@@ -34,8 +34,8 @@ public class UserDaoTest {
 	 */
 	@Test
 	public void getUserByUsername(){
-		User u=iUserDao.getUserByUsername("admin");
-		System.out.println(u.toString());
+		//User u=iUserDao.getUserByUsername("admin");
+		//System.out.println(u.toString());
 		
 	}
 }
