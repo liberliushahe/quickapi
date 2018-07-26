@@ -5,6 +5,7 @@ package com.vitea.util;
  *
  */
 public class ConstantsUtil {
+	
     public static enum sex{
         //男
         MAN("1","男"),
@@ -31,5 +32,5 @@ public class ConstantsUtil {
         }
         
     }
-
+   
 }
