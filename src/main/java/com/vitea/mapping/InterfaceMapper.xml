@@ -24,6 +24,6 @@
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 <select id="findAll" resultMap="BaseResultMap">
-   select ID,SYSID,NAME,URL,PORT,METHOD,STAT,DESCRIPTION from QK_INTERFACE  order BY ID ASC
+   select ID,SYSID,NAME,URL,PORT,METHOD,STAT,TYPE,TIMEOUT,INPUT,DESCRIPTION from QK_INTERFACE  order BY ID ASC
 </select>	
 </mapper>
