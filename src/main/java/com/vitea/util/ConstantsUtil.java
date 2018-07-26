@@ -5,13 +5,16 @@ package com.vitea.util;
  *
  */
 public class ConstantsUtil {
-	/**
-     * 性别
-     */
     public static enum sex{
-        
-        MAN("1","男"),FEMAN("2","女");
-        
+        //男
+        MAN("1","男"),
+        //女
+        FEMAN("2","女");
+        /**
+         * 性别
+         * @param value
+         * @param name
+         */
         private sex(String value,String name){
             this.value = value;
             this.name = name;
