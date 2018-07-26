@@ -27,19 +27,24 @@ create table QK_INTERFACE
   name        VARCHAR2(100),
   url         VARCHAR2(100),
   port        VARCHAR2(10),
-  type        VARCHAR2(10),
+  type        VARCHAR2(400),
   method      VARCHAR2(10),
   stat        NUMBER,
+  timeout     NUMBER,
+  input       VARCHAR2(4000),
   description VARCHAR2(100)
 )
-insert into QK_INTERFACE (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION)
-values (201801, 1, '指令短信', 'http://135.149.33.87:7001/smsProxySender', '7001', 'http', 'http', 1, null);
+insert into qk_interface (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION, TIMEOUT, INPUT)
+values (201801, 1, '指令短信', 'http://135.149.33.87:7001/smsProxySender', '7001', 'application/x-www-form-urlencoded', 'http', 1, '发送特定指令短信', 3, null);
 
-insert into QK_INTERFACE (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION)
-values (201802, 1, '短信日志', 'http://135.149.33.87:7001/searchSendMessage', '7001', 'http', 'http', 1, null);
+insert into qk_interface (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION, TIMEOUT, INPUT)
+values (201802, 1, '短信日志', 'http://135.149.33.87:7001/searchSendMessage', '7001', 'application/x-www-form-urlencoded', 'http', 1, '查询当月短信清单', 3, null);
 
-insert into QK_INTERFACE (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION)
-values (201803, 2, '计费清单', '135.149.16.170', '8080', 'socket', 'socket', 1, null);
+insert into qk_interface (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION, TIMEOUT, INPUT)
+values (201803, 2, '计费清单', '135.149.16.170', '8080', 'socket', 'socket', 1, '查询计费清单', 3, null);
+
+insert into qk_interface (ID, SYSID, NAME, URL, PORT, TYPE, METHOD, STAT, DESCRIPTION, TIMEOUT, INPUT)
+values (201804, 3, 'vlote信息', 'http://135.148.76.179:53099/rest_json_gas', '53099', 'application/json', 'http', 1, '智能网管vlote', 3, null);
 2.用户表
 create table QK_USERS
 (
