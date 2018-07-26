@@ -41,13 +41,20 @@ public class SystemInfoTest {
 	public void getNet() {
 		try {
 			//SystemInfoUtil.ethernet();
-			SystemInfoUtil.net();
+			SystemInfoUtil.getNetInfo();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
+	@Test
+	public void getFile() {
+		try {
+			System.out.println(SystemInfoUtil.getFileInfo().size());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
