@@ -1,7 +1,6 @@
 package com.vitea.util;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,16 +133,16 @@ public class MessageUtil {
 		 	TextMessage tx=new TextMessage();
 		    if((MessageUtil.RESP_TYPE_TEXT).equals(type)){
 		    //获取文本消息对象
-		 	tx.setfromUserName(map.get("ToUserName"));
-		 	tx.settoUserName(map.get("FromUserName"));
-		 	tx.setcreateTime(System.currentTimeMillis());
+		 	tx.setFromUserName(map.get("ToUserName"));
+		 	tx.setToUserName(map.get("FromUserName"));
+		 	tx.setCreateTime(System.currentTimeMillis());
 		 	if(map.get(context).equals(text)){
-		 		tx.setcontent("hello world ");
+		 		tx.setContent("hello world ");
 		 	}else{
-		 		tx.setcontent("hello world my world");
+		 		tx.setContent("hello world my world");
 		 	}
 		 
-		 	tx.setmsgType(MessageUtil.RESP_TYPE_TEXT);
+		 	tx.setMsgType(MessageUtil.RESP_TYPE_TEXT);
 		 	
 		     
 		    }
