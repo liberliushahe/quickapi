@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-	 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">	 
 <head th:replace="admin/fragments/header :: header"/>
 <body class="app sidebar-mini rtl">
 <header th:replace="admin/fragments/nav :: head"/>
@@ -76,7 +75,7 @@
           <div class="tile">
             <h3 class="tile-title">内存信息</h3>
             <div class="embed-responsive embed-responsive-16by9">
-              <div class="embed-responsive-item" id="cpuChart"></div>
+              <div class="embed-responsive-item" id="currentCpu"></div>
               
             </div>
            
@@ -86,7 +85,7 @@
           <div class="tile">
             <h3 class="tile-title">CPU信息</h3>
             <div class="embed-responsive embed-responsive-16by9">
-              <div class="embed-responsive-item" id="memoryChart"></div>
+              <div class="embed-responsive-item" id="currentMemory"></div>
               
             </div>
            
@@ -99,7 +98,7 @@
        <div class="col-md-6">
           <div class="tile">
             <div class="embed-responsive embed-responsive-21by9">
-              <div style="padding:-30px;" class="embed-responsive-item" id="cpudetail"></div>
+              <div  class="embed-responsive-item" id="memoryChart"></div>
               
             </div>
            
@@ -108,39 +107,19 @@
          <div class="col-md-6">
           <div class="tile">
             <div class="embed-responsive embed-responsive-21by9">
-              <div class="embed-responsive-item" id="memorydetail"></div>
+              <div class="embed-responsive-item" id="currentNetChart"></div>
               
             </div>
            
           </div>
         </div>
       </div>
-      <!-- 网络信息开始 -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="tile">
-            <h3 class="tile-title">网络信息</h3>
-             <div class="embed-responsive embed-responsive-21by9">
-              <div class="embed-responsive-item" id="currentNetChart"></div>
-            </div>
-           </div>
-           </div>
-      </div>
-     <!-- 网络信息结束 -->
       <!-- 服务器信息开始 -->
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
             <h3 class="tile-title">服务器信息</h3>
             <table class="table">
-              <thead>
-                <tr>
-                  <th>名称</th>
-                  <th>详情</th>
-                   <th>名称</th>
-                    <th>详情</th>
-                </tr>
-              </thead>
               <tbody>
                 <tr class="table-info">
                   <td>用户名</td>
@@ -183,9 +162,7 @@
                   <td th:text="${hostInfo.osname}">Larry</td>
                   <td>JVM名称</td>
                   <td th:text="${hostInfo.jvmname}">CSSS</td>
-                </tr>
-               
-       
+                </tr>               
               </tbody>
             </table>
           </div>
@@ -193,6 +170,45 @@
 
       </div>
       <!-- 服务器信息开结束-->
+      
+       <!-- 文件系统信息开始 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <h3 class="tile-title">文件系统信息</h3>
+            <table class="table">
+              <tbody>
+                <tr  th:each="fileInfo : ${fileInfoList}">
+                  <td class="table-success" style="color:red">名称</td>
+                  <td table-info th:text="${fileInfo.name}">CSSS</td>
+                   <td  class="table-success">类型</td>
+                  <td table-info th:text="${fileInfo.type}">CSSS</td>
+                   <td class="table-success">路径</td>
+                  <td table-info th:text="${fileInfo.path}">CSSS</td>
+                   <td class="table-success">读</td>
+                  <td table-info th:text="${fileInfo.read}">CSSS</td>
+                   <td class="table-success">写</td>
+                  <td table-info th:text="${fileInfo.writes}">CSSS</td>
+                    <td class="table-success">总大小</td>
+                  <td table-info th:text="${fileInfo.total}+'G'">CSSS</td>
+                    <td class="table-success">剩余大小</td>
+                  <td table-info th:text="${fileInfo.free}+'G'">CSSS</td>
+                    <td class="table-success">可用大小</td>
+                  <td table-info th:text="${fileInfo.avail}+'G'">CSSS</td>
+                    <td class="table-success">被使用</td>
+                  <td table-info th:text="${fileInfo.used}+'G'">CSSS</td>
+                    <td class="table-success">资源使用率</td>
+                  <td table-info th:text="${fileInfo.usage}+'%'">CSSS</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <!-- 文件系统信息结束-->
+            
     </main>
 
 <!-- 主内容结束 -->
