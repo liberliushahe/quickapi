@@ -129,14 +129,15 @@ public class MessageUtil {
 	 * @return
 	 */
 	public static Message respMessageType(String type,Map<String,String> map){
-
+           String text="hello";
+           String context="Context";
 		 	TextMessage tx=new TextMessage();
 		    if((MessageUtil.RESP_TYPE_TEXT).equals(type)){
 		    //获取文本消息对象
 		 	tx.setfromUserName(map.get("ToUserName"));
 		 	tx.settoUserName(map.get("FromUserName"));
 		 	tx.setcreateTime(System.currentTimeMillis());
-		 	if(map.get("Content").equals("1")){
+		 	if(map.get(context).equals(text)){
 		 		tx.setcontent("hello world ");
 		 	}else{
 		 		tx.setcontent("hello world my world");
