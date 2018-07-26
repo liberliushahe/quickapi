@@ -1,6 +1,6 @@
 package com.vitea.controller;
 
-import java.net.UnknownHostException;
+import java.util.List;
 
 import org.hyperic.sigar.SigarException;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vitea.model.ServerCpuInfo;
+import com.vitea.model.FileSystemInfo;
 import com.vitea.model.HostInfo;
 import com.vitea.model.MemoryInfo;
+import com.vitea.model.NetInfo;
 import com.vitea.util.SystemInfoUtil;
 /**
  * 
@@ -23,12 +25,16 @@ public class AdminController {
 	@RequestMapping("admin.do")
 	public ModelAndView getIndex(Model model){
 		HostInfo hostInfo=null;
+		List<FileSystemInfo> fileSystemInfo=null;
 		try {
 			hostInfo=SystemInfoUtil.getProperty();
-		} catch (UnknownHostException e) {
+			fileSystemInfo=SystemInfoUtil.getFileInfo();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("hostInfo", hostInfo);
+		model.addAttribute("fileInfoList", fileSystemInfo);
 		return new ModelAndView("admin/admin","model",model);
 
 	}
@@ -54,6 +60,18 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		return cpuInfo;
+
+	}
+	@RequestMapping("currentnet.do")
+	@ResponseBody
+	public List<NetInfo> getCurrentNet(){
+		List<NetInfo> netInfo=null;
+		try {
+			netInfo=SystemInfoUtil.getNetInfo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return netInfo;
 
 	}
 }
