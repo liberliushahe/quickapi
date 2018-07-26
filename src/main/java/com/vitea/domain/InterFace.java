@@ -13,8 +13,22 @@ public class InterFace {
 	private String port;
 	private String method;
 	private String type;
+	private int timeout;
+	private String input;
 	private String description;
 	
+	public int getTimeout() {
+		return timeout;
+	}
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
+	public String getInput() {
+		return input;
+	}
+	public void setInput(String input) {
+		this.input = input;
+	}
 	public int getSysid() {
 		return sysid;
 	}
