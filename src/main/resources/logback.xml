@@ -7,7 +7,7 @@
 		</encoder>
 	</appender>
 	<appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
-		<file>../logs/cxfSpring.log</file> 
+		<file>../logs/quickapi.log</file> 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> 
 			<fileNamePattern>../logs/quickapi-%d{yyyy-MM}.%i.log</fileNamePattern> 
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> 
