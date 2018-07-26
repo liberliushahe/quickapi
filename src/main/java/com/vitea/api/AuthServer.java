@@ -15,7 +15,7 @@ import com.vitea.model.ResultMsg;
 import com.vitea.service.IApiUserInfo;
 import com.vitea.util.IpAddressUtil;
 import com.vitea.domain.ApiUser;
-import com.vitea.model.QToken;
+import com.vitea.model.QuickToken;
 
 /**
  * 对外提供API服务token获取
@@ -41,7 +41,7 @@ public class AuthServer {
 		String appId=request.getParameter("appId");
 		String appSecret=request.getParameter("appSecret");
 	    ResultMsg msg=new ResultMsg();
-	    QToken token=new QToken();
+	    QuickToken token=new QuickToken();
 	    //判断用户请求数据是否为空
 		if(StringUtils.isEmpty(grantType)) {
 			msg.setErrcode("100");
