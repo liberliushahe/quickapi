@@ -21,7 +21,13 @@ public class SocketTools
   private static Logger logger = LoggerFactory.getLogger(SocketTools.class);
   private static String FILL_ALIGN_LEFT = "left";
   private static char FILL_CHARBLANK = '\000';
-  
+  private static int TYPEID6=6;
+  private static int TYPEID7=7;
+  private static int TYPEID8=8;
+  private static int TYPEID91=91;
+  private static int TYPEID80=80;
+  private static int TYPEID89=89;
+  private static int TYPEID1=1;
   public static int getRealTrueShort(byte[] bytes, int pos, int len)
   {
     byte[] newBytes = new byte[len];
@@ -47,31 +53,34 @@ public class SocketTools
   public static String joinItemInfo(String[] temp, int listTypeId)
   {
     String resStr = "";
-    if (listTypeId == 6) {
+    if (listTypeId == TYPEID6) {
       resStr = "<item><time>" + temp[1] + "</time>" + "<roamPlace>" + temp[6] + "</roamPlace>" + "<callType>" + temp[7] + "</callType>" + "<callWay>" + temp[2] + "</callWay>" + "<userNo>" + temp[3] + "</userNo>" + "<duration>" + temp[4] + "</duration>" + "<fee>" + temp[5] + "</fee></item>";
-    } else if (listTypeId == 7) {
+    } else if (listTypeId ==TYPEID7) {
       resStr = "<item><time>" + temp[1] + "</time><flowKb>" + temp[2] + "</flowKb><duration>" + temp[3] + "</duration><flow>" + temp[4] + "</flow><fee>" + temp[5] + "</fee><roam>" + temp[6] + "</roam><way>" + temp[7] + "</way></item>";
-    } else if (listTypeId == 8) {
+    } else if (listTypeId ==TYPEID8) {
       resStr = "<item><time>" + temp[3] + "</time>" + "<userNo>" + temp[2] + "</userNo>" + "<fee>" + temp[4] + "</fee></item>";
-    } else if (listTypeId == 91)
+    } else if (listTypeId == TYPEID91)
     {
-      if (temp.length == 7) {
+    	int length=7;
+      if (temp.length == length) {
         resStr = "<itemContainFee><userNo>" + temp[1] + "</userNo>" + "<name1>" + temp[2] + "</name1>" + "<name2>" + temp[3] + "</name2>" + "<name3>" + temp[4] + "</name3>" + "<time>" + temp[5] + "</time>" + "<fee>" + temp[6] + "</fee></itemContainFee>";
       }
     }
-    else if (listTypeId == 80)
+    else if (listTypeId == TYPEID80)
     {
-      if (temp.length == 5) {
+    	int length=5;
+      if (temp.length == length) {
         resStr = "<item><macAddr>" + temp[1] + "</macAddr>" + "<startTime>" + temp[2] + "</startTime>" + "<endTime>" + temp[3] + "</endTime>" + "<duration>" + temp[4] + "</duration>" + "</item>";
       }
     }
-    else if (listTypeId == 89)
+    else if (listTypeId == TYPEID89)
     {
-      if (temp.length == 6) {
+    	int length=6;
+      if (temp.length == length) {
         resStr = "<feeInfo><CallerNo>" + temp[1] + "</CallerNo>" + "<CalledNo>" + temp[2] + "</CalledNo>" + "<startingTime>" + temp[3] + "</startingTime><lastingTime>" + temp[4] + "</lastingTime><callingFee>" + temp[5] + "</callingFee></feeInfo>";
       }
     }
-    else if ((listTypeId == 1) && 
+    else if ((listTypeId == TYPEID1) && 
       (temp.length == 7)) {
       resStr = "<feeInfo><CallerNo>" + temp[1] + "</CallerNo><CalledNo>" + temp[2] + "</CalledNo><startingTime>" + temp[3] + "</startingTime><lastingTime>" + temp[4] + "</lastingTime><callingFee>" + temp[5] + "</callingFee><eventType>" + temp[6] + "</eventType></feeInfo>";
     }
