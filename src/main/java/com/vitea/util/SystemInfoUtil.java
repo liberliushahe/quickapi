@@ -3,6 +3,8 @@ package com.vitea.util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -18,8 +20,10 @@ import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 import org.hyperic.sigar.Swap;
 
+import com.vitea.model.FileSystemInfo;
 import com.vitea.model.HostInfo;
 import com.vitea.model.MemoryInfo;
+import com.vitea.model.NetInfo;
 import com.vitea.model.ServerCpuInfo;
 
 /**
@@ -74,12 +78,12 @@ public class SystemInfoUtil {
 		MemoryInfo memoryInfo=new MemoryInfo();
 		DecimalFormat df = new DecimalFormat("#.00");
 		memoryInfo.setUsedpercent(Double.parseDouble(df.format(mem.getUsedPercent())));
-		memoryInfo.setTotal(mem.getTotal());
-		memoryInfo.setUsed(mem.getUsed());
-		memoryInfo.setFree(mem.getFree());
-		memoryInfo.setSwaptotal(swap.getTotal());
-		memoryInfo.setSwapused(swap.getUsed());
-		memoryInfo.setSwapfree(swap.getFree());
+		memoryInfo.setTotal(mem.getTotal()/1024/1024/1024);
+		memoryInfo.setUsed(mem.getUsed()/1024/1024/1024);
+		memoryInfo.setFree(mem.getFree()/1024/1024/1024);
+		memoryInfo.setSwaptotal(swap.getTotal()/1024/1024/1024);
+		memoryInfo.setSwapused(swap.getUsed()/1024/1024/1024);
+		memoryInfo.setSwapfree(swap.getFree()/1024/1024/1024);
 		return memoryInfo;
 	}
     /**
@@ -100,107 +104,85 @@ public class SystemInfoUtil {
         cpuInfo.setCombined(totalPercent);
         return cpuInfo;
     }
-	
-    public static void file() throws Exception {
+	/**
+	 * 获取文件系统信息
+	 * @return
+	 * @throws Exception
+	 */
+    public static List<FileSystemInfo> getFileInfo() throws Exception {
         Sigar sigar = new Sigar();
         FileSystem[] fslist = sigar.getFileSystemList();
+        List<FileSystemInfo> fileSystemInfo=new ArrayList<FileSystemInfo>();
+        
         try {
               for (int i = 0; i < fslist.length; i++) {
-                System.out.println("分区的盘符名称" + i);
                 FileSystem fs = fslist[i];
-                // 分区的盘符名称
-                System.out.println("盘符名称:    " + fs.getDevName());
-                // 分区的盘符名称
-                System.out.println("盘符路径:    " + fs.getDirName());
-                System.out.println("盘符标志:    " + fs.getFlags());
-                // 文件系统类型，比如 FAT32、NTFS
-                System.out.println("盘符类型:    " + fs.getSysTypeName());
-                // 文件系统类型名，比如本地硬盘、光驱、网络文件系统等
-                System.out.println("盘符类型名:    " + fs.getTypeName());
-                // 文件系统类型
-                System.out.println("盘符文件系统类型:    " + fs.getType());
+                FileSystemInfo fileSystem=new FileSystemInfo();
                 FileSystemUsage usage = null;
                 usage = sigar.getFileSystemUsage(fs.getDirName());
-//                switch (fs.getType()) {
-//                case 0: // TYPE_UNKNOWN ：未知
-//                    break;
-//                case 1: // TYPE_NONE
-//                    break;
-//                case 2: // TYPE_LOCAL_DISK : 本地硬盘
-//                    // 文件系统总大小
-//                    System.out.println(fs.getDevName() + "总大小:    " + usage.getTotal() + "KB");
-//                    // 文件系统剩余大小
-//                    System.out.println(fs.getDevName() + "剩余大小:    " + usage.getFree() + "KB");
-//                    // 文件系统可用大小
-//                    System.out.println(fs.getDevName() + "可用大小:    " + usage.getAvail() + "KB");
-//                    // 文件系统已经使用量
-//                    System.out.println(fs.getDevName() + "已经使用量:    " + usage.getUsed() + "KB");
-//                    double usePercent = usage.getUsePercent() * 100D;
-//                    // 文件系统资源的利用率
-//                    System.out.println(fs.getDevName() + "资源的利用率:    " + usePercent + "%");
-//                    break;
-//                case 3:// TYPE_NETWORK ：网络
-//                    break;
-//                case 4:// TYPE_RAM_DISK ：闪存
-//                    break;
-//                case 5:// TYPE_CDROM ：光驱
-//                    break;
-//                case 6:// TYPE_SWAP ：页面交换
-//                    break;
-//                }
-                System.out.println(fs.getDevName() + "读出：    " + usage.getDiskReads());
-                System.out.println(fs.getDevName() + "写入：    " + usage.getDiskWrites());
+                fileSystem.setName(fs.getDevName());
+                fileSystem.setPath(fs.getDirName());
+                fileSystem.setType(fs.getSysTypeName());
+                switch (fs.getType()) {
+                case 0: 
+                    break;
+                case 1: 
+                    break;
+                case 2: 
+                	fileSystem.setTotal((usage.getTotal())/1024/1024);
+                    fileSystem.setFree(usage.getFree()/1024/1024);
+                    fileSystem.setAvail(usage.getAvail()/1024/1024);
+                    fileSystem.setUsed(usage.getUsed()/1024/1024);
+                    fileSystem.setUsage(usage.getUsePercent() * 100D);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                	break;
+                }
+                fileSystem.setRead(usage.getDiskReads());
+                fileSystem.setWrites(usage.getDiskWrites());
+                fileSystemInfo.add(fileSystem);
             }
         } catch (Exception e) {
 
             e.printStackTrace();
         }
 
-        return;
+        return fileSystemInfo;
     }
-
-    public static void net() throws Exception {
+   /**
+    * 获取网络信息
+    * @throws Exception
+    */
+    public static List<NetInfo> getNetInfo() throws Exception {
         Sigar sigar = new Sigar();
+        List<NetInfo> list=new ArrayList<NetInfo>();
         String[] ifNames= sigar.getNetInterfaceList();
         for (int i = 0; i < ifNames.length; i++) {
+        	NetInfo info=new NetInfo();
             String name = ifNames[i];
+            info.setName(name);
             NetInterfaceConfig ifconfig = sigar.getNetInterfaceConfig(name);
-            System.out.println("网络设备名:    " + name);
-            System.out.println("IP地址:    " + ifconfig.getAddress());
-            System.out.println("子网掩码:    " + ifconfig.getNetmask());
+            info.setIp(ifconfig.getAddress());
             if ((ifconfig.getFlags() & 1L) <= 0L) {
                 System.out.println("!IFF_UP...skipping getNetInterfaceStat");
                 continue;
             }
             NetInterfaceStat ifstat = sigar.getNetInterfaceStat(name);
-            System.out.println(name + "接收的总包裹数:" + ifstat.getRxPackets());
-            System.out.println(name + "发送的总包裹数:" + ifstat.getTxPackets());
-            System.out.println(name + "接收到的总字节数:" + ifstat.getRxBytes());
-            System.out.println(name + "发送的总字节数:" + ifstat.getTxBytes());
-            System.out.println(name + "接收到的错误包数:" + ifstat.getRxErrors());
-            System.out.println(name + "发送数据包时的错误数:" + ifstat.getTxErrors());
-            System.out.println(name + "接收时丢弃的包数:" + ifstat.getRxDropped());
-            System.out.println(name + "发送时丢弃的包数:" + ifstat.getTxDropped());
+            info.setSend(ifstat.getTxBytes()/1024/1024);
+            info.setReceive(ifstat.getRxBytes()/1024/1024);
+           list.add(info);
         }
+        return list;
     }
 
-    public static void ethernet() throws SigarException {
-        Sigar sigar = null;
-        sigar = new Sigar();
-        String[] ifaces = sigar.getNetInterfaceList();
-        for (int i = 0; i < ifaces.length; i++) {
-            NetInterfaceConfig cfg = sigar.getNetInterfaceConfig(ifaces[i]);
-            if (NetFlags.LOOPBACK_ADDRESS.equals(cfg.getAddress()) || (cfg.getFlags() & NetFlags.IFF_LOOPBACK) != 0
-                    || NetFlags.NULL_HWADDR.equals(cfg.getHwaddr())) {
-                continue;
-            }
-            System.out.println(cfg.getName() + "IP地址:" + cfg.getAddress());
-            System.out.println(cfg.getName() + "网关广播地址:" + cfg.getBroadcast());
-            System.out.println(cfg.getName() + "网卡MAC地址:" + cfg.getHwaddr());
-            System.out.println(cfg.getName() + "子网掩码:" + cfg.getNetmask());
-            System.out.println(cfg.getName() + "网卡描述信息:" + cfg.getDescription());
-            System.out.println(cfg.getName() + "网卡类型" + cfg.getType());
-        }
-    }
+   
 
 }

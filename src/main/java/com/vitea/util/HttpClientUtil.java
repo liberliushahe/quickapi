@@ -49,7 +49,7 @@ public class HttpClientUtil {
 	private static final int DEFAUL_TTIME_OUT =Integer.parseInt(PropertiesUtil.getProperties("defaulttimeout"));
 	private static final int COUNT = Integer.parseInt(PropertiesUtil.getProperties("defaultMaxPerRoute"));
 	private static final int TOTALCOUNT = Integer.parseInt(PropertiesUtil.getProperties("maxTotal"));
-	private static final int HTTP_DEFAULT_KEEP_TIME = Integer.parseInt(PropertiesUtil.getProperties("HTTP_DEFAULT_KEEP_TIME"));
+	private static final int HTTP_DEFAULT_KEEP_TIME = Integer.parseInt(PropertiesUtil.getProperties("Http_Default_Keep_Time"));
 
 	/**
 	 * 初始化连接池
@@ -140,7 +140,7 @@ public class HttpClientUtil {
 	 * @param data
 	 * @return
 	 */
-    public static String execute(String url, String data,String contentType) {
+    public static String execute(String url, String data,String contentType,int timeout) {
         long startTime = System.currentTimeMillis();
         HttpEntity httpEntity = null;
         HttpEntityEnclosingRequestBase method = null;
@@ -149,7 +149,7 @@ public class HttpClientUtil {
             if (httpClient == null) {
                 initPools();
             }
-            method = (HttpEntityEnclosingRequestBase) getRequest(url, HttpPost.METHOD_NAME, contentType, 0);
+            method = (HttpEntityEnclosingRequestBase) getRequest(url, HttpPost.METHOD_NAME, contentType, timeout);
             method.setEntity(new StringEntity(data,"UTF-8"));
             HttpContext context = HttpClientContext.create();
             CloseableHttpResponse httpResponse = httpClient.execute(method, context);
