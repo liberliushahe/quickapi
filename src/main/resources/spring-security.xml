@@ -49,7 +49,7 @@
 </authentication-manager>
    
     <!-- MD5加密算法 -->
-    <beans:bean id="passwordEncoder" class="com.vitea.util.MD5PasswordEncoder"/>
+    <beans:bean id="passwordEncoder" class="com.vitea.util.Md5PassWordEncoder"/>
     
     <!-- 在这个类中，读入用户的密码，角色信息，是否锁定，账号是否过期等属性信息  -->
     <beans:bean id="userDetailService" class="com.vitea.service.impl.UserServiceImpl" />
