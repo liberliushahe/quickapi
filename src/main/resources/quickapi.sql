@@ -119,9 +119,11 @@ time    date
   sysname     VARCHAR2(50)
 )
 insert into QK_INTERFACE_SYSTEM (SYSID, SYSNAME)
-values (1, '短厅');
+values (1, '省内短厅');
 insert into QK_INTERFACE_SYSTEM (SYSID, SYSNAME)
-values (2, '计费');
+values (2, '计费系统');
+insert into QK_INTERFACE_SYSTEM (SYSID, SYSNAME)
+values (3, '智能网管');
  
 
 
