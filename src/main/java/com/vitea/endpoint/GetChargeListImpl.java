@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vitea.endpoint.IGetChargeList;
 import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
-import com.vitea.model.ListQryBSN;
+import com.vitea.model.ListQryBsn;
 import com.vitea.util.SocketTools;
 /**
  * 处理socket请求
@@ -31,9 +31,13 @@ public class GetChargeListImpl implements IGetChargeList {
 	private InterfaceDao iPortDao;
 	private Logger logger = LoggerFactory.getLogger(GetChargeListImpl.class);
 	private String resultcode;
+	private static final int LENGTH=116;
+	private static  Pattern pattern = Pattern.compile("[\\000]*");
+
+	@Override
 	public String endpointReset(String accNmr) throws IOException, DocumentException {
 		InterFace inter=iPortDao.getPortById(201803);
-		ListQryBSN listQryBSN = parseInput(accNmr);
+		ListQryBsn listQryBSN = parseInput(accNmr);
 		if (listQryBSN != null) {
 			this.logger.info("清单查询：号码{}，账期：{}，本地网：{}，清单类型：{}：",
 					new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(), listQryBSN.getAreaCode(),
@@ -57,7 +61,7 @@ public class GetChargeListImpl implements IGetChargeList {
 					StringBuffer sbout = new StringBuffer();
 					sbout.append("<root><public>");
 					String totalInfo = "";
-					if (byteSrc.length == 116) {
+					if (byteSrc.length == LENGTH) {
 						sbout.append("<result>0</result><desc>查询成功</desc></public><data/>");
 						this.logger.info("查询成功，但是未查询到数据!");
 					} else {
@@ -99,8 +103,8 @@ public class GetChargeListImpl implements IGetChargeList {
 		return getCleanXML(this.resultcode);
 	}
 
-	private ListQryBSN parseInput(String accNmr) {
-		ListQryBSN lqb = null;
+	private ListQryBsn parseInput(String accNmr) {
+		ListQryBsn lqb = null;
 		Document doc = null;
 		try {
 			doc = DocumentHelper.parseText(accNmr);
@@ -109,7 +113,7 @@ public class GetChargeListImpl implements IGetChargeList {
 			String accNbr = rootElt.elementTextTrim("accNbr");
 			String billMonth = rootElt.elementTextTrim("billMonth");
 			String areaCode = rootElt.elementTextTrim("areaCode");
-			lqb = new ListQryBSN(listTypeId, accNbr, billMonth, areaCode);
+			lqb = new ListQryBsn(listTypeId, accNbr, billMonth, areaCode);
 		} catch (DocumentException e) {
 			this.logger.error("入参解析失败，格式有误！");
 		}
@@ -129,21 +133,19 @@ public class GetChargeListImpl implements IGetChargeList {
 		this.logger.debug("totalInfo:{}", SocketTools.getRealTrueValue(byteSrc, x + 178, 100));
 	}
 
-	private String[] getArrayForReq(ListQryBSN lqb) {
+	private String[] getArrayForReq(ListQryBsn lqb) {
 		String[] arr = { "CX", "60", "111111", "RI", "0300005", lqb.getAreaCode(), lqb.getAccNbr(), "",
 				lqb.getListTypeId(), lqb.getBillMonth(), "   " };
 		return arr;
 	}
 
-	private int getListTypeId(ListQryBSN lqb) {
+	private int getListTypeId(ListQryBsn lqb) {
 		return Integer.parseInt(lqb.getListTypeId());
 	}
 
 	private String getCleanXML(String inputStr) {
 		String cleanXMLString = null;
-		Pattern pattern = null;
 		Matcher matcher = null;
-		pattern = Pattern.compile("[\\000]*");
 		matcher = pattern.matcher(inputStr);
 		if (matcher.find()) {
 			cleanXMLString = matcher.replaceAll("");

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.vitea.util.MessageUtil;
-import com.vitea.util.SHA1;
+import com.vitea.util.Sha1;
 /**
  * 身份认证
  * signature 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
@@ -48,7 +48,7 @@ public class WeChatServer {
             }    
         });   
         //2. 将三个参数字符串拼接成一个字符串进行sha1加密    
-        String temp = SHA1.encode(params.get(0) + params.get(1) + params.get(2));    
+        String temp = Sha1.encode(params.get(0) + params.get(1) + params.get(2));    
         if (temp.equals(signature)) {    
             try {
 				response.getWriter().write(echostr);
@@ -91,7 +91,7 @@ public class WeChatServer {
 	 */
 	public String getReturnMessage(Map<String,String> map){
 	    //String MsgType= map.get("MsgType");
-	    return MessageUtil.MessageToXml(MessageUtil.RespMessageType("text", map));
+	    return MessageUtil.messageToXml(MessageUtil.respMessageType("text", map));
 	}
 }
 	

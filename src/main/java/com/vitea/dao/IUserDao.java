@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.vitea.domain.User;
 
-
-
 /**
  * 
  * @author liushahe {@docRoot}
@@ -17,13 +15,13 @@ import com.vitea.domain.User;
 @Repository
 public interface IUserDao {
 	/**
-	 * 
+	 * 获取用户信息
 	 * @param username
 	 * @return
 	 */
 	public User getUserByUsername(String username);
 	/**
-	 * {@docRoot}
+	 * 通过id获取用户信息
 	 * 
 	 * @param id
 	 * @return
@@ -32,14 +30,14 @@ public interface IUserDao {
 	public User getUserById(int id);
 
 	/**
-	 * {@docRoot}
+	 * 保存用户
 	 * 
 	 * @param user
 	 */
 	void save(User user);
 
 	/**
-	 * {@docRoot}
+	 * 更新用户
 	 * 
 	 * @param user
 	 * @return
@@ -47,7 +45,7 @@ public interface IUserDao {
 	boolean update(User user);
 
 	/**
-	 * {@docRoot}
+	 * 删除用户
 	 * 
 	 * @param id
 	 * @return

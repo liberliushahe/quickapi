@@ -1,5 +1,9 @@
 package com.vitea.domain;
-
+/**
+ * 角色资源
+ * @author liushahe
+ *
+ */
 public class RoleResource {
     /**
      *

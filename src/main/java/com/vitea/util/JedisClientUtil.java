@@ -11,6 +11,11 @@ import redis.clients.jedis.exceptions.JedisDataException;
  */
 public class JedisClientUtil {
 	/**
+	 * 判断是否成功
+	 */
+	public static String STATUS="ok";
+
+	/**
 	 * 默认过期时间一小时
 	 */
 	public static int DEFAULT_SETEX_TIMEOUT=60 * 60;
@@ -42,7 +47,7 @@ public class JedisClientUtil {
 		Jedis jedis = null;
 		try {
 			jedis = JedisPoolUtil.getJedis();
-			if (jedis.set(key, value).equalsIgnoreCase("ok")) {
+			if (jedis.set(key, value).equalsIgnoreCase(STATUS)) {
 				return 1;
 			} else {
 				return 0;
@@ -83,7 +88,7 @@ public class JedisClientUtil {
 		Jedis jedis = null;
 		try {
 			jedis = JedisPoolUtil.getJedis();
-			if (jedis.setex(key, DEFAULT_SETEX_TIMEOUT, value).equalsIgnoreCase("ok")){
+			if (jedis.setex(key, DEFAULT_SETEX_TIMEOUT, value).equalsIgnoreCase(STATUS)){
 				return 1;
 			} else {
 				return 0;
@@ -105,7 +110,7 @@ public class JedisClientUtil {
 		Jedis jedis = null;
 		try {
 			jedis = JedisPoolUtil.getJedis();
-			if (jedis.setex(key, time, value).equalsIgnoreCase("ok")){
+			if (jedis.setex(key, time, value).equalsIgnoreCase(STATUS)){
 				return 1;
 			} else {
 				return 0;
@@ -128,7 +133,7 @@ public class JedisClientUtil {
 		try {
 			jedis = JedisPoolUtil.getJedis();
 
-			if (jedis.set(key,JSON.toJSONString(value)).equalsIgnoreCase("ok")) {
+			if (jedis.set(key,JSON.toJSONString(value)).equalsIgnoreCase(STATUS)) {
 				return 1;
 			} else {
 				return 0;
@@ -151,7 +156,7 @@ public class JedisClientUtil {
 		try {
 			jedis = JedisPoolUtil.getJedis();
 
-			if (jedis.setex(key,DEFAULT_SETEX_TIMEOUT, JSON.toJSONString(value)).equalsIgnoreCase("ok")) {
+			if (jedis.setex(key,DEFAULT_SETEX_TIMEOUT, JSON.toJSONString(value)).equalsIgnoreCase(STATUS)) {
 				return 1;
 			} else {
 				return 0;
@@ -174,7 +179,7 @@ public class JedisClientUtil {
 		try {
 			jedis = JedisPoolUtil.getJedis();
 
-			if (jedis.setex(key,time, JSON.toJSONString(value)).equalsIgnoreCase("ok")) {
+			if (jedis.setex(key,time, JSON.toJSONString(value)).equalsIgnoreCase(STATUS)) {
 				return 1;
 			} else {
 				return 0;

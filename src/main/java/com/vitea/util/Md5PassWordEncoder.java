@@ -4,20 +4,27 @@ import java.io.UnsupportedEncodingException;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.DigestUtils;
-
-public class MD5PasswordEncoder extends BCryptPasswordEncoder{
-	private MD5PasswordEncoder() {
+/**
+ * MD5加密
+ * @author liushahe
+ *
+ */
+public class Md5PassWordEncoder extends BCryptPasswordEncoder{
+	private Md5PassWordEncoder() {
 		
 	}
-  private static MD5PasswordEncoder encode=new MD5PasswordEncoder();
+  private static Md5PassWordEncoder encode=new Md5PassWordEncoder();
 	
-  public static MD5PasswordEncoder getMD5PasswordEncoder() {
+  public static Md5PassWordEncoder getMD5PasswordEncoder() {
 		if(encode!=null) {
-			return new MD5PasswordEncoder();
+			return new Md5PassWordEncoder();
 		}else {
 			return encode;
 		}
 	}
+   /**
+    * 加密
+    */
 	@Override
     public String encode(CharSequence rawPassword) {
         try {
@@ -28,7 +35,9 @@ public class MD5PasswordEncoder extends BCryptPasswordEncoder{
             return null;
         }
     }
-   
+    /**
+     * 密码匹配
+     */
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         return encode(rawPassword).equals(encodedPassword);

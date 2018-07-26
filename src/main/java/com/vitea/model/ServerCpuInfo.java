@@ -1,12 +1,16 @@
 package com.vitea.model;
-
-public class CPUInfo {
+/**
+ * CPU info
+ * @author liushahe
+ *
+ */
+public class ServerCpuInfo {
 	private double userUsed;
 	private double systUsed;
 	private double wait;
 	private double nice;
 	private double idle;
-	private double Combined;
+	private double combined;
 	public double getUserUsed() {
 		return userUsed;
 	}
@@ -38,11 +42,12 @@ public class CPUInfo {
 		this.idle = idle;
 	}
 	public double getCombined() {
-		return Combined;
+		return combined;
 	}
 	public void setCombined(double combined) {
-		Combined = combined;
+		this.combined = combined;
 	}
+	
 
 	
 }

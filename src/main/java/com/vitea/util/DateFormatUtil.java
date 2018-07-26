@@ -10,10 +10,13 @@ import java.util.Date;
  *
  */
 public class DateFormatUtil {
-	//返回当前时间
+	/**
+	 * 返回当前时间
+	 * @return
+	 */
 	public static Date getFormatDate() {
 		Date date=new Date();
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String dateString=format.format(date);
 		Date dateformat=null;
 		try {
@@ -24,5 +27,13 @@ public class DateFormatUtil {
 		return dateformat;
 		
 	}
-
+   /**
+    * 返回毫秒日期
+    * @return
+    */
+	public static String getFormatDateMill() {
+		Date date=new Date();
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+		return format.format(date);
+	}
 }

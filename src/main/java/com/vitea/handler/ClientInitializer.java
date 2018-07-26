@@ -5,7 +5,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
-
+/**
+ * 客户端初始化
+ * @author liushahe
+ *
+ */
 public class ClientInitializer extends ChannelInitializer<SocketChannel>{
 
 	@Override

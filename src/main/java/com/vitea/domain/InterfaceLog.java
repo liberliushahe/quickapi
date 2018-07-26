@@ -1,7 +1,11 @@
 package com.vitea.domain;
 
 import java.util.Date;
-
+/**
+ * 接口日志
+ * @author liushahe
+ *
+ */
 public class InterfaceLog {
 	/**
 	 * 接口编码

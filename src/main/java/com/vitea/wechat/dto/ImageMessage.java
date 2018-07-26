@@ -1,25 +1,29 @@
 package com.vitea.wechat.dto;
-
+/**
+ * 
+ * @author liushahe
+ *
+ */
 public class ImageMessage extends Message{
 	/**
 	 * 图片链接（由系统生成）
 	 */
-	private String PicUrl;
+	private String picUrl;
 	/**
 	 * 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
 	 */
-	private String MediaId;
-	public String getPicUrl() {
-		return PicUrl;
+	private String mediaId;
+	public String getpicUrl() {
+		return picUrl;
 	}
-	public void setPicUrl(String picUrl) {
-		PicUrl = picUrl;
+	public void setpicUrl(String picUrl) {
+		picUrl = picUrl;
 	}
-	public String getMediaId() {
-		return MediaId;
+	public String getmediaId() {
+		return mediaId;
 	}
-	public void setMediaId(String mediaId) {
-		MediaId = mediaId;
+	public void setmediaId(String mediaId) {
+		mediaId = mediaId;
 	}
 	
 

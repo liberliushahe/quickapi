@@ -20,9 +20,10 @@ public interface IUserLogDao {
 	  * @return
 	  */
 	 int insert(Userlog record);
+	
 	 /**
 	  * 通过用户名查询日志
-	  * @param id
+	  * @param username
 	  * @return
 	  */
 	 Userlog selectUserLogByUsername(String username);

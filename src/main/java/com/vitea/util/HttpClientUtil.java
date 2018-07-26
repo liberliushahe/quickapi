@@ -47,9 +47,9 @@ public class HttpClientUtil {
 	 * 默认请求超时时间30s
 	 */
 	private static final int DEFAUL_TTIME_OUT =Integer.parseInt(PropertiesUtil.getProperties("defaulttimeout"));
-	private static final int count = Integer.parseInt(PropertiesUtil.getProperties("defaultMaxPerRoute"));
-	private static final int totalCount = Integer.parseInt(PropertiesUtil.getProperties("maxTotal"));
-	private static final int Http_Default_Keep_Time = Integer.parseInt(PropertiesUtil.getProperties("Http_Default_Keep_Time"));
+	private static final int COUNT = Integer.parseInt(PropertiesUtil.getProperties("defaultMaxPerRoute"));
+	private static final int TOTALCOUNT = Integer.parseInt(PropertiesUtil.getProperties("maxTotal"));
+	private static final int HTTP_DEFAULT_KEEP_TIME = Integer.parseInt(PropertiesUtil.getProperties("HTTP_DEFAULT_KEEP_TIME"));
 
 	/**
 	 * 初始化连接池
@@ -57,8 +57,8 @@ public class HttpClientUtil {
 	public static synchronized void initPools() {
 		if (httpClient == null) {
 			cm = new PoolingHttpClientConnectionManager();
-			cm.setDefaultMaxPerRoute(count);
-			cm.setMaxTotal(totalCount);
+			cm.setDefaultMaxPerRoute(COUNT);
+			cm.setMaxTotal(TOTALCOUNT);
 			httpClient = HttpClients.custom().setKeepAliveStrategy(Strategy).setConnectionManager(cm).build();
 		}
 	}
@@ -66,10 +66,12 @@ public class HttpClientUtil {
 	 /**
      * Http connection keepAlive 设置
      */
-    public static ConnectionKeepAliveStrategy Strategy = new ConnectionKeepAliveStrategy() {
-        public long getKeepAliveDuration(HttpResponse response, HttpContext context) {
+	
+        public static ConnectionKeepAliveStrategy Strategy = new ConnectionKeepAliveStrategy() {
+    	@Override
+    	public long getKeepAliveDuration(HttpResponse response, HttpContext context) {
             HeaderElementIterator it = new BasicHeaderElementIterator(response.headerIterator(HTTP.CONN_KEEP_ALIVE));
-            int keepTime = Http_Default_Keep_Time;
+            int keepTime = HTTP_DEFAULT_KEEP_TIME;
             while (it.hasNext()) {
                 HeaderElement he = it.nextElement();
                 String param = he.getName();

@@ -1,5 +1,9 @@
 package com.vitea.domain;
-
+/**
+ * 用户角色
+ * @author liushahe
+ *
+ */
 public class UserRole {
     /**
      *

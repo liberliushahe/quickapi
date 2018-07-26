@@ -19,20 +19,20 @@ public class JedisPoolUtil {
      * 初始化Redis连接池 
      */  
     private static void initialPool() {  
-    	int MAX_ACTIVE=Integer.parseInt(PropertiesUtil.getRedisProperties("MAX_ACTIVE"));
-    	int MAX_IDLE=Integer.parseInt(PropertiesUtil.getRedisProperties("MAX_IDLE"));
-    	long MAX_WAIT=Long.parseLong(PropertiesUtil.getRedisProperties("MAX_WAIT"));
-    	String HOST=PropertiesUtil.getRedisProperties("redis.host");
-    	int PORT=Integer.parseInt(PropertiesUtil.getRedisProperties("redis.port"));
-    	String PASS=PropertiesUtil.getRedisProperties("redis.pass");
-    	int TIMEOUT=Integer.parseInt(PropertiesUtil.getRedisProperties("TIMEOUT"));
+    	int maxActive=Integer.parseInt(PropertiesUtil.getRedisProperties("maxActive"));
+    	int maxIdle=Integer.parseInt(PropertiesUtil.getRedisProperties("maxIdle"));
+    	long maxWait=Long.parseLong(PropertiesUtil.getRedisProperties("maxWait"));
+    	String host=PropertiesUtil.getRedisProperties("redis.host");
+    	int port=Integer.parseInt(PropertiesUtil.getRedisProperties("redis.port"));
+    	String pass=PropertiesUtil.getRedisProperties("redis.pass");
+    	int timeOut=Integer.parseInt(PropertiesUtil.getRedisProperties("timeOut"));
         try {  
             JedisPoolConfig config = new JedisPoolConfig();  
-            config.setMaxTotal(MAX_ACTIVE);
-            config.setMaxIdle(MAX_IDLE);
-            config.setMaxWaitMillis(MAX_WAIT);   
+            config.setMaxTotal(maxActive);
+            config.setMaxIdle(maxIdle);
+            config.setMaxWaitMillis(maxWait);   
             config.setTestOnBorrow(true);
-            jedisPool = new JedisPool(config,HOST, PORT, TIMEOUT,PASS);  
+            jedisPool = new JedisPool(config,host,port,timeOut,pass);  
         } catch (Exception e) {  
            e.printStackTrace();
         }  

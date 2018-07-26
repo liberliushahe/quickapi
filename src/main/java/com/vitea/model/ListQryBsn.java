@@ -1,15 +1,27 @@
 package com.vitea.model;
-
-public class ListQryBSN
+/**
+ * 账单
+ * @author liushahe
+ *
+ */
+public class ListQryBsn
 {
 
-  //账本编号
+  /**
+   * 账本编号
+   */
   private String listTypeId;
-  //障碍号码
+  /**
+   * 障碍号码
+   */
   private String accNbr;
-  //账期
+  /**
+   * 账期
+   */
   private String billMonth;
-  //区域编码
+  /**
+   * 区域编码
+   */
   private String areaCode;
   
   public String getAreaCode()
@@ -22,14 +34,14 @@ public class ListQryBSN
     this.areaCode = areaCode;
   }
   
-  public ListQryBSN() {}
+  public ListQryBsn() {}
   
-  public ListQryBSN(String _listTypeId, String _accNbr, String _billMonth, String _areaCode)
+  public ListQryBsn(String listTypeId, String accNbr, String billMonth, String areaCode)
   {
-    this.listTypeId = _listTypeId;
-    this.accNbr = _accNbr;
-    this.billMonth = _billMonth;
-    this.areaCode = _areaCode;
+    this.listTypeId = listTypeId;
+    this.accNbr = accNbr;
+    this.billMonth = billMonth;
+    this.areaCode = areaCode;
   }
   
   public String getListTypeId()

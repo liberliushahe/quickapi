@@ -29,21 +29,21 @@ public class AuthServer {
 	Map<String,String> map=new HashMap<String,String>();
 	/**
 	 * 客户端获取token
-	 * @param grant_type
+	 * @param grantType
 	 * @param appId
 	 * @param appSecret
 	 * @return
 	 */
 	@RequestMapping(value = "/token", method = RequestMethod.GET)
 	@ResponseBody
-    public  Object GetToken(HttpServletRequest request) {
-		String grant_type=request.getParameter("grant_type");
+    public  Object getToken(HttpServletRequest request) {
+		String grantType=request.getParameter("grantType");
 		String appId=request.getParameter("appId");
 		String appSecret=request.getParameter("appSecret");
 	    ResultMsg msg=new ResultMsg();
 	    QToken token=new QToken();
 	    //判断用户请求数据是否为空
-		if(StringUtils.isEmpty(grant_type)) {
+		if(StringUtils.isEmpty(grantType)) {
 			msg.setErrcode("100");
 			msg.setErrmsg("不能为空");
 	    	return msg;
@@ -59,10 +59,10 @@ public class AuthServer {
 			return msg;
 	    }
         //判断用户是否在认证服务器中注册用户名和密码用户请求IP是否在白名单
-		int code=checkUser(request, grant_type, appId,appSecret);
+		int code=checkUser(request, grantType, appId,appSecret);
 		if(code==1) {
-			token.setAccess_token("HYHIJIUHYGGTFSTSFSTG");
-			token.setExpires_in("7200");
+			token.setAccessToken("TTTTTTT");
+			token.setExpiresIn("7200");
 	        return token;
 		}else {
 			msg.setErrcode("1");
@@ -77,9 +77,9 @@ public class AuthServer {
      * @param appsecret
      * @return
      */
-	public int checkUser(HttpServletRequest request,String grant_type,String appid,String appsecret) {
+	public int checkUser(HttpServletRequest request,String grantType,String appid,String appsecret) {
 		//查询用户是否注册IP
-		ApiUser apiUser=iApiUserInfo.getUserByPrimary(grant_type);
+		ApiUser apiUser=iApiUserInfo.getUserByPrimary(grantType);
 		if(apiUser==null) {
 			return 0;
 		}else {

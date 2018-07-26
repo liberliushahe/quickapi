@@ -16,9 +16,11 @@ import com.thoughtworks.xstream.XStream;
 import com.vitea.wechat.dto.Message;
 import com.vitea.wechat.dto.TextMessage;
 
-
-
-
+/**
+ * 微信消息工具类
+ * @author liushahe
+ *
+ */
 public class MessageUtil {
 	/**
 	 * 返回文本类型
@@ -96,7 +98,7 @@ public class MessageUtil {
 	 * @throws DocumentException 
 	 */
 	public static Map<String,String> parseXML(HttpServletRequest req) throws IOException, DocumentException{
-		Map<String,String> map=new HashMap<String,String>();
+		Map<String,String> map=new HashMap<String,String>(1000);
 	    ServletInputStream in=req.getInputStream();
 	    SAXReader reader = new SAXReader();
 	    Document document = reader.read(in);
@@ -115,7 +117,7 @@ public class MessageUtil {
 	 * @param message
 	 * @return
 	 */
-	public static String MessageToXml(Message message) {	
+	public static String messageToXml(Message message) {	
 	   XStream xs=new XStream();
 	   xs.alias("xml", message.getClass());	  
 	   return  xs.toXML(message);
@@ -126,21 +128,21 @@ public class MessageUtil {
 	 * @param map
 	 * @return
 	 */
-	public static Message RespMessageType(String type,Map<String,String> map){
+	public static Message respMessageType(String type,Map<String,String> map){
 
 		 	TextMessage tx=new TextMessage();
-		    if(type.equals(MessageUtil.RESP_TYPE_TEXT)){
+		    if((MessageUtil.RESP_TYPE_TEXT).equals(type)){
 		    //获取文本消息对象
-		 	tx.setFromUserName(map.get("ToUserName"));
-		 	tx.setToUserName(map.get("FromUserName"));
-		 	tx.setCreateTime(new Date().getTime());
+		 	tx.setfromUserName(map.get("ToUserName"));
+		 	tx.settoUserName(map.get("FromUserName"));
+		 	tx.setcreateTime(System.currentTimeMillis());
 		 	if(map.get("Content").equals("1")){
-		 		tx.setContent("hello world ");
+		 		tx.setcontent("hello world ");
 		 	}else{
-		 		tx.setContent("hello world my world");
+		 		tx.setcontent("hello world my world");
 		 	}
 		 
-		 	tx.setMsgType(MessageUtil.RESP_TYPE_TEXT);
+		 	tx.setmsgType(MessageUtil.RESP_TYPE_TEXT);
 		 	
 		     
 		    }

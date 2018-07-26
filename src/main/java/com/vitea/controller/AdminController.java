@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vitea.model.CPUInfo;
+import com.vitea.model.ServerCpuInfo;
 import com.vitea.model.HostInfo;
 import com.vitea.model.MemoryInfo;
 import com.vitea.util.SystemInfoUtil;
-
+/**
+ * 
+ * @author liushahe
+ *
+ */
 @Controller
 public class AdminController {
 	@RequestMapping("admin.do")
@@ -43,7 +47,7 @@ public class AdminController {
 	@RequestMapping("currentcpu.do")
 	@ResponseBody
 	public Object getCurrentCpu(){
-		CPUInfo cpuInfo=null;
+		ServerCpuInfo cpuInfo=null;
 		try {
 			cpuInfo=SystemInfoUtil.getCpuInfo();
 		} catch (SigarException e) {

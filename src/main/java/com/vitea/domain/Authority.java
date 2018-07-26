@@ -1,7 +1,11 @@
 package com.vitea.domain;
 
 import org.springframework.security.core.GrantedAuthority;
-
+/**
+ * 权限
+ * @author liushahe
+ *
+ */
 public class Authority implements GrantedAuthority {
 
 	/**

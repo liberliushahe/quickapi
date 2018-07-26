@@ -1,7 +1,11 @@
 package com.vitea.domain;
 
 import java.util.Date;
-
+/**
+ * API user
+ * @author liushahe
+ *
+ */
 public class ApiUser {
 
 

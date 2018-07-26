@@ -1,5 +1,9 @@
 package com.vitea.domain;
-
+/**
+ * 资源
+ * @author liushahe
+ *
+ */
 public class Resource {
     /**
      *

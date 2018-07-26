@@ -20,6 +20,11 @@ import com.vitea.domain.User;
 import com.vitea.domain.UserRole;
 @Service
 @Transactional
+/**
+ * user service
+ * @author liushahe
+ *
+ */
 public class UserServiceImpl implements UserDetailsService {
 	@Autowired
 	private IUserDao iUserDao;
@@ -27,6 +32,7 @@ public class UserServiceImpl implements UserDetailsService {
 	private IUserRoleDao iUserRoleDao;
 	@Autowired
 	private IRoleDao iRoleDao;
+	private static final String SPLIT=",";
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user=iUserDao.getUserByUsername(username);
@@ -38,7 +44,7 @@ public class UserServiceImpl implements UserDetailsService {
 		  UserRole userRole=iUserRoleDao.selectByUsername(username);
 		  //查询用户角色
 		  Role role=iRoleDao.selectByPrimaryKey(userRole.getRid());
-		  for (String r:role.getRname().split(",")) {
+		  for (String r:role.getRname().split(SPLIT)) {
 			  list.add(new SimpleGrantedAuthority("ROLE_"+r));
 		  }
 		  user.setAuthorities(list);

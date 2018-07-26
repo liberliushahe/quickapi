@@ -11,6 +11,11 @@ import com.github.pagehelper.PageInfo;
 import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
 import com.vitea.service.IGetInterface;
+/**
+ * 接口
+ * @author liushahe
+ *
+ */
 @Service
 @Transactional
 public class GetInterfaceImpl implements IGetInterface {

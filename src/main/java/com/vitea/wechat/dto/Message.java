@@ -1,66 +1,70 @@
 package com.vitea.wechat.dto;
-
+/**
+ * 
+ * @author liushahe
+ *
+ */
 public class Message {
 	/**
 	 * 开发者微信号
 	 */
-	private String ToUserName;
+	private String toUserName;
 	/**
 	 * 发送方帐号（一个OpenID）
 	 */
-	private String FromUserName;
+	private String fromUserName;
 	/**
 	 * 消息创建时间 （整型）
 	 */
-	private long CreateTime;
+	private long createTime;
 	/**
 	 * 消息类型
 	 */
-	private String MsgType;
+	private String msgType;
 	/**
 	 * 文本消息内容
 	 */
-	private String Content;
+	private String content;
 	/**
 	 * 消息id
 	 */
-	private String MsgId;
+	private String msgId;
 	
-	public long getCreateTime() {
-		return CreateTime;
+	public long getcreateTime() {
+		return createTime;
 	}
-	public void setCreateTime(long createTime) {
-		CreateTime = createTime;
+	public void setcreateTime(long createTime) {
+		createTime = createTime;
 	}
-	public String getToUserName() {
-		return ToUserName;
+	public String gettoUserName() {
+		return toUserName;
 	}
-	public void setToUserName(String toUserName) {
-		ToUserName = toUserName;
+	public void settoUserName(String toUserName) {
+		toUserName = toUserName;
 	}
-	public String getFromUserName() {
-		return FromUserName;
+	public String getfromUserName() {
+		return fromUserName;
 	}
-	public void setFromUserName(String fromUserName) {
-		FromUserName = fromUserName;
+	public void setfromUserName(String fromUserName) {
+		fromUserName = fromUserName;
 	}
-	public String getMsgType() {
-		return MsgType;
+	public String getmsgType() {
+		return msgType;
 	}
-	public void setMsgType(String msgType) {
-		MsgType = msgType;
+	public void setmsgType(String msgType) {
+		msgType = msgType;
 	}
-	public String getContent() {
-		return Content;
+	public String getcontent() {
+		return content;
 	}
-	public void setContent(String content) {
-		Content = content;
+	public void setcontent(String content) {
+		content = content;
 	}
-	public String getMsgId() {
-		return MsgId;
+	public String getmsgId() {
+		return msgId;
 	}
-	public void setMsgId(String msgId) {
-		MsgId = msgId;
+	public void setmsgId(String msgId) {
+		msgId = msgId;
 	}
 
 }

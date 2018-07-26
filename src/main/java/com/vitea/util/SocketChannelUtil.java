@@ -14,7 +14,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  *
  */
 public class SocketChannelUtil {
-	public static void Connection(String ip,int port){
+	public static void connection(String ip,int port){
 		  EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 	        Bootstrap bootstrap = new Bootstrap();
 

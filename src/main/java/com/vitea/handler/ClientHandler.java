@@ -4,7 +4,11 @@ import java.util.Date;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
+/**
+ * 客户端控制
+ * @author liushahe
+ *
+ */
 public class ClientHandler extends SimpleChannelInboundHandler<String>{
 
     @Override

@@ -29,10 +29,14 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
     @Autowired
 	IUserLogDao iUserLogDao;
 	private static Logger logger = LoggerFactory.getLogger(UserAuthenticationSuccessHandler.class);
-    //登录成功跳转url
+    /**
+     * 登录成功跳转url
+     */
 	private String defaultTargetUrl;
 
-	//是否重定向
+	/**
+	 * 是否重定向
+	 */
 	private boolean forwardToDestination = false;
 	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();

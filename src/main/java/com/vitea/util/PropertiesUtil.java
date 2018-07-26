@@ -3,7 +3,11 @@ package com.vitea.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
+/**
+ * 配置文件获取
+ * @author liushahe
+ *
+ */
 public class PropertiesUtil {
 	public static String getProperties(String address) {
 		Properties p=new Properties();

@@ -14,6 +14,11 @@ public abstract interface IQueryVolteInfo
 {
   @WebMethod(operationName="queryVolteInfo")
   @WebResult(name="response")
+  /**
+   * webservice
+   * @param paramString
+   * @return
+   */
   public abstract String queryVolteInfo(@WebParam(name="cmd") String paramString);
   
 }

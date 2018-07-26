@@ -18,7 +18,7 @@ public class XmlJsonParseUtil {
 	 * @param xml
 	 * @return
 	 */
-	public static String XmlToJson(String xml) {
+	public static String xmlToJson(String xml) {
 		    JSONObject xmlJSONObj = XML.toJSONObject(xml);
 	        //设置缩进
 	        String jsonPrettyPrintString = xmlJSONObj.toString(4);
@@ -31,7 +31,7 @@ public class XmlJsonParseUtil {
 	 * @param json
 	 * @return
 	 */
-	public static String JsonToXml(String json) {
+	public static String jsonToXml(String json) {
         JSONObject object=new JSONObject(json);
         return XML.toString(object);		
 	}
@@ -41,7 +41,7 @@ public class XmlJsonParseUtil {
 	 * @param xml
 	 * @return
 	 */
-	public static String Object2Xml(Object object) {
+	public static String object2Xml(Object object) {
 		 XStream xStream = new XStream();
 	     //将对象转成字符串
 		 //设置根别名
@@ -55,7 +55,7 @@ public class XmlJsonParseUtil {
 	 * @param xml
 	 * @return
 	 */
-	public static Object Xml2Object(String xml) {
+	public static Object xml2Object(String xml) {
 		 //XStream xStream = new XStream();
          //xml转对象
          System.out.println(xml);

@@ -44,6 +44,7 @@ public class SendMessageImpl implements ISendMessage {
 	 * @param retStr
 	 * @return
 	 */
+	@Override
 	public String sendMessage(String xml) {
 		InterFace inter1 = iPortDao.getPortById(201801);
 		String retStr = "";

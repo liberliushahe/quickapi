@@ -1,5 +1,9 @@
 package com.vitea.model;
-
+/**
+ * memory 
+ * @author liushahe
+ *
+ */
 public class MemoryInfo {
 	private double usedpercent;
 	private long total;

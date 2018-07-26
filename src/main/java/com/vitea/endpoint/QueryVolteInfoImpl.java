@@ -63,7 +63,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			retStr = HttpClientUtil.execute(inter.getUrl(), json,"application/json");
 			System.out.println(json);
             //json数据解析为xml数据
-			retStr=XmlJsonParseUtil.JsonToXml(retStr);
+			retStr=XmlJsonParseUtil.jsonToXml(retStr);
 		} catch (DocumentException e) {
 			retStr = "<response><code>-1<code><msg>入参格式非法<msg></response>";
 		}

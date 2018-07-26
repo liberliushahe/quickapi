@@ -1,7 +1,11 @@
 package com.vitea.dao;
 
 import com.vitea.domain.Resource;
-
+/**
+ * 用户资源dao
+ * @author liushahe
+ *
+ */
 public interface IResourceDao {
     /**
      * 通过主键删除

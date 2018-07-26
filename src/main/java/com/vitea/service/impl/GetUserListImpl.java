@@ -13,6 +13,11 @@ import com.vitea.domain.User;
 import com.vitea.service.IGetUserList;
 @Service
 @Transactional
+/**
+ * 
+ * @author liushahe
+ *
+ */
 public class GetUserListImpl implements IGetUserList {
     @Autowired
     IUserDao iUserDao;
