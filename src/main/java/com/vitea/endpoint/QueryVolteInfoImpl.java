@@ -70,8 +70,9 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 					"}";
 		     long startTime = System.currentTimeMillis();
 			 retStr = HttpClientUtil.execute(inter.getUrl(), json,inter.getType(),inter.getTimeout());
-			 this.logger.info("volte信息查询,号码：{},编码：{},调用时间:{}", new Object[] { busivalue, type,(System.currentTimeMillis() - startTime)});
+			 this.logger.info("volte信息查询,号码：{},编码：{},返回报文:{},调用时间:{}", new Object[] { busivalue, type,retStr,(System.currentTimeMillis() - startTime)});
             //JSON数据解析为XML数据
+			 System.out.println(retStr);
 			retStr=XmlJsonParseUtil.jsonToXml(retStr);
 		} catch (DocumentException e) {
 			retStr = "<response><code>-1<code><msg>入参格式非法<msg></response>";

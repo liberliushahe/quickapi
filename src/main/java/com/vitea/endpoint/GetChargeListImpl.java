@@ -81,7 +81,7 @@ public class GetChargeListImpl implements IGetChargeList {
 					}
 					sbout.append("</root>");
 					this.resultcode = sbout.toString();
-				    this.logger.info("计费清单：号码：{},账期:{},调用时间:{}", new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(),(System.currentTimeMillis() - startTime)});
+				    this.logger.info("计费清单：号码：{},账期:{},返回信息:{},调用时间:{}", new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(),totalInfo,(System.currentTimeMillis() - startTime)});
 					sock.close();
 				} else {
 					this.logger.error("连接失败!");
