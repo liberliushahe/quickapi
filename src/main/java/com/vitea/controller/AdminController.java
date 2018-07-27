@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vitea.model.ServerCpuInfo;
+import com.vitea.model.Ethernet;
 import com.vitea.model.FileSystemInfo;
 import com.vitea.model.HostInfo;
+import com.vitea.model.MemoryBean;
 import com.vitea.model.MemoryInfo;
 import com.vitea.model.NetInfo;
 import com.vitea.util.SystemInfoUtil;
@@ -26,15 +28,24 @@ public class AdminController {
 	public ModelAndView getIndex(Model model){
 		HostInfo hostInfo=null;
 		List<FileSystemInfo> fileSystemInfo=null;
+		List<MemoryBean> memoryBean=null;
+		List<MemoryBean> memoryPoolBean=null;
+		List<Ethernet> ethernet=null;
 		try {
 			hostInfo=SystemInfoUtil.getProperty();
 			fileSystemInfo=SystemInfoUtil.getFileInfo();
-			
+			//获取JVM内存信息和内存池信息
+			memoryBean=SystemInfoUtil.getJvmMemoryInfo();
+			memoryPoolBean=SystemInfoUtil.getJvmMemoryPoolInfo();
+			ethernet=SystemInfoUtil.getEthernet();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("hostInfo", hostInfo);
 		model.addAttribute("fileInfoList", fileSystemInfo);
+		model.addAttribute("memoryBean", memoryBean);
+		model.addAttribute("memoryPoolBean", memoryPoolBean);
+		model.addAttribute("ethernet", ethernet);
 		return new ModelAndView("admin/admin","model",model);
 
 	}
