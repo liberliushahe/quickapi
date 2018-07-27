@@ -1,5 +1,8 @@
 package com.vitea.util;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryPoolMXBean;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
@@ -13,14 +16,17 @@ import org.hyperic.sigar.CpuPerc;
 import org.hyperic.sigar.FileSystem;
 import org.hyperic.sigar.FileSystemUsage;
 import org.hyperic.sigar.Mem;
+import org.hyperic.sigar.NetFlags;
 import org.hyperic.sigar.NetInterfaceConfig;
 import org.hyperic.sigar.NetInterfaceStat;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 import org.hyperic.sigar.Swap;
 
+import com.vitea.model.Ethernet;
 import com.vitea.model.FileSystemInfo;
 import com.vitea.model.HostInfo;
+import com.vitea.model.MemoryBean;
 import com.vitea.model.MemoryInfo;
 import com.vitea.model.NetInfo;
 import com.vitea.model.ServerCpuInfo;
@@ -45,9 +51,9 @@ public class SystemInfoUtil {
         Map<String, String> map = System.getenv();
         // 获取用户名
         String userName = map.get("USERNAME");
-       // 获取计算机名
+        // 获取计算机名
         String computerName = map.get("COMPUTERNAME");
-      // 获取计算机域名
+        // 获取计算机域名
         String userDomain = map.get("USERDOMAIN");
         hostInfo.setHostname(userName);
         hostInfo.setComputerName(computerName);
@@ -181,7 +187,75 @@ public class SystemInfoUtil {
         }
         return list;
     }
-
+   /**
+    * 获取网卡信息
+    * @throws SigarException
+    */
+    public static List<Ethernet> getEthernet() throws SigarException {
+        Sigar sigar = null;
+        sigar = new Sigar();
+        List<Ethernet> list=new ArrayList<Ethernet>();
+        String[] ifaces = sigar.getNetInterfaceList();
+        for (int i = 0; i < ifaces.length; i++) {
+            NetInterfaceConfig cfg = sigar.getNetInterfaceConfig(ifaces[i]);
+            if (NetFlags.LOOPBACK_ADDRESS.equals(cfg.getAddress()) || (cfg.getFlags() & NetFlags.IFF_LOOPBACK) != 0
+                    || NetFlags.NULL_HWADDR.equals(cfg.getHwaddr())) {
+                continue;
+            }
+            Ethernet ether=new Ethernet();
+            ether.setAddress(cfg.getAddress());
+            ether.setBroadcast(cfg.getBroadcast());
+            ether.setMac(cfg.getHwaddr());
+            ether.setNetmask(cfg.getNetmask());
+            ether.setDesc(cfg.getDescription());
+            ether.setType(cfg.getType());
+           list.add(ether);
+        }
+        return list;
+    }
+   /**
+    * 获取java虚拟机内存相关信息
+    */
+   public static  List<MemoryBean>  getJvmMemoryInfo() {
+	 List<MemoryBean> list=new ArrayList<MemoryBean>();
+       MemoryMXBean mxb = ManagementFactory.getMemoryMXBean();
+       //Heap
+       MemoryBean heap=new MemoryBean();
+       heap.setName("堆区");
+       heap.setMax(mxb.getHeapMemoryUsage().getMax() / 1024 / 1024);
+       heap.setInit(mxb.getHeapMemoryUsage().getInit() / 1024 / 1024);
+       heap.setCommit(mxb.getHeapMemoryUsage().getCommitted() / 1024 / 1024);
+       heap.setUsed(mxb.getHeapMemoryUsage().getUsed() / 1024 / 1024);
+       //Non heap
+       MemoryBean noheap=new MemoryBean();
+       noheap.setName("非堆区");
+       noheap.setMax(mxb.getNonHeapMemoryUsage().getMax() / 1024 / 1024);
+       noheap.setInit(mxb.getNonHeapMemoryUsage().getInit() / 1024 / 1024);
+       noheap.setCommit(mxb.getNonHeapMemoryUsage().getCommitted() / 1024 / 1024);
+       noheap.setUsed(mxb.getNonHeapMemoryUsage().getUsed() / 1024 / 1024);
+       list.add(heap);
+       list.add(noheap);
+       return list;
+      
+   }
    
-
+   /**
+    * 获取java虚拟机相关信息
+    */
+   public static  List<MemoryBean>  getJvmMemoryPoolInfo() {
+       List<MemoryPoolMXBean> msb = ManagementFactory.getMemoryPoolMXBeans();
+       List<MemoryBean> list=new ArrayList<MemoryBean>();
+       
+       for (MemoryPoolMXBean memoryPoolMXBean : msb) {
+    	   MemoryBean pool=new MemoryBean();
+    	   pool.setName(memoryPoolMXBean.getName());
+    	   pool.setMax(memoryPoolMXBean.getUsage().getMax()/ 1024 / 1024);
+    	   pool.setInit(memoryPoolMXBean.getUsage().getInit()/ 1024 / 1024);
+    	   pool.setCommit(memoryPoolMXBean.getUsage().getCommitted()/ 1024 / 1024);
+    	   pool.setUsed(memoryPoolMXBean.getUsage().getUsed()/ 1024 / 1024);
+    	   pool.setType(memoryPoolMXBean.getType());
+           list.add(pool);
+       }
+       return list;
+   }
 }

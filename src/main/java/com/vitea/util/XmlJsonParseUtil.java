@@ -32,7 +32,7 @@ public class XmlJsonParseUtil {
 	 * @return
 	 */
 	public static String jsonToXml(String json) {
-        JSONObject object=new JSONObject(json);
+        JSONObject object=new JSONObject(json.trim());
         return XML.toString(object);		
 	}
 	
