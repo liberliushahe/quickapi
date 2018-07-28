@@ -162,9 +162,9 @@ public class HttpClientUtil {
 
         } catch (Exception e) {
             if(method != null){
+            	
                 method.abort();
             }
-            e.printStackTrace();
             logger.error(
                     "execute post request exception, url:" + url + ", exception:" + e.toString() + ", cost time(ms):"
                             + (System.currentTimeMillis() - startTime));
