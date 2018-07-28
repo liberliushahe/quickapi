@@ -15,6 +15,12 @@ public interface IGetInterface {
 	 * @return
 	 */
 	public PageInfo<InterFace> getInterfaceByPage(int index,int size);
+	/**
+	 * 通过id获取接口信息
+	 * @param id
+	 * @return
+	 */
+	public InterFace getInterfaceById(int id);
 	
 
 }
