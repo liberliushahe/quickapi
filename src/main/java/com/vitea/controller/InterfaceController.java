@@ -19,11 +19,21 @@ import com.vitea.service.IGetInterface;
 public class InterfaceController {
 	@Autowired
 	IGetInterface iGetInterface;
-	@RequestMapping("getInterfaceInfo.do")
+	
+	/**
+	 * 获取接口列表
+	 * @param model
+	 * @param id
+	 * @param url
+	 * @param index
+	 * @param size
+	 * @return
+	 */
+	@RequestMapping("getInterfaceList")
 	public ModelAndView getIndex(Model model,@RequestParam(required = false) Integer id,@RequestParam(required = false) String url, @RequestParam(defaultValue = "1") Integer index, @RequestParam(defaultValue = "10") Integer size){		
 		PageInfo<InterFace> pagelist=iGetInterface.getInterfaceByPage(index, size);
 		model.addAttribute("pagelist", pagelist);
-		return new ModelAndView("admin/interface","model",model);
+		return new ModelAndView("admin/interface/list","model",model);
 
 	}
 	/**
@@ -35,11 +45,19 @@ public class InterfaceController {
 	 * @param size
 	 * @return
 	 */
-	@RequestMapping("addInterface.do")
-	public ModelAndView addInterface(Model model,@RequestParam(required = false) Integer id,@RequestParam(required = false) String url, @RequestParam(defaultValue = "1") Integer index, @RequestParam(defaultValue = "10") Integer size){		
+	@RequestMapping("/addInterface")
+	public String addInterface(Model model,@RequestParam(required = false) Integer id,@RequestParam(required = false) String url, @RequestParam(defaultValue = "1") Integer index, @RequestParam(defaultValue = "10") Integer size){		
 		PageInfo<InterFace> pagelist=iGetInterface.getInterfaceByPage(index, size);
 		model.addAttribute("pagelist", pagelist);
-		return new ModelAndView("admin/interface/addinterface","model",model);
+		return "admin/interface/add";
+
+	}
+	
+	@RequestMapping("/editInterface")
+	public ModelAndView editInterface(@RequestParam(required = false) Integer id,Model model){	
+		InterFace inter=iGetInterface.getInterfaceById(id);
+		model.addAttribute("interface", inter);
+		return new ModelAndView("admin/interface/edit","interfaceModel",model);
 
 	}
 	
