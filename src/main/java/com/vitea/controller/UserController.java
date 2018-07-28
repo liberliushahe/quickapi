@@ -23,7 +23,7 @@ public class UserController {
 	public ModelAndView getIndex(Model model,@RequestParam(required = false) Integer id,@RequestParam(required = false) String url, @RequestParam(defaultValue = "1") Integer index, @RequestParam(defaultValue = "10") Integer size){		
 		PageInfo<User> userlist=iGetUserList.getPageOfUserList(index, size);
 		model.addAttribute("pagelist", userlist);
-		return new ModelAndView("admin/userinfo","model",model);
+		return new ModelAndView("admin/user/userinfo","model",model);
 
 	}
 	
