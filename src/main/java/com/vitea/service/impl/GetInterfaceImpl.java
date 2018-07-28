@@ -28,5 +28,9 @@ public class GetInterfaceImpl implements IGetInterface {
 	      PageInfo<InterFace> pageInfo = new PageInfo<>(list);
 		  return pageInfo;
 	}
+	@Override
+	public InterFace getInterfaceById(int id) {
+		return interfaceDao.getPortById(id);
+	}
 
 }
