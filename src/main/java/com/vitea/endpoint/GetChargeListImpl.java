@@ -63,7 +63,7 @@ public class GetChargeListImpl implements IGetChargeList {
 						int packetNum = SocketTools.getRealTrueInt(byteSrc, 8, 4);
 						int x = 0;
 						for (int i = 0; i < packetNum; i++) {
-							printInfo(byteSrc, x);
+							//printInfo(byteSrc, x);
 							int nItem = SocketTools.getRealTrueShort(byteSrc, x + 16, 2);
 							totalInfo = SocketTools.getRealTrueValue(byteSrc, x + 178, 300);
 							int y = x + 478;
@@ -82,7 +82,9 @@ public class GetChargeListImpl implements IGetChargeList {
 					sbout.append("</root>");
 					this.resultcode = sbout.toString();
 				    this.logger.info("计费清单：号码：{},账期:{},返回信息:{},调用时间:{}", new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(),totalInfo,(System.currentTimeMillis() - startTime)});
-					sock.close();
+				    dataOutputStream.close();
+				    dataInputStream.close();
+				    sock.close();
 				} else {
 					this.logger.error("连接失败!");
 					
@@ -114,18 +116,18 @@ public class GetChargeListImpl implements IGetChargeList {
 		return lqb;
 	}
 
-	public void printInfo(byte[] byteSrc, int x) {
-		this.logger.debug("packetId:{}", SocketTools.getRealTrueValue(byteSrc, x, 2));
-		this.logger.debug("length:{}", Integer.valueOf(SocketTools.getRealTrueShort(byteSrc, x + 2, 2)));
-		this.logger.debug("id:{}", Integer.valueOf(SocketTools.getRealTrueInt(byteSrc, x + 4, 4)));
-		this.logger.debug("packetNum:{}", Integer.valueOf(SocketTools.getRealTrueInt(byteSrc, x + 8, 4)));
-		this.logger.debug("packetType:{}", SocketTools.getRealTrueValue(byteSrc, x + 12, 2));
-		this.logger.debug("isEnd:{}", SocketTools.getRealTrueValue(byteSrc, x + 14, 1));
-		this.logger.debug("success:{}", SocketTools.getRealTrueValue(byteSrc, x + 15, 1));
-		this.logger.debug("nItem:{}", Integer.valueOf(SocketTools.getRealTrueShort(byteSrc, x + 16, 2)));
-		this.logger.debug("listHead:{}", SocketTools.getRealTrueValue(byteSrc, x + 18, 160));
-		this.logger.debug("totalInfo:{}", SocketTools.getRealTrueValue(byteSrc, x + 178, 100));
-	}
+//	public void printInfo(byte[] byteSrc, int x) {
+//		this.logger.debug("packetId:{}", SocketTools.getRealTrueValue(byteSrc, x, 2));
+//		this.logger.debug("length:{}", Integer.valueOf(SocketTools.getRealTrueShort(byteSrc, x + 2, 2)));
+//		this.logger.debug("id:{}", Integer.valueOf(SocketTools.getRealTrueInt(byteSrc, x + 4, 4)));
+//		this.logger.debug("packetNum:{}", Integer.valueOf(SocketTools.getRealTrueInt(byteSrc, x + 8, 4)));
+//		this.logger.debug("packetType:{}", SocketTools.getRealTrueValue(byteSrc, x + 12, 2));
+//		this.logger.debug("isEnd:{}", SocketTools.getRealTrueValue(byteSrc, x + 14, 1));
+//		this.logger.debug("success:{}", SocketTools.getRealTrueValue(byteSrc, x + 15, 1));
+//		this.logger.debug("nItem:{}", Integer.valueOf(SocketTools.getRealTrueShort(byteSrc, x + 16, 2)));
+//		this.logger.debug("listHead:{}", SocketTools.getRealTrueValue(byteSrc, x + 18, 160));
+//		this.logger.debug("totalInfo:{}", SocketTools.getRealTrueValue(byteSrc, x + 178, 100));
+//	}
 
 	private String[] getArrayForReq(ListQryBsn lqb) {
 		String[] arr = { "CX", "60", "111111", "RI", "0300005", lqb.getAreaCode(), lqb.getAccNbr(), "",
@@ -145,10 +147,5 @@ public class GetChargeListImpl implements IGetChargeList {
 			cleanXMLString = matcher.replaceAll("");
 		}
 		return cleanXMLString;
-	}
-
-	
-
-
-	
+	}	
 }
