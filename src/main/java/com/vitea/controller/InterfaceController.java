@@ -1,6 +1,7 @@
 package com.vitea.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
 import com.vitea.domain.InterFace;
+import com.vitea.model.Response;
 import com.vitea.service.IGetInterface;
 /**
  * 接口控制器
@@ -52,13 +54,23 @@ public class InterfaceController {
 		return "admin/interface/add";
 
 	}
-	
+	/**
+	 * 编辑接口
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/editInterface")
 	public ModelAndView editInterface(@RequestParam(required = false) Integer id,Model model){	
 		InterFace inter=iGetInterface.getInterfaceById(id);
 		model.addAttribute("interface", inter);
 		return new ModelAndView("admin/interface/edit","interfaceModel",model);
-
+       
 	}
 	
+	@RequestMapping("/updateInterface")
+	public ResponseEntity<Response> updateInterface(InterFace interFace){	
+		
+		return ResponseEntity.ok().body(new Response(true, "处理成功", "ok"));
+	}
 }

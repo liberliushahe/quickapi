@@ -3,6 +3,7 @@ package com.vitea.controller;
 import java.util.List;
 
 import org.hyperic.sigar.SigarException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vitea.model.ServerCpuInfo;
+import com.vitea.service.IGetInterface;
 import com.vitea.model.Ethernet;
 import com.vitea.model.FileSystemInfo;
 import com.vitea.model.HostInfo;
 import com.vitea.model.MemoryBean;
 import com.vitea.model.MemoryInfo;
 import com.vitea.model.NetInfo;
+import com.vitea.util.JedisClientUtil;
 import com.vitea.util.SystemInfoUtil;
 /**
  * 
@@ -24,6 +27,8 @@ import com.vitea.util.SystemInfoUtil;
  */
 @Controller
 public class AdminController {
+	@Autowired
+	IGetInterface iGetInterface;
 	@RequestMapping("admin.do")
 	public ModelAndView getIndex(Model model){
 		HostInfo hostInfo=null;
@@ -31,6 +36,9 @@ public class AdminController {
 		List<MemoryBean> memoryBean=null;
 		List<MemoryBean> memoryPoolBean=null;
 		List<Ethernet> ethernet=null;
+		String success=JedisClientUtil.getString("success");
+		String fail=JedisClientUtil.getString("fail");
+        Integer count=iGetInterface.getAllInterfaceCount();
 		try {
 			hostInfo=SystemInfoUtil.getProperty();
 			fileSystemInfo=SystemInfoUtil.getFileInfo();
@@ -46,6 +54,9 @@ public class AdminController {
 		model.addAttribute("memoryBean", memoryBean);
 		model.addAttribute("memoryPoolBean", memoryPoolBean);
 		model.addAttribute("ethernet", ethernet);
+		model.addAttribute("success", success);
+		model.addAttribute("fail", fail);
+		model.addAttribute("count", count);
 		return new ModelAndView("admin/admin","model",model);
 
 	}
