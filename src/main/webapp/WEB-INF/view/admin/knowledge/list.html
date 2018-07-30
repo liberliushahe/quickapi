@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">	 
+<head th:replace="admin/fragments/header :: header"/>
+<body class="app sidebar-mini rtl">
+<header th:replace="admin/fragments/nav :: head"/>
+<aside th:replace="admin/fragments/menu :: aside"/>
+<!-- 主内容开始 -->
+    <main class="app-content">
+     <div class="app-title">
+        <div>
+          <h1><i class="fa fa-th-list"></i> 知识库</h1>
+          <p>显示知识库相关信息和操作</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb side">
+          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+          <li class="breadcrumb-item">知识库管理</li>
+          <li class="breadcrumb-item active"><a href="#">知识库查询</a></li>
+        </ul>
+      </div>
+      <div class="row" >
+        <div class="col-md-12">
+          <div class="tile">
+            <div class="tile-body">
+              <table class="table table-hover table-bordered text-center" id="sampleTable">
+                <thead>
+                  <tr>
+                    <th>文章编号</th>
+                     <th>文章标题</th>
+                    <th>发表时间</th>
+                    <th>作者</th>
+                    <th>点击量</th>
+                    <th>文章来源</th>
+                    <th>附件地址</th>
+
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="knowledgetable">      
+                	<tr th:each="knowledge : ${pagelist.list}">
+					<td th:text="${knowledge.id}"></td>
+					<td th:text="${knowledge.title}"></td>
+					<td th:text="${#dates.format(knowledge.time,'yyyy-MM-dd HH:mm:ss')}"></td>
+					<td th:text="${knowledge.author}"></td>
+					<td th:text="${knowledge.hits}"></td>
+					<td th:text="${knowledge.copyfrom}"></td>
+					<td th:text="${knowledge.filepath}"></td>					
+					<td>
+					  <a href="#" class="edit-interface" data-toggle="modal" data-target="#addinterface" data-th-attr="id=${knowledge.id}"><i class="fa fa-pencil fa-fw"></i> 编辑</a> &nbsp;&nbsp;
+                   <a href="#" class="del-interface" data-th-attr="id=${knowledge.id}"><i class="fa fa-trash-o fa-fw"></i> 删除</a> &nbsp;&nbsp;
+					</td>
+				</tr>
+                </tbody>
+               
+              </table>  
+               <nav  th:replace="admin/fragments/page :: page"/>
+   <!-- 编辑模态开始 -->
+	<div class="modal fade"  id="addinterface"  tabindex="-1" role="dialog" aria-labelledby="addtipLabel" aria-hidden="true">
+	
+		<div class="modal-dialog" role="document">
+		<div class="modal-content" style="width:680px;">
+		<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				
+			</div>
+			
+			<div class=" modal-body" id="interfaceFormContainer">
+			
+			</div>
+			<div class="modal-footer text-center">    
+           <button type="button" class="btn btn-primary" data-dismiss="modal" id="submitEdit">
+					提交
+				</button>
+           <button type="button" class="btn btn_red" data-dismiss="modal">取消</button>
+        </div>
+
+		</div><!-- modal-content -->
+	  </div><!-- modal-dialog -->	
+	</div>
+   <!-- 编辑模态框结束-->	
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+<!-- 主内容结束 -->
+<footer th:replace="admin/fragments/footer :: footer"/>
+<script src="/resources/js/interface.js" th:src="@{/resources/js/interface.js}"></script>
+
+</body>
+</html>

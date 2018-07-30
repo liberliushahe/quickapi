@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	 
+<head th:replace="admin/fragments/header :: header"/>
+<script src="/resources/js/popper.js" th:src="@{/resources/framework/ueditor.config.js}"></script>
+<script src="/resources/js/popper.js" th:src="@{/resources/framework/ueditor.all.min.js}"></script>
+
+<body class="app sidebar-mini rtl">
+<header th:replace="admin/fragments/nav :: head"/>
+<aside th:replace="admin/fragments/menu :: aside"/>
+<!-- 主内容开始 -->
+    <main class="app-content">
+     <div class="app-title">
+        <div>
+          <h1><i class="fa fa-th-list"></i>知识库</h1>
+          <p>知识库数据增加</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb side">
+          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+          <li class="breadcrumb-item">知识库管理</li>
+          <li class="breadcrumb-item active"><a href="#">增加知识库</a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <div class="tile-body">
+            <form role="form" id="addknowledge">
+              <table class="table  text-center">
+              
+                <tbody>      
+                 <tr>
+                 <td>标题</td>
+                 <td><input name="title" id="title" class="form-control form-control-lg" /></td>
+                 <td>作者</td>
+                  <td><input name="author" id="author" class="form-control form-control-lg" /></td>
+                 </tr>
+                  <tr>
+                 <td>来源</td>
+                  <td><input name="copyfrom" id="copyfrom" class="form-control form-control-lg" /></td>
+                 <td>附件</td>
+                  <td><input name="filepath" id="filepath" class="form-control form-control-lg" /></td>
+                 </tr>                 
+                  <tr>
+                 <td>内容</td>
+                  <td colspan="3">
+                  <div>
+                  <script id="editor" type="text/plain" style="width:100%;height:600px;"></script>
+                 </div>
+                  
+                  </td>
+                 </tr>
+                 <tr>
+                 <td colspan="4"><button type="button" onclick="addKnowledge()" class="btn btn-primary">确定</button> <button type="reset"  class="btn btn-primary">重置</button></td>
+                 </tr>
+                </tbody>              
+              </table>     
+              </form>                       
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+<!-- 主内容结束 -->
+<script type="text/javascript" src="resources/framework/jquery.validate.min.js"></script>
+
+<script>
+$(function(){
+  var ue = UE.getEditor('editor');
+})
+function addKnowledge(){
+	 var flag = $("#addknowledge").valid();
+	    if(!flag){
+	        //没有通过验证
+	        return;
+	    }
+	 //获取需要提交的内容
+	 var title=$("#title").val();
+	 var author=$("#author").val();
+	 var copyfrom=$("#copyfrom").val();
+	 var content=UE.getEditor('editor').getContent();
+	 $.ajax({
+		    //是否需要安全协议，一般设置为false
+	        secureuri : false, 
+	        type:"post",
+	        dataType:"json",
+	        data:{"title":title,"author":author,"copyfrom":copyfrom,"content":content},
+	        url:"addFormKnowledge.do",
+	        success:function(data){
+	        	var obj = eval('(' + data + ')');
+				 if (obj.success) {
+					  toastr.success("保存成功");
+					  $("#addknowledge input[name='title']").val("");
+			          $("#addknowledge input[name='author']").val("");
+			          $("#addknowledge input[name='copyfrom']").val("");
+			         // UE.execCommand('cleardoc');
+					   
+				 }
+	        },
+	        error:function(){
+	        	toastr.error("保存失败");
+	        }
+	    });
+}
+$("#addknowledge").validate({
+    rules:{
+        title:{
+            required:true
+        },
+        author:{
+        	required:true
+        },
+        copyfrom:{
+        	required:true
+        } 
+    },
+    messages : {
+		title : {
+			required : "标题不能为空",
+			
+		},
+		author : {
+			required : "作者不能为空",
+			
+		},
+		copyfrom : {
+			required : "来源不能为空",
+			
+		}
+			
+		
+	},
+	errorPlacement: function (error, element) {
+        if ($(element).next("input").hasClass("tooltip")) {
+                $(element).attr("data-original-title", $(error).text()).tooltip("show");
+         } else {
+            $(element).attr("title",     
+            $(error).text()).tooltip("show");
+        }
+    },
+	
+});
+</script>
+<footer th:replace="admin/fragments/footer :: footer"/>
+
+</body>
+</html>

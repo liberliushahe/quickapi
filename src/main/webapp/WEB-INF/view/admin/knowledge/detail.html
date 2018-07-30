@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="shortcut icon" href="./resources/images/icon.ico" th:href="@{/resources/images/icon.ico}" />
+        <link rel="stylesheet" href="./resources/css/bootstrap.min.css" th:href="@{/resources/css/bootstrap.min.css}"/>
+		<title>知识库</title>
+	</head>
+	<style>
+		.col-center-block {
+			float: none;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.article-card{
+			border: dashed 1px #fff;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			background-color: #FFFFFF;
+			border-radius: 20px;
+			padding: 16px;
+		}
+		html,body{
+    width:100%;
+    height:100%
+}
+body{
+  font-family: "华文细黑";
+  background:url("../resources/images/bg.jpg") no-repeat;
+  background-size: 100%;
+  background-attachment:fixed;
+}
+.desc{
+font-size:8px;
+margin-right:6px;
+font-style: italic;
+}
+	</style>
+	<body style="background-color: #ebebeb;">
+		<div class="container">
+			<div class="row">
+				<header>
+				</header>
+			</div>
+			<div class="row ">
+				<div class="col-lg-10 col-md-8 col-sm-4 col-center-block">
+					<div class="col-lg-12  text-center">
+						<h1>知识库</h1>
+					</div>
+					<div class="col-lg-12 col-md-8 col-sm-4">
+
+						<article id=111 class="post article-card" th:object=${knowledge}>
+							<div class="post-head  text-center">
+								<h5 class="post-title" th:text="${knowledge.title}">5 年的时间、300 万美元的营</h5>
+								<div class="post-meta">
+								<span class="desc">作者:</span></span><span class="desc" th:text="${knowledge.author}"></span>
+								<span class="desc">时间:</span><time class="desc"
+									th:title="${#dates.format(knowledge.time,'yyyy-MM-dd HH:mm:ss')}" th:text="${#dates.format(knowledge.time,'yyyy-MM-dd HH:mm:ss')}">2018年5月17日</time>
+								<span class="desc">来源:</span><span class="desc" th:text="${knowledge.copyfrom}"></span> 
+								<span class="desc">阅读:</span><span class="desc" th:text="${knowledge.hits}"></span>
+
+							</div>
+							</div>
+							<div class="post-content" th:utext="${knowledge.content}">
+								文章内容
+							</div>
+
+							<footer class="post-footer clearfix">
+								<div class="pull-left tag-list">
+									<i class="fa fa-folder-open-o"></i>
+								</div>
+								<div class="pull-right share">
+								</div>
+							</footer>
+						</article>                    
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>
