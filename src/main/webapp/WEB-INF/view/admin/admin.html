@@ -20,18 +20,18 @@
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-3">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
+          <div class="widget-small primary coloured-icon"><i class="icon fa fa-android fa-3x"></i>
             <div class="info">
               <h4>注册app</h4>
-              <p><b>5</b></p>
+              <p><b>0</b></p>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
-          <div class="widget-small info coloured-icon"><i class="icon fa fa-thumbs-o-up fa-3x"></i>
+          <div class="widget-small info coloured-icon"><i class="icon fa fa-exchange fa-3x"></i>
             <div class="info">
               <h4>接口</h4>
-              <p><b>25</b></p>
+              <p><b th:text="${count}">25</b></p>
             </div>
           </div>
         </div>
@@ -39,15 +39,15 @@
           <div class="widget-small primary coloured-icon"><i class="icon fa fa-check-circle fa-3x"></i>
             <div class="info">
               <h4>调用成功</h4>
-              <p><b>10000</b></p>
+              <p><b th:text="${success}">10000</b></p>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
-          <div class="widget-small danger coloured-icon"><i class="icon fa fa-star fa-3x"></i>
+          <div class="widget-small danger coloured-icon"><i class="icon fa fa-times fa-3x"></i>
             <div class="info">
               <h4>调用失败</h4>
-              <p><b>500</b></p>
+              <p><b th:text="${fail}">500</b></p>
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
           <div class="tile">
             <h3 class="tile-title">本周调用量</h3>
             <div class="embed-responsive embed-responsive-16by9">
-              <div class="embed-responsive-item" id="lineChart"></div>
+              <div class="embed-responsive-item" id="weekChart"></div>
             </div>
           </div>
         </div>
@@ -97,6 +97,7 @@
       <div class="row">
        <div class="col-md-6">
           <div class="tile">
+            <h3 class="tile-title">内存占用量</h3>
             <div class="embed-responsive embed-responsive-21by9">
               <div  class="embed-responsive-item" id="memoryChart"></div>
               
@@ -106,6 +107,7 @@
         </div>
          <div class="col-md-6">
           <div class="tile">
+            <h3 class="tile-title">网络传输量</h3>
             <div class="embed-responsive embed-responsive-21by9">
               <div class="embed-responsive-item" id="currentNetChart"></div>
               
@@ -162,7 +164,7 @@
                   <td th:text="${hostInfo.osname}">Larry</td>
                   <td>JVM名称</td>
                   <td th:text="${hostInfo.jvmname}">CSSS</td>
-                </tr>               
+                </tr>          
               </tbody>
             </table>
           </div>
@@ -170,7 +172,36 @@
 
       </div>
       <!-- 服务器信息开结束-->
-      
+      <!-- 网络信息开始 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <h3 class="tile-title">网卡信息</h3>
+            <table class="table">
+            <thead>
+            <th class="table-info">ip地址</th>
+            <th class="table-info">广播地址</th>
+            <th class="table-info">子网掩码</th>
+            <th class="table-info">mac地址</th>
+            <th class="table-info">网卡描述</th>
+            <th class="table-info">网卡类型</th>
+            </thead>
+              <tbody>
+                 <tr th:each="eth : ${ethernet}">
+                 <td th:text="${eth.address}">Larry</td>
+                 <td th:text="${eth.broadcast}">Larry</td>
+                 <td th:text="${eth.netmask}">Larry</td>
+                 <td th:text="${eth.mac}">Larry</td>
+                 <td th:text="${eth.desc}">Larry</td>
+                 <td th:text="${eth.type}">Larry</td>
+                 </tr>             
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <!-- 网络信息开结束-->
        <!-- 文件系统信息开始 -->
       <div class="row">
         <div class="col-md-12">
@@ -179,26 +210,27 @@
             <table class="table">
               <tbody>
                 <tr  th:each="fileInfo : ${fileInfoList}">
-                  <td class="table-success" style="color:red">名称</td>
-                  <td table-info th:text="${fileInfo.name}">CSSS</td>
-                   <td  class="table-success">类型</td>
-                  <td table-info th:text="${fileInfo.type}">CSSS</td>
-                   <td class="table-success">路径</td>
-                  <td table-info th:text="${fileInfo.path}">CSSS</td>
-                   <td class="table-success">读</td>
-                  <td table-info th:text="${fileInfo.read}">CSSS</td>
-                   <td class="table-success">写</td>
-                  <td table-info th:text="${fileInfo.writes}">CSSS</td>
-                    <td class="table-success">总大小</td>
-                  <td table-info th:text="${fileInfo.total}+'G'">CSSS</td>
-                    <td class="table-success">剩余大小</td>
-                  <td table-info th:text="${fileInfo.free}+'G'">CSSS</td>
-                    <td class="table-success">可用大小</td>
-                  <td table-info th:text="${fileInfo.avail}+'G'">CSSS</td>
-                    <td class="table-success">被使用</td>
-                  <td table-info th:text="${fileInfo.used}+'G'">CSSS</td>
-                    <td class="table-success">资源使用率</td>
-                  <td table-info th:text="${fileInfo.usage}+'%'">CSSS</td>
+                  <td class="table-info" >盘符名称</td>
+                  <td class="table-success" th:text="${fileInfo.name}">CSSS</td>
+                   <td  class="table-info">类型</td>
+                  <td class="table-success" th:text="${fileInfo.type}">CSSS</td>
+                   <td class="table-info">盘符路径</td>
+                  <td class="table-success" th:text="${fileInfo.path}">CSSS</td>
+                   <td class="table-info">读出</td>
+                  <td class="table-success" th:text="${fileInfo.read}">CSSS</td>
+                   <td class="table-info">写入</td>
+                  <td class="table-success" th:text="${fileInfo.writes}">CSSS</td>
+                    <td class="table-info">总大小</td>
+                  <td class="table-success" th:text="${fileInfo.total}+'G'">CSSS</td>
+                  <td class="table-info">剩余大小</td>
+                  <td class="table-success" th:if="${fileInfo.free} gt 1" th:text="${fileInfo.free}+'G'">CSSS</td>                 
+                  <td class="table-danger" th:if="${fileInfo.free} lt 1" th:text="${fileInfo.free}+'G'">CSSS</td>
+                    <td class="table-info">可用大小</td>
+                  <td class="table-success" th:text="${fileInfo.avail}+'G'">CSSS</td>
+                    <td class="table-info">被使用</td>
+                  <td class="table-success" th:text="${fileInfo.used}+'G'">CSSS</td>
+                    <td class="table-info">资源使用率</td>
+                  <td class="table-success" th:text="${fileInfo.usage}+'%'">CSSS</td>
                 </tr>
 
               </tbody>
@@ -208,7 +240,51 @@
 
       </div>
       <!-- 文件系统信息结束-->
-            
+       <!-- JVM详细信息开始 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <h3 class="tile-title">JAVA虚拟机信息</h3>
+            <table class="table table-bordered">
+              <tbody>
+                <tr  th:each="memory : ${memoryBean}">
+                  <td class="table-info">内存名称</td>
+                  <td class="table-success" th:text="${memory.name}">堆区</td>
+                   <td  class="table-info">最大值</td>
+                  <td class="table-success" th:text="${memory.max}+'M'">CSSS</td>
+                   <td class="table-info">初始化大小</td>
+                  <td class="table-success" th:text="${memory.init}+'M'">CSSS</td>
+                   <td class="table-info">虚拟机使用量</td>
+                  <td class="table-success" th:text="${memory.commit}+'M'">CSSS</td>
+                   <td class="table-info">被使用</td>
+                  <td class="table-success" th:text="${memory.used}+'M'">CSSS</td>
+                   <td class="table-info">剩余大小</td>
+                   <td class="table-success" th:if="${memory.max}-${memory.used} gt 100" th:text="${memory.max}-${memory.used}+'M'">100</td>  
+                  <td class="table-danger" th:if="${memory.max}-${memory.used} lt 100" th:text="${memory.max}-${memory.used}+'M'">100</td>     
+                </tr>
+       <tr  th:each="memory : ${memoryPoolBean}">
+                  <td class="table-info">内存名称</td>
+                  <td class="table-success" th:text="${memory.name}">堆区</td>
+                   <td  class="table-info">最大值</td>
+                  <td class="table-success" th:text="${memory.max}+'M'">CSSS</td>
+                   <td class="table-info">初始化</td>
+                  <td class="table-success" th:text="${memory.init}+'M'">CSSS</td>
+                   <td class="table-info">虚拟机使用量</td>
+                  <td class="table-success" th:text="${memory.commit}+'M'">CSSS</td>
+                   <td class="table-info">被使用</td>
+                  <td class="table-success" th:text="${memory.used}+'M'">CSSS</td>
+                   <td class="table-info">剩余大小</td>
+                  <td class="table-success" th:if="${memory.max}-${memory.used} gt 100" th:text="${memory.max}-${memory.used}+'M'">100</td>  
+                  <td class="table-danger" th:if="${memory.max}-${memory.used} lt 100" th:text="${memory.max}-${memory.used}+'M'">100</td>    
+                    
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <!-- JVM详细信息结束-->     
     </main>
 
 <!-- 主内容结束 -->
