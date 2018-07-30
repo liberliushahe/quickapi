@@ -8,7 +8,7 @@
     <div th:fragment="aside"></div>
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" style="width:30px;height:30px;" src="./resources/images/head.jpg" alt="User Image"/>
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" style="width:30px;height:30px;" th:src="@{/resources/images/head.jpg}" alt="User Image"/>
         <div> 
           <p class="app-sidebar__user-name"><span sec:authentication="name"></span> </p>
           <p class="app-sidebar__user-designation">系统管理员</p>
@@ -35,8 +35,8 @@
         </li>
          <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">接口管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="getInterfaceInfo.do"><i class="icon fa fa-circle-o"></i> 接口查询</a></li>
-            <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> 接口状态</a></li>
+            <li><a class="treeview-item" href="getInterfaceList.do"><i class="icon fa fa-circle-o"></i> 接口查询</a></li>
+            <li><a class="treeview-item" href="addInterface.do"><i class="icon fa fa-circle-o"></i>增加接口</a></li>
 
           </ul>
         </li>
@@ -47,13 +47,22 @@
             <li><a class="treeview-item" href="table-data-table.html"><i class="icon fa fa-circle-o"></i>socket测试</a></li>
           </ul>
         </li>
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">网络信息</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">告警设置</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i>系统输出</a></li>
-            <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i>系统输入</a></li>
-
+            <li><a class="treeview-item" href="blank-page.html"><i class="icon fa fa-circle-o"></i>微信告警</a></li>
+            <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i>短信告警</a></li>
+            <li><a class="treeview-item" href="page-login.html"><i class="icon fa fa-circle-o"></i>邮件告警</a></li>
+           
           </ul>
         </li>
+                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">知识库设置</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item" href="getKnowledgeList.do"><i class="icon fa fa-circle-o"></i>知识库查询</a></li>
+            <li><a class="treeview-item" href="addKnowledge.do"><i class="icon fa fa-circle-o"></i>知识库增加</a></li>
+           
+          </ul>
+        </li>
+        
       </ul>
     </aside>
 </body>
