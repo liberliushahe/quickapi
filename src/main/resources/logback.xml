@@ -19,7 +19,4 @@
 		</encoder> 
 	</appender>
 	
-	<root level="debug">
-		<appender-ref ref="ROLLING"/>
-	</root>
 </configuration>

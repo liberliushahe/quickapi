@@ -25,5 +25,12 @@
 	    id="queryVolte" 
 	    implementor="com.vitea.endpoint.QueryVolteInfoImpl" 
 	    address="/queryVolteInfo" />
-	           
+	  
+<!-- 发布restful webservice -->
+  <bean id="serviceKnowledge" class="com.vitea.endpoint.GetKnowledgeImpl"/>
+  <jaxrs:server id="knowledgeService"  address="/rest">
+    <jaxrs:serviceBeans>
+      <ref bean="serviceKnowledge"/>
+    </jaxrs:serviceBeans>
+  </jaxrs:server>         
 </beans>

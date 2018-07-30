@@ -20,7 +20,9 @@
     <http pattern="/ws/**" security="none"/>
     <http pattern="/druid/**" security="none"/>
     <http pattern="/api/**" security="none"/>
-     
+    <http pattern="/knowledge/**" security="none"/>
+    
+    
     <http>
     <!-- 防止多个地点登录 -->
     <session-management session-authentication-error-url="/login.jsp?error=alreadyLoggedin" >
@@ -55,8 +57,8 @@
     <beans:bean id="userDetailService" class="com.vitea.service.impl.UserServiceImpl" />
     <!-- 登录成功执行操作 -->
     <beans:bean id="AuthenticationSuccessHandler" class="com.vitea.interceptor.UserAuthenticationSuccessHandler">
-    <beans:property name="defaultTargetUrl" value="admin.do"></beans:property>
-	<beans:property name="forwardToDestination" value="true"></beans:property>
+    <beans:property name="defaultTargetUrl" value="/admin.do"></beans:property>
+	<beans:property name="forwardToDestination" value="false"></beans:property>
     </beans:bean>
         <!-- 登录成功执行操作 -->
     <beans:bean id="AuthenticationFailureHandler" class="com.vitea.interceptor.AuthenticationFailureHandler"/>

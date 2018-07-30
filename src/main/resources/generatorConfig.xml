@@ -31,7 +31,7 @@
       </javaClientGenerator>
       
         
-        <table  tableName="QK_API_USER"   domainObjectName="ApiUser">
+        <table  tableName="QK_KNOWLEDGE"   domainObjectName="Knowledge">
          <generatedKey  column="id"  sqlStatement="select uuid_short()"   identity="true"/>
       </table> 
       

@@ -124,7 +124,17 @@ insert into QK_INTERFACE_SYSTEM (SYSID, SYSNAME)
 values (2, '计费系统');
 insert into QK_INTERFACE_SYSTEM (SYSID, SYSNAME)
 values (3, '智能网管');
- 
+11,知识库表
+ create table QK_KNOWLEDGE(
+  id       NUMBER,
+  title    VARCHAR2(100),
+  author   VARCHAR2(50),
+  copyfrom   VARCHAR2(50),
+  time     date,
+  content     clob,
+  filepath   VARCHAR2(50),
+  hits  NUMBER
+)
 
 
 
