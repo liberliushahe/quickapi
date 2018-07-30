@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vitea.dao.IKnowledgeDao">
+  <resultMap id="BaseResultMap" type="com.vitea.domain.Knowledge">
+   
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="AUTHOR" jdbcType="VARCHAR" property="author" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="FILEPATH" jdbcType="VARCHAR" property="filepath" />
+    <result column="HITS" jdbcType="DECIMAL" property="hits" />
+    <result column="CONTENT" jdbcType="CLOB" property="content" />
+    <result column="COPYFROM" jdbcType="VARCHAR" property="copyfrom" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.vitea.domain.Knowledge">
+  
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
+      SELECT SEQ_QUICK_KNOWLEDGE.NEXTVAL AS Id FROM DUAL
+    </selectKey>
+    insert into QK_KNOWLEDGE (ID,TITLE, AUTHOR, TIME, 
+      FILEPATH, HITS, COPYFROM, 
+      CONTENT)
+    values (#{id,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{filepath,jdbcType=VARCHAR}, #{hits,jdbcType=DECIMAL}, #{copyfrom,jdbcType=VARCHAR}, 
+      #{content,jdbcType=CLOB})
+  </insert>
+  <select id="getKnowledgeById" resultMap="BaseResultMap" parameterType="java.lang.Short">
+  select TITLE, AUTHOR, TIME, 
+      FILEPATH, HITS, COPYFROM, 
+      CONTENT from QK_KNOWLEDGE
+      where id=#{id,jdbcType=DECIMAL}
+  
+  </select>
+   <select id="findAllKnowledge" resultMap="BaseResultMap">
+  select ID, TITLE, AUTHOR, TIME, 
+      FILEPATH, HITS, COPYFROM, 
+      CONTENT from QK_KNOWLEDGE
+  </select>
+  
+  
+</mapper>
