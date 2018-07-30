@@ -32,5 +32,13 @@ public class GetInterfaceImpl implements IGetInterface {
 	public InterFace getInterfaceById(int id) {
 		return interfaceDao.getPortById(id);
 	}
+	@Override
+	public Integer getAllInterfaceCount() {
+		return interfaceDao.getAllInterfaceCount();
+	}
+	@Override
+	public boolean updateInterface(InterFace inter) {
+		return interfaceDao.update(inter);
+	}
 
 }
