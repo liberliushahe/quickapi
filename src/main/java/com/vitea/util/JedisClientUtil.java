@@ -19,6 +19,30 @@ public class JedisClientUtil {
 	 * 默认过期时间一小时
 	 */
 	public static int DEFAULT_SETEX_TIMEOUT=60 * 60;
+	
+	/**
+	 * 计数
+	 * @param key
+	 * @param cacheSeconds
+	 * @return
+	 */
+	public static long setInc(String key) {
+		long result=0;
+		
+		Jedis jedis = null;
+		try {
+			jedis = JedisPoolUtil.getJedis();
+			result =jedis.incr(key);		
+		} finally {
+			JedisPoolUtil.returnResource(jedis);
+		}
+		return result;
+		
+	}
+	
+	
+	
+	
 	/**
 	 * 判断字符串为空
 	 * @param key

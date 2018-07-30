@@ -19,20 +19,20 @@ public class JedisPoolUtil {
      * 初始化Redis连接池 
      */  
     private static void initialPool() {  
-    	int maxActive=Integer.parseInt(PropertiesUtil.getRedisProperties("maxActive"));
-    	int maxIdle=Integer.parseInt(PropertiesUtil.getRedisProperties("maxIdle"));
-    	long maxWait=Long.parseLong(PropertiesUtil.getRedisProperties("maxWait"));
+    	int maxActive=Integer.parseInt(PropertiesUtil.getRedisProperties("MAX_ACTIVE"));
+    	int maxIdle=Integer.parseInt(PropertiesUtil.getRedisProperties("MAX_IDLE"));
+    	long maxWait=Long.parseLong(PropertiesUtil.getRedisProperties("MAX_WAIT"));
     	String host=PropertiesUtil.getRedisProperties("redis.host");
     	int port=Integer.parseInt(PropertiesUtil.getRedisProperties("redis.port"));
     	String pass=PropertiesUtil.getRedisProperties("redis.pass");
-    	int timeOut=Integer.parseInt(PropertiesUtil.getRedisProperties("timeOut"));
+    	int timeOut=Integer.parseInt(PropertiesUtil.getRedisProperties("TIMEOUT"));
         try {  
             JedisPoolConfig config = new JedisPoolConfig();  
             config.setMaxTotal(maxActive);
             config.setMaxIdle(maxIdle);
             config.setMaxWaitMillis(maxWait);   
             config.setTestOnBorrow(true);
-            jedisPool = new JedisPool(config,host,port,timeOut,pass);  
+            jedisPool = new JedisPool(config,host,port,timeOut);  
         } catch (Exception e) {  
            e.printStackTrace();
         }  
