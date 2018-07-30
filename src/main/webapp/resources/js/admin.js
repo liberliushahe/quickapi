@@ -2,13 +2,13 @@ $(function(){
 	weekChart();
 	currentTrans();
 	currentCpu();
-	memoryInfo();
-	diskInfo();
+	currentMemoryInfo();
+	MemoryInfo();
 	currentNetInfo();
 });
 //周调用量
 function weekChart(){
-var lineChart = echarts.init(document.getElementById('lineChart')); 
+var weekChart = echarts.init(document.getElementById('weekChart')); 
 var option = {
 	  
 	    tooltip : {
@@ -71,51 +71,8 @@ var option = {
 	        }
 	    ]
 	};
-lineChart.setOption(option);
+weekChart.setOption(option);
 }      
-
-//CPU实时信息
-function currentCpu(){
-var memoryChart = echarts.init(document.getElementById('currentCpu')); 	
-option = {
-	    tooltip : {
-	        formatter: "{a} <br/>{b} : {c}%"
-	    },
-	    toolbox: {
-	        show : true
-	       
-	    },
-	    series : [
-	        {
-	            name:'使用量',
-	            type:'gauge',
-	            detail : {formatter:'{value}%'},
-	            data:[{value: 50, name: 'CPU使用量'}]
-	        }
-	    ]
-	};
-
-
-	timeTicket = setInterval(function (){
-		//异步请求数据
-		 $.ajax({
-	         url:"currentmemory.do",
-	           type:"POST",
-	           dataType:"JSON",
-	           success:function(data){ 
-	        	   option.series[0].data[0].value =(data.usedpercent) - 0;
-	       	       memoryChart.setOption(option,true);
-	        	  
-	           },
-	           error:function(data){
-	        	   console.log('error');
-	           }
-	          
-	           })
-	    
-	},2000);
-	                    	                		
-}
 //实时调用量
 function currentTrans(){
 	var currentChart = echarts.init(document.getElementById('currentChart')); 	
@@ -175,7 +132,7 @@ function currentTrans(){
 		    ],
 		    series : [
 		        {
-		            name:'最新成交价',
+		            name:'调用量',
 		            type:'line',
 		            data:(function (){
 		                var res = [];
@@ -217,8 +174,51 @@ function currentTrans(){
 		    ]);
 		}, 2100);                    
 }
+//CPU实时信息
+function currentCpu(){
+var memoryChart = echarts.init(document.getElementById('currentCpu')); 	
+option = {
+	    tooltip : {
+	        formatter: "{a} <br/>{b} : {c}%"
+	    },
+	    toolbox: {
+	        show : true
+	       
+	    },
+	    series : [
+	        {
+	            name:'使用量',
+	            type:'gauge',
+	            detail : {formatter:'{value}%'},
+	            data:[{value: 50, name: 'CPU使用量'}]
+	        }
+	    ]
+	};
+
+
+	timeTicket = setInterval(function (){
+		//异步请求数据
+		 $.ajax({
+	         url:"currentmemory.do",
+	           type:"POST",
+	           dataType:"JSON",
+	           success:function(data){ 
+	        	   option.series[0].data[0].value =(data.usedpercent) - 0;
+	       	       memoryChart.setOption(option,true);
+	        	  
+	           },
+	           error:function(data){
+	        	   console.log('error');
+	           }
+	          
+	           })
+	    
+	},2000);
+	                    	                		
+}
+
 //内存信息
-function memoryInfo(){
+function currentMemoryInfo(){
 	var interfaceChart = echarts.init(document.getElementById('currentMemory')); 	
 	option = {
 		    tooltip : {
@@ -256,7 +256,7 @@ function memoryInfo(){
 }
 
 //内存使用量
-function diskInfo(){
+function MemoryInfo(){
  var memoryChart = echarts.init(document.getElementById('memoryChart')); 	
  	
 
@@ -314,55 +314,6 @@ var option={
 
 
 }
-
-//内存详细信息
-function getMemoryDetail(){
-	var cpudetail = echarts.init(document.getElementById('cpudetail'));
-	
-
-    var option = {
-    	  
-    	    tooltip : {
-    	        trigger: 'item',
-    	        formatter: "{b}: {c}"
-    	    },
-    	    toolbox: {
-    	        show : true
-    	       
-    	    },
-    	    calculable : false,
-    	    series : [
-    	        {
-    	        	name:'内存使用信息',
-    	            type:'treemap',
-    	            itemStyle: {
-    	                normal: {
-    	                    label: {
-    	                        show: true,
-    	                        formatter: "{b}"
-    	                    },
-    	                    borderWidth: 1
-    	                },
-    	                emphasis: {
-    	                    label: {
-    	                        show: true
-    	                    }
-    	                },
-    	               
-    	            }
-
-    	               
-    	            
-    	        }
-    	    ]
-    	};
-	
-
-	 
-}
-
-
-
 
 //显示实时网络信息
 function currentNetInfo(){
