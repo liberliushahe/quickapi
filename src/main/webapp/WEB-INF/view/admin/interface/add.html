@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	 
+<head th:replace="admin/fragments/header :: header"/>
+
+<body class="app sidebar-mini rtl">
+<header th:replace="admin/fragments/nav :: head"/>
+<aside th:replace="admin/fragments/menu :: aside"/>
+<!-- 主内容开始 -->
+    <main class="app-content">
+     <div class="app-title">
+        <div>
+          <h1><i class="fa fa-th-list"></i> 接口数据</h1>
+          <p>显示接口表相关信息和操作</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb side">
+          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+          <li class="breadcrumb-item">接口管理</li>
+          <li class="breadcrumb-item active"><a href="#">增加接口</a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <div class="tile-body">
+            <form action="addInterface.do" method="post" th:action="addInterface.do" id="addinterface">
+              <table class="table  text-center" id="sampleTable" th:fragment="editinterface">
+              
+                <tbody>      
+                 <tr>
+                 <td>接口编号</td>
+                 <td><input name="id" id="id" class="form-control form-control-lg" /></td>
+                 <td>系统分类</td>
+                  <td><select name="sysid" id="sysid" class="form-control form-control-lg" >
+                  <option value="1">计费系统</option>
+                  <option value="2">智能网管</option>
+                  </select></td>
+                 </tr>
+                  <tr>
+                 <td>接口名称</td>
+                  <td><input name="name" id="name" class="form-control form-control-lg" /></td>
+                 <td>端口</td>
+                  <td><input name="port" id="port" class="form-control form-control-lg" /></td>
+                 </tr>
+                  <tr>
+                 <td>接口类型</td>
+                  <td><input name="type" id="type" class="form-control form-control-lg" /></td>
+                 <td>接口状态</td>
+                  <td><select name="stat" id="stat" class="form-control form-control-lg">
+                  <option value="1">有效</option>
+                  <option value="0">无效</option>
+                  </select></td>
+                 </tr>
+                  <tr>
+                 <td>超时时间</td>
+                  <td><input name="timeout" id="timeout" class="form-control form-control-lg" /></td>
+                 <td>接口方法</td>
+                 <td><input name="method" id="method" class="form-control form-control-lg" /></td>
+                 </tr>
+                  <tr>
+
+                 <td>接口地址</td>
+                 <td colspan="3"><input name="url" id="url" class="form-control form-control-lg" /></td>
+                 </tr>
+                  <tr>
+                 <td>接口描述</td>
+                  <td colspan="3"><textarea  class="form-control" id="exampleTextarea" rows="5"></textarea></td>
+                 </tr>
+                  <tr>
+                 <td>接口入参</td>
+                  <td colspan="3"><textarea class="form-control" id="exampleTextarea" rows="5"></textarea></td>
+                 </tr>
+                 <tr>
+                 <td colspan="4"><button type="submit" class="btn btn-primary">确定</button> <button type="reset"  class="btn btn-primary">重置</button></td>
+                 </tr>
+                </tbody>              
+              </table>  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+<!-- 主内容结束 -->
+<script type="text/javascript" src="resources/framework/jquery.validate.min.js"></script>
+
+<script>
+$("#addinterface").validate({
+    rules:{
+        id:{
+            required:true
+        },
+        sysid:{
+        	required:true
+        },
+        name:{
+        	required:true
+        }, 
+        port:{
+        	required:true
+        },
+        type:{
+        	required:true
+        }, 
+        method:{
+        	required:true
+        }, 
+        timeout:{
+        	required:true
+        }, 
+        url:{
+        	required:true
+        } 
+    },
+    messages : {
+		id : {
+			required : "接口编号不能为空",
+			
+		},
+		sysid : {
+			required : "系统分类不能为空",
+			
+		},
+		name : {
+			required : "接口名称不能为空",
+			
+		},
+		port : {
+			required : "接口端口不能为空",
+			
+		},
+		type : {
+			required : "接口类型不能为空",
+			
+		},
+		timeout : {
+			required : "超时时间不能为空",
+			
+		},
+		method : {
+			required : "接口方法不能为空",
+			
+		},
+		url : {
+			required : "接口地址不能为空",
+			
+		}
+		
+		
+	},
+	errorPlacement: function (error, element) {
+        if ($(element).next("input").hasClass("tooltip")) {
+                $(element).attr("data-original-title", $(error).text()).tooltip("show");
+         } else {
+            $(element).attr("title",     
+            $(error).text()).tooltip("show");
+        }
+    },
+	
+});
+</script>
+<footer th:replace="admin/fragments/footer :: footer"/>
+
+</body>
+</html>

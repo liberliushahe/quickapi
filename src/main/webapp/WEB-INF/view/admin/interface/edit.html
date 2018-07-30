@@ -1,0 +1,53 @@
+<div class="container">
+<form action="addInterface.do" th:action="addInterface.do" method="post"  th:object="${interfaceModel.interface}" id="interfaceForm">
+              <table class="table  text-center" id="sampleTable" th:fragment="edit">
+              
+                <tbody>      
+                 <tr>
+                 <td>接口编号</td>
+                 <td><input name="id" id="id" class="form-control form-control-lg" th:value="*{id}" /></td>
+                 <td>系统分类</td>
+                  <td><select name="sysid" id="sysid" class="form-control form-control-lg" >
+                  <option value="1">计费系统</option>
+                  <option value="2">智能网管</option>
+                  </select></td>
+                 </tr>
+                  <tr>
+                 <td>接口名称</td>
+                  <td><input name="name" id="name" class="form-control form-control-lg" th:value="*{name}" /></td>
+                 <td>端口</td>
+                  <td><input name="port" id="port" class="form-control form-control-lg" th:value="*{port}" /></td>
+                 </tr>
+                  <tr>
+                 <td>接口类型</td>
+                  <td><input name="type" id="type" class="form-control form-control-lg" th:value="*{type}" /></td>
+                 <td>接口状态</td>
+                  <td><select name="stat" id="stat" class="form-control form-control-lg">
+                  <option value="1" th:if="*{stat} eq 1" selected="selected">有效</option>
+                  <option value="0" th:if="*{stat} eq 0" selected="selected">无效</option>
+                  </select></td>
+                 </tr>
+                  <tr>
+                 <td>超时时间</td>
+                  <td><input name="timeout" id="timeout" class="form-control form-control-lg" th:value="*{timeout}" /></td>
+                 <td>接口方法</td>
+                 <td><input name="method" id="method" class="form-control form-control-lg" th:value="*{method}" /></td>
+                 </tr>
+                  <tr>
+
+                 <td>接口地址</td>
+                 <td colspan="3"><input name="url" id="url" class="form-control form-control-lg" th:value="*{url}" /></td>
+                 </tr>
+                  <tr>
+                 <td>接口描述</td>
+                  <td colspan="3"><textarea name="description" class="form-control" id="desc" rows="5"></textarea></td>
+                 </tr>
+                  <tr>
+                 <td>接口入参</td>
+                  <td colspan="3"><textarea name="input" class="form-control" id="input" rows="5"></textarea></td>
+                 </tr>
+                
+                </tbody>              
+              </table>  
+              </form>
+</div>
