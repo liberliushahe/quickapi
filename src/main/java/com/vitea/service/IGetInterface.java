@@ -22,5 +22,14 @@ public interface IGetInterface {
 	 */
 	public InterFace getInterfaceById(int id);
 	
-
+	/**
+	 * 查询总记录
+	 * @return
+	 */
+   public Integer getAllInterfaceCount();
+   /**
+    * 更新接口
+    * @return
+    */
+   public boolean updateInterface(InterFace inter);
 }
