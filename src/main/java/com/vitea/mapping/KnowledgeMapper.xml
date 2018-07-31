@@ -35,7 +35,7 @@
    <select id="findAllKnowledge" resultMap="BaseResultMap">
   select ID, TITLE, AUTHOR, TIME, 
       FILEPATH, HITS, COPYFROM, 
-      CONTENT from QK_KNOWLEDGE
+      CONTENT from QK_KNOWLEDGE order by id desc
   </select>
   
   
