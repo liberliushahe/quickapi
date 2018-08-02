@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.vitea.model.ResultMsg;
 import com.vitea.service.IApiUserInfo;
 import com.vitea.util.IpAddressUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
 import com.vitea.domain.ApiUser;
 import com.vitea.model.QuickToken;
 
@@ -23,6 +27,8 @@ import com.vitea.model.QuickToken;
  *
  */
 @Controller
+@Api(value = "/token", tags = "token获取接口")
+@RequestMapping("/v1")
 public class AuthServer {
 	@Autowired
 	IApiUserInfo iApiUserInfo;
@@ -34,9 +40,10 @@ public class AuthServer {
 	 * @param appSecret
 	 * @return
 	 */
-	@RequestMapping(value = "/token", method = RequestMethod.GET)
+	@RequestMapping(value="/token", method= RequestMethod.GET)
 	@ResponseBody
-    public  Object getToken(HttpServletRequest request) {
+    @ApiOperation(value = "获取token接口", notes = "获取服务器token", response = Object.class)
+    public  Object getToken(@ApiParam(value = "appid" ,required=true) String appid,@ApiParam(value = "appsecret" ,required=true) String appsecret, @ApiParam(value = "apptype" ,required=true) String apptype,HttpServletRequest request ) {
 		String grantType=request.getParameter("grantType");
 		String appId=request.getParameter("appId");
 		String appSecret=request.getParameter("appSecret");
