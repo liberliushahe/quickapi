@@ -20,7 +20,11 @@ public class Knowledge {
      *标题
      */
     private String title;
-
+    /**
+     * 简介
+     */
+    private String titledesc;
+    
     /**
      *作者
      */
@@ -113,6 +117,14 @@ public class Knowledge {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getTitledesc() {
+		return titledesc;
+	}
+
+	public void setTitledesc(String titledesc) {
+		this.titledesc = titledesc;
 	}
 
 	@Override

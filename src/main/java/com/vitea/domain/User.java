@@ -21,12 +21,21 @@ public class User implements UserDetails{
     private String email;
     private String phone;
     private String url;
+    private String realname;
     private int enabled;
     private int islocked;
     private Date register;
     private List<GrantedAuthority> authorities;
 
 
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
 
 	public void setAuthorities(List<GrantedAuthority> authorities) {
 		this.authorities = authorities;
