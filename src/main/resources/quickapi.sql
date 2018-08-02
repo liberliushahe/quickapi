@@ -132,8 +132,9 @@ values (3, '智能网管');
   copyfrom   VARCHAR2(50),
   time     date,
   content     clob,
+  titledesc VARCHAR2(200),
   filepath   VARCHAR2(50),
-  hits  NUMBER
+  hits  NUMBER default 0
 )
 
 
