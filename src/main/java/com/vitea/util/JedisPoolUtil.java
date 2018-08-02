@@ -15,6 +15,7 @@ public class JedisPoolUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(JedisPoolUtil.class);
 	private static JedisPool jedisPool = null;
+	private static String PASS="null";
 	/** 
      * 初始化Redis连接池 
      */  
@@ -32,7 +33,13 @@ public class JedisPoolUtil {
             config.setMaxIdle(maxIdle);
             config.setMaxWaitMillis(maxWait);   
             config.setTestOnBorrow(true);
-            jedisPool = new JedisPool(config,host,port,timeOut);  
+            if(PASS.equals(pass)) {
+                jedisPool = new JedisPool(config,host,port,timeOut);  
+
+            }else {
+                jedisPool = new JedisPool(config,host,port,timeOut,pass);  
+
+            }
         } catch (Exception e) {  
            e.printStackTrace();
         }  

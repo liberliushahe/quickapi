@@ -37,6 +37,7 @@ public class HttpClientUtil {
 
 	public static PoolingHttpClientConnectionManager cm = null;
 	public static CloseableHttpClient httpClient = null;
+	public static int CODE=200;
 
 	/**
 	 * 默认content 类型由于http主要是提交数据所以设置类型为表单类型，根据具体要求设置
@@ -155,7 +156,7 @@ public class HttpClientUtil {
             CloseableHttpResponse httpResponse = httpClient.execute(method, context);
            //接口调用成功则redis计数增加
             int code=httpResponse.getStatusLine().getStatusCode();
-            if(code==200) {
+            if(code==CODE) {
             	JedisClientUtil.setInc("success");
             }else {
             	JedisClientUtil.setInc("fail");

@@ -4,6 +4,8 @@ import org.json.JSONObject;
 import org.json.XML;
 
 import com.thoughtworks.xstream.XStream;
+import com.vitea.dto.Report;
+import com.vitea.dto.Result;
 
 /**
  * 比较快的方法
@@ -37,15 +39,16 @@ public class XmlJsonParseUtil {
 	}
 	
 	/**
-	 * 对象-xml
+	 * volte对象-xml
 	 * @param xml
 	 * @return
 	 */
-	public static String object2Xml(Object object) {
+	public static String object2XmlOfVolte(Object object) {
 		 XStream xStream = new XStream();
 	     //将对象转成字符串
 		 //设置根别名
-		 //xStream.alias("user",user.class);
+		 xStream.alias("report",Report.class);
+		 xStream.alias("result",Result.class);
 	     String s = xStream.toXML(object);
 		 return s;
 		
@@ -59,7 +62,6 @@ public class XmlJsonParseUtil {
 		 //XStream xStream = new XStream();
          //xml转对象
          System.out.println(xml);
-		 return xml;
-		
+		 return xml;		
 	}
 }
