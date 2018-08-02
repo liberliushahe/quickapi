@@ -27,5 +27,10 @@ public interface IGetKnowledge {
      * @return
      */
     int insert(Knowledge knowledge);
+    /**
+     * 点击量
+     * @param id
+     */
+    void hits(short id);
 
 }

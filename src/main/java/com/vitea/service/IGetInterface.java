@@ -28,7 +28,8 @@ public interface IGetInterface {
 	 */
    public Integer getAllInterfaceCount();
    /**
-    * 更新接口
+    *  更新接口
+    * @param inter
     * @return
     */
    public boolean updateInterface(InterFace inter);

@@ -10,6 +10,11 @@ import com.github.pagehelper.PageInfo;
 import com.vitea.dao.IKnowledgeDao;
 import com.vitea.domain.Knowledge;
 import com.vitea.service.IGetKnowledge;
+/**
+ * 
+ * @author liushahe
+ *
+ */
 @Service
 public class GetKnowledgeImpl implements IGetKnowledge {
     @Autowired
@@ -28,6 +33,10 @@ public class GetKnowledgeImpl implements IGetKnowledge {
 	@Override
 	public int insert(Knowledge knowledge) {
 		return iKnowledgeDao.insert(knowledge);
+	}
+	@Override
+	public void hits(short id) {
+		iKnowledgeDao.hits(id);
 	}
 
 }
