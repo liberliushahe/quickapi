@@ -4,14 +4,16 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.github.pagehelper.PageInfo;
 import com.vitea.domain.Knowledge;
+import com.vitea.domain.User;
 import com.vitea.model.Response;
 import com.vitea.service.IGetKnowledge;
 /**
@@ -61,11 +63,14 @@ public class KnowledgeController {
 	 * @return
 	 */
 	@RequestMapping("addFormKnowledge")
-	public ResponseEntity<Response> addFormKnowledge(Model model,@RequestParam(required = false) String title,@RequestParam(required = false) String author,@RequestParam(required = false) String copyfrom,@RequestParam(required = false) String content){
+	public ResponseEntity<Response> addFormKnowledge(@RequestParam(required = true) String title,@RequestParam(required = true) String titledesc,@RequestParam(required = false) String copyfrom,@RequestParam(required = true) String content){
 		Knowledge knowledge=new Knowledge();
 		knowledge.setTitle(title);
-		knowledge.setAuthor(author);
+		//获取用户信息
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		knowledge.setAuthor(user.getRealname());
 		knowledge.setCopyfrom(copyfrom);
+		knowledge.setTitledesc(titledesc);
 		knowledge.setContent(content);
 		knowledge.setTime(new Date());
 		int i=iGetKnowledge.insert(knowledge);
@@ -96,8 +101,11 @@ public class KnowledgeController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("knowledge/detail")
-	public ModelAndView getDetail(Model model,@RequestParam(required = true) String id){		
+
+	@RequestMapping(value = "knowledge/detail", method = RequestMethod.GET)
+	public ModelAndView getDetail(Model model,@RequestParam(required = true) String id){
+		//文章点击量
+		iGetKnowledge.hits(Short.parseShort(id));
 		Knowledge knowledge=iGetKnowledge.getKnowledgeById(Short.valueOf(id));
 		model.addAttribute("knowledge", knowledge);
 		return new ModelAndView("admin/knowledge/detail","model",model);
