@@ -11,10 +11,15 @@ import java.util.List;
  */
 public interface IKnowledgeDao {
    
-  
-
+    /**
+     * 点击量加1
+     * @param id
+     */
+    void hits(short id);
     /**
      * 插入记录
+     * @param record
+     * @return
      */
     int insert(Knowledge record);
     /**
