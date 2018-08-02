@@ -20,23 +20,25 @@
     </selectKey>
     insert into QK_KNOWLEDGE (ID,TITLE, AUTHOR, TIME, 
       FILEPATH, HITS, COPYFROM, 
-      CONTENT)
+      CONTENT,TITLEDESC)
     values (#{id,jdbcType=DECIMAL},#{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
       #{filepath,jdbcType=VARCHAR}, #{hits,jdbcType=DECIMAL}, #{copyfrom,jdbcType=VARCHAR}, 
-      #{content,jdbcType=CLOB})
+      #{content,jdbcType=CLOB},#{titledesc,jdbcType=VARCHAR})
   </insert>
   <select id="getKnowledgeById" resultMap="BaseResultMap" parameterType="java.lang.Short">
   select TITLE, AUTHOR, TIME, 
       FILEPATH, HITS, COPYFROM, 
-      CONTENT from QK_KNOWLEDGE
+      CONTENT,TITLEDESC from QK_KNOWLEDGE
       where id=#{id,jdbcType=DECIMAL}
   
   </select>
    <select id="findAllKnowledge" resultMap="BaseResultMap">
-  select ID, TITLE, AUTHOR, TIME, 
+      select ID, TITLE, AUTHOR, TIME, 
       FILEPATH, HITS, COPYFROM, 
-      CONTENT from QK_KNOWLEDGE order by id desc
+      CONTENT,TITLEDESC from QK_KNOWLEDGE order by id desc
   </select>
-  
+  <update id="hits" parameterType="java.lang.Short">
+     update qk_knowledge set hits=hits+1 where id=#{id,jdbcType=DECIMAL}
+  </update>
   
 </mapper>

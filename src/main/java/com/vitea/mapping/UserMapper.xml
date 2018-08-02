@@ -34,6 +34,7 @@
 		url,
 		enabled,
 		islocked,
+		realname,
 		register,
 		phone
 		from qk_users
@@ -43,6 +44,7 @@
 		select
 		username,
 		password,
+		realname,
 		email,
 		url,
 		enabled,
