@@ -22,8 +22,8 @@ public class SendMessageImpl implements ISendMessage {
 	@Autowired
 	private InterfaceDao iPortDao;
 
-	private Logger logger = LoggerFactory.getLogger(SendMessageImpl.class);
-
+	private Logger logger = LoggerFactory.getLogger("MONGODB");
+	
 	/**
 	 * 将获取到的xml数据解析到集合中
 	 * 
