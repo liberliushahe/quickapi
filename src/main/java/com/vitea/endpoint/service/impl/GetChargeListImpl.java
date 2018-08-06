@@ -60,7 +60,6 @@ public class GetChargeListImpl implements IGetChargeList {
 					String totalInfo = "";
 					if (byteSrc.length == LENGTH) {
 						sbout.append("<result>0</result><desc>查询成功</desc></public><data/>");
-						this.logger.info("查询成功，但是未查询到数据!");
 					} else {
 						sbout.append("<result>0</result><desc>查询成功</desc></public><data>");
 						int packetNum = SocketTools.getRealTrueInt(byteSrc, 8, 4);
@@ -83,12 +82,11 @@ public class GetChargeListImpl implements IGetChargeList {
 					}
 					sbout.append("</root>");
 					this.resultcode = sbout.toString();
-				    this.logger.info("计费清单：号码：{},账期:{},返回信息:{},调用时间:{}", new Object[] { listQryBSN.getAccNbr(), listQryBSN.getBillMonth(),totalInfo,(System.currentTimeMillis() - startTime)});
+					this.logger.info("计费清单：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{}", new Object[] { listQryBSN.getAccNbr(), startTime, System.currentTimeMillis(),arr,sbout.toString(),(System.currentTimeMillis() - startTime)});
 				    dataOutputStream.close();
 				    dataInputStream.close();
 				    sock.close();
 				} else {
-					this.logger.error("连接失败!");
 					JedisClientUtil.setInc("fail");
 					this.resultcode = "<root><public><result>-2</result><desc>连接失败</desc></public><data/></root>";
 				}
@@ -114,7 +112,6 @@ public class GetChargeListImpl implements IGetChargeList {
 			String areaCode = rootElt.elementTextTrim("areaCode");
 			lqb = new ListQryBsn(listTypeId, accNbr, billMonth, areaCode);
 		} catch (DocumentException e) {
-			this.logger.error("入参解析失败，格式有误！");
 		}
 		return lqb;
 	}

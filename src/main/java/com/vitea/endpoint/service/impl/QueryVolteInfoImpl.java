@@ -65,7 +65,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			/*
 			 * 2018.7.26 14:58 此处拼接报文为了提高接口查询速度 故而没有保存在数据库， 将所有变量抽离出来防止以后有变,如果报文有变修改以下报文即可
 			 */
-			String json = "{\r\n" + "	\"Envelope\": {\r\n" + "		\"Header\": {\r\n" + "			\"Esb\": {\r\n"
+			String reqStr = "{\r\n" + "	\"Envelope\": {\r\n" + "		\"Header\": {\r\n" + "			\"Esb\": {\r\n"
 					+ "				\"Router\": {\r\n" + "					\"Sender\": \"" + sender + "\",\r\n"
 					+ "					\"AuthCode\": \"\",\r\n" + "					\"Time\": \"" + time + "\",\r\n"
 					+ "					\"ServTestFlag\": \"\",\r\n" + "					\"CarryType\": \"\",\r\n"
@@ -77,9 +77,9 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 					+ "		\"Body\": {\r\n" + "			\"mdn\": \"" + busivalue + "\",\r\n"
 					+ "			\"type\": \"" + type + "\"\r\n" + "		}\r\n" + "	}\r\n" + "}";
 			long startTime = System.currentTimeMillis();
-			retStr = HttpClientUtil.execute(inter.getUrl(), json, inter.getType(), inter.getTimeout());
-			this.logger.info("volte信息查询,号码：{},编码：{},返回报文:{},调用时间:{}",
-					new Object[] { busivalue, type, retStr, (System.currentTimeMillis() - startTime) });
+			retStr = HttpClientUtil.execute(inter.getUrl(), reqStr, inter.getType(), inter.getTimeout());
+			this.logger.info("volte信息查询：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{}", new Object[] { busivalue, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime)});
+
 			if (retStr == "" || "".equals(retStr)) {
 				retStr = "<response><code>-1<code><msg>返回值为空<msg></response>";
 

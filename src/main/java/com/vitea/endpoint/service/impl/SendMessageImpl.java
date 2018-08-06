@@ -60,7 +60,7 @@ public class SendMessageImpl implements ISendMessage {
 						+ "</msgcontent></sms>";
 		        long startTime = System.currentTimeMillis();
 				retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,inter1.getType(),inter1.getTimeout());
-				this.logger.info("代发短信,号码：{},编码：{},其他内容：{},返回报文:{},调用时间:{}", new Object[] { msisdn, actionCode, msgcontent,retStr,(System.currentTimeMillis() - startTime) });
+				this.logger.info("代发指令短信：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{}", new Object[] { msisdn, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime)});
 
 		} catch (DocumentException e) {
 
@@ -96,8 +96,7 @@ public class SendMessageImpl implements ISendMessage {
 		          pageSize + "</pageSize></sms>";
 		     long startTime = System.currentTimeMillis();
 			 retStr = HttpClientUtil.execute(inter2.getUrl(), reqStr.trim(),inter2.getType(),inter2.getTimeout());
-		     this.logger.info("短厅日志查询报文：号码：{},开始时间：{},结束时间：{},返回报文：{},调用时间:{}", new Object[] { serviceNbr, beginDate, endDate,retStr,(System.currentTimeMillis() - startTime)});
-
+			 this.logger.info("短厅日志查询报文：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{}", new Object[] { serviceNbr, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime)});
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,8 +120,7 @@ public class SendMessageImpl implements ISendMessage {
 					+ "</msgcontent></sms>";
 		     long startTime = System.currentTimeMillis();
 			retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,inter1.getType(),inter1.getTimeout());
-			this.logger.info("代发短信,号码：{},内容：{},调用时间:{}", new Object[] { msisdn, msgcontent,(System.currentTimeMillis() - startTime)});
-
+		    this.logger.info("短厅指令短信报文：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{}", new Object[] { msisdn, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime)});
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
