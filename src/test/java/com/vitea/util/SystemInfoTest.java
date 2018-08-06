@@ -56,5 +56,9 @@ public class SystemInfoTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void getJvmInfo() {
+		SystemInfoUtil.getJvmMemoryInfo();
+	}
 
 }

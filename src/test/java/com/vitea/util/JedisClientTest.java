@@ -11,7 +11,7 @@ public class JedisClientTest {
 	@Test
 	public void clientTest() {
 		 int loop = 1;
-	        while (loop < COUNT) {
+	        while (loop<COUNT) {
 	                long start = System.currentTimeMillis();
 	                JedisClientUtil.setString("k1", "v1");
 	                String ret=JedisClientUtil.getString("k1");
@@ -20,6 +20,11 @@ public class JedisClientTest {
 	            loop++;
 	        }
 	}
-	  
+	 @Test 
+	public void setInc() {
+		 //JedisClientUtil.setString("success", "1");
+		 JedisClientUtil.setInc("fail");
+		 System.out.print(JedisClientUtil.getString("success")); 
+	}
 
 }

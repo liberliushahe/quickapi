@@ -1,6 +1,8 @@
 package com.vitea.util;
 
 import org.junit.Test;
+
+import com.alibaba.fastjson.JSONObject;
 /**
  * 
  * @author liushahe
@@ -51,5 +53,6 @@ public class XmlJsonParseTest {
 		String s=XmlJsonParseUtil.jsonToXml(json);
 		System.out.println(s);
 	}
-
+	
+	
 }
