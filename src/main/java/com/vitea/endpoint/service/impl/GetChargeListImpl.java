@@ -31,7 +31,7 @@ import com.vitea.util.SocketTools;
 public class GetChargeListImpl implements IGetChargeList {
 	@Autowired
 	private InterfaceDao iPortDao;
-	private Logger logger = LoggerFactory.getLogger(GetChargeListImpl.class);
+	private Logger logger = LoggerFactory.getLogger("MONGODB");
 	private String resultcode;
 	private static final int LENGTH=116;
 	private static  Pattern pattern = Pattern.compile("[\\000]*");

@@ -45,7 +45,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 	
 	@Autowired
 	private InterfaceDao iPortDao;
-	private Logger logger = LoggerFactory.getLogger("com.vitea.endpoint.QueryVolteInfoImpl");
+	private Logger logger = LoggerFactory.getLogger("MONGODB");
 
 	@Override
 	public String queryVolteInfo(String xml) {
