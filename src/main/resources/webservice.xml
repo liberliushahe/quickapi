@@ -9,25 +9,22 @@
        http://cxf.apache.org/schemas/jaxws.xsd
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
-
-
 	<!-- 发布WebService服务 -->
-
 	<jaxws:endpoint 
 	    id="socketImpl" 
-	    implementor="com.vitea.endpoint.GetChargeListImpl" 
+	    implementor="com.vitea.endpoint.service.impl.GetChargeListImpl" 
 	    address="/getChargeInfo" />
 	<jaxws:endpoint 
 	    id="sendMsg" 
-	    implementor="com.vitea.endpoint.SendMessageImpl" 
+	    implementor="com.vitea.endpoint.service.impl.SendMessageImpl" 
 	    address="/sendMsgtoUser" />
 	<jaxws:endpoint 
 	    id="queryVolte" 
-	    implementor="com.vitea.endpoint.QueryVolteInfoImpl" 
+	    implementor="com.vitea.endpoint.service.impl.QueryVolteInfoImpl" 
 	    address="/queryVolteInfo" />
 	  
 <!-- 发布restful webservice -->
-  <bean id="serviceKnowledge" class="com.vitea.endpoint.GetKnowledgeImpl"/>
+  <bean id="serviceKnowledge" class="com.vitea.endpoint.service.impl.GetKnowledgeImpl"/>
   <jaxrs:server id="knowledgeService"  address="/rest">
     <jaxrs:serviceBeans>
       <ref bean="serviceKnowledge"/>

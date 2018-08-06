@@ -21,8 +21,10 @@
     <http pattern="/druid/**" security="none"/>
     <http pattern="/api/**" security="none"/>
     <http pattern="/knowledge/**" security="none"/>
-    
-    
+    <http pattern="/swagger-ui.html" security="none"/>
+    <http pattern="/webjars/**" security="none"/>
+    <http pattern="/swagger-resources/**" security="none"/>
+    <http pattern="/v2/**" security="none"/>
     <http>
     <!-- 防止多个地点登录 -->
     <session-management session-authentication-error-url="/login.jsp?error=alreadyLoggedin" >
