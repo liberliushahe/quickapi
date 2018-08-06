@@ -50,6 +50,7 @@ create table QK_USERS
 (
   username VARCHAR2(20) not null primary key,
   password VARCHAR2(50),
+  realname VARCHAR2(50),
   email    VARCHAR2(30),
   phone    VARCHAR2(15),
   enabled   NUMBER,
@@ -57,8 +58,8 @@ create table QK_USERS
   register DATE,
   url      VARCHAR2(50)
 )
-insert into qk_users (USERNAME, PASSWORD, EMAIL, PHONE, ENABLED, ISLOCKED, REGISTER, URL)
-values ('admin', '21232f297a57a5a743894a0e4a801fc3', '1540077031@qq.com', '18919927184', 1, 0, to_date('19-07-2018', 'dd-mm-yyyy'), null,);
+insert into qk_users (USERNAME, PASSWORD,REALNAME, EMAIL, PHONE, ENABLED, ISLOCKED, REGISTER, URL)
+values ('admin', '21232f297a57a5a743894a0e4a801fc3','系统管理员' '1540077031@qq.com', '18919927184', 1, 0, to_date('19-07-2018', 'dd-mm-yyyy'), null);
 
 3.登录日志表
 create table QK_USERS_LOG
