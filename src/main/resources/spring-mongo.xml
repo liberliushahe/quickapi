@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+    http://www.springframework.org/schema/context    
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/data/jpa 
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+   <!-- 加载mongodb的属性配置文件 -->
+   <context:property-placeholder location="classpath:db.properties" />
+   <context:component-scan base-package="com.mongo"/>
+   
+   <!-- 定义mongo对象，对应的是mongodb官方jar包中的Mongo，replica-set设置集群副本的ip地址和端口 replica-set="${mongo.hostport}"-->
+    <mongo:mongo-client id="mongo" host="${mongo.host}" port="${mongo.port}" credentials="${mongo.username}:${mongo.password}@${mongo.dbName}">
+        <mongo:client-options connections-per-host="${mongo.connectionsPerHost}" 
+        threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}" 
+        connect-timeout="${mongo.connectTimeout}" 
+        max-wait-time="${mongo.maxWaitTime}" 
+        socket-keep-alive="${mongo.socketKeepAlive}" 
+        socket-timeout="${mongo.socketTimeout}" />
+    </mongo:mongo-client>
+    
+    <mongo:db-factory id="mongoDbFactory" dbname="${mongo.dbName}" mongo-ref="mongo" />    
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+       <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" /> 
+    </bean>
+
+</beans>
