@@ -220,8 +220,6 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 		//根节点
 		Report reportArray=new Report();
 		List<Result> results=new ArrayList<Result>();
-		String str = "{\"Envelope\":{\"Body\":{\"签约信息\":{\"ALL\":{\"CSCF\":{\"dynamic\":[{\"key\":\"注册MMTEL\"},{\"key\":\"注册SCSCF\"},{\"key\":\"注册PSBC\"}],\"static\":[{\"key\":\"SCSCF用户IFC信息\"}]},\"AS\":{},\"HSS\":{\"漫游省\":\"\",\"volte信息\":{\"用户漫游限制\":[\"\"],\"是否VoLTE用户\":\"否\",\"SIFC模板标识列表\":[\"\"],\"ResultCode\":\"13005\",\"ResultDescr\":\"ASSOCIATION NOT DEFINED\"},\"签约信息\":{\"全局计费特性\":\"8\",\"IMEI\":\"8673680397237227\",\"用户最大下行带宽\":\"100Mbps\",\"漫游权限\":\"无\",\"EPS模板号\":\"100\",\"用户最大上行带宽\":\"40Mbps\"},\"动态信息\":{\"EPS动态APN信息\":[{\"PDN网关实体 \":\"topoff.pgw-s2a.gw02-B-er.lz.gs.node.epc.mnc011.mcc460.3gppnetwork.org\",\"APN\":\"ctnet\",\"PDN网关域\":\"epc.mnc011.mcc460.3gppnetwork.org\"},{\"PDN网关实体 \":\"topoff.pgw-s5s8.gw02-b-er.lz.gs.node.epc.mnc011.mcc460.3gppnetwork.org\",\"APN\":\"ctlte\",\"PDN网关域\":\"epc.mnc011.mcc460.3gppnetwork.org\"}],\"默认承载APN\":\"\",\"APN-OI\":\"\",\"MME实体\":\"mmec03.mmegi6200.mme.epc.mnc011.mcc460.3gppnetwork.org\",\"EPS位置更新时间\":\"20180727T100725824\",\"EPS本地状态\":\"LOCATED\",\"用户状态\":\"NOT_REGISTERED\"},\"查询状态\":0,\"异常原因\":\"\"},\"ENUMDNS\":{\"static\":[]}}}},\"Header\":{\"Esb\":{\"Router\":{\"EsbId\":\"EsbServer_GAS_51_6212-1533110220599\",\"Time\":\"2018-08-01 15:57:05.001\"}}}}}\r\n"
-				+ "";
 		//JSON转对象
 		JSONObject object = (JSONObject) FastJsonUtil.json2Object(cscfJson);
 		JSONObject envlope=(JSONObject) object.get("Envelope");
@@ -258,8 +256,6 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 		//根节点
 		Report reportArray=new Report();
 		List<Result> results=new ArrayList<Result>();
-		String str = "{\"Envelope\":{\"Body\":{\"签约信息\":{\"ALL\":{\"CSCF\":{\"dynamic\":[{\"key\":\"注册MMTEL\"},{\"key\":\"注册SCSCF\"},{\"key\":\"注册PSBC\"}],\"static\":[{\"key\":\"SCSCF用户IFC信息\"}]},\"AS\":{},\"HSS\":{\"漫游省\":\"\",\"volte信息\":{\"用户漫游限制\":[\"\"],\"是否VoLTE用户\":\"否\",\"SIFC模板标识列表\":[\"\"],\"ResultCode\":\"13005\",\"ResultDescr\":\"ASSOCIATION NOT DEFINED\"},\"签约信息\":{\"全局计费特性\":\"8\",\"IMEI\":\"8673680397237227\",\"用户最大下行带宽\":\"100Mbps\",\"漫游权限\":\"无\",\"EPS模板号\":\"100\",\"用户最大上行带宽\":\"40Mbps\"},\"动态信息\":{\"EPS动态APN信息\":[{\"PDN网关实体 \":\"topoff.pgw-s2a.gw02-B-er.lz.gs.node.epc.mnc011.mcc460.3gppnetwork.org\",\"APN\":\"ctnet\",\"PDN网关域\":\"epc.mnc011.mcc460.3gppnetwork.org\"},{\"PDN网关实体 \":\"topoff.pgw-s5s8.gw02-b-er.lz.gs.node.epc.mnc011.mcc460.3gppnetwork.org\",\"APN\":\"ctlte\",\"PDN网关域\":\"epc.mnc011.mcc460.3gppnetwork.org\"}],\"默认承载APN\":\"\",\"APN-OI\":\"\",\"MME实体\":\"mmec03.mmegi6200.mme.epc.mnc011.mcc460.3gppnetwork.org\",\"EPS位置更新时间\":\"20180727T100725824\",\"EPS本地状态\":\"LOCATED\",\"用户状态\":\"NOT_REGISTERED\"},\"查询状态\":0,\"异常原因\":\"\"},\"ENUMDNS\":{\"static\":[]}}}},\"Header\":{\"Esb\":{\"Router\":{\"EsbId\":\"EsbServer_GAS_51_6212-1533110220599\",\"Time\":\"2018-08-01 15:57:05.001\"}}}}}\r\n"
-				+ "";
 		//JSON转对象
 		JSONObject object = (JSONObject) FastJsonUtil.json2Object(enumdnsJson);
 		JSONObject envlope=(JSONObject) object.get("Envelope");
