@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">	 
+<head th:replace="admin/fragments/header :: header"/>
+<link rel="stylesheet" type="text/css" href="./resources/css/toastr.min.css" th:href="@{/resources/css/editormd.min.css}"/>
+<script src="/resources/js/popper.js" th:src="@{/resources/framework/editormd.min.js}"></script>
+<body class="app sidebar-mini rtl">
+<header th:replace="admin/fragments/nav :: head"/>
+<aside th:replace="admin/fragments/menu :: aside"/>
+<!-- 主内容开始 -->
+    <main class="app-content">
+     <div class="app-title">
+        <div>
+          <h1><i class="fa fa-th-list"></i>日志查询</h1>
+          <p>接口调用日志</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb side">
+          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+          <li class="breadcrumb-item">日志管理</li>
+          <li class="breadcrumb-item active"><a href="#">日志查询</a></li>
+        </ul>
+      </div>
+      <div class="row">
+          <div class="tile">
+            <form action="#" class="form-inline text-center" id="search">
+            <div class="form-group col-lg-4">
+              <label for="firstname" class=" control-label">日期</label>
+              <input type="text" class="form-control" id="datetime" placeholder="请输入名字">
+           </div>
+             <div class="form-group col-lg-4">
+            <label for="firstname" class=" control-label">号码</label>
+
+              <input type="text" class="form-control" id="number" placeholder="请输入号码">
+
+            </div>
+            <button class="btn btn-default">查询</button>
+            </form>                    
+           
+          </div>
+     
+      </div>
+    </main>
+
+<!-- 主内容结束 -->
+<script type="text/javascript" src="resources/framework/jquery.validate.min.js"></script>
+<script src="/resources/js/knowledge.js" th:src="@{/resources/js/knowledge.js}"></script>
+<footer th:replace="admin/fragments/footer :: footer"/>
+</body>
+</html>
