@@ -17,15 +17,4 @@ public class Report {
 	public void setResult(List<Result> result) {
 		this.results = result;
 	}
-
-	
-
-	
-
-	
-
-	
-
-	
-
 }
