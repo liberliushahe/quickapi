@@ -20,8 +20,7 @@ public interface IGetInterface {
 	 * @param id
 	 * @return
 	 */
-	public InterFace getInterfaceById(int id);
-	
+	public InterFace getInterfaceById(int id);	
 	/**
 	 * 查询总记录
 	 * @return
