@@ -59,6 +59,7 @@ public class SendMessageImpl implements ISendMessage {
 						+ "</msisdn><actionCode>" + actionCode + "</actionCode><msgcontent>" + msgcontent
 						+ "</msgcontent></sms>";
 		        long startTime = System.currentTimeMillis();
+		        System.out.println();
 				retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,inter1.getType(),inter1.getTimeout());
 				this.logger.info("代发指令短信：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{}", new Object[] { msisdn, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime)});
 
