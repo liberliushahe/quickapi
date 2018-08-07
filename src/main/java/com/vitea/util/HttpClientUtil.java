@@ -47,7 +47,7 @@ public class HttpClientUtil {
 	/**
 	 * 默认请求超时时间30s
 	 */
-	private static final int DEFAUL_TTIME_OUT =Integer.parseInt(PropertiesUtil.getProperties("defaulttimeout"));
+	private static final int DEFAUL_TTIME_OUT =Integer.parseInt(PropertiesUtil.getProperties("defaulttimeout").trim());
 	private static final int COUNT = Integer.parseInt(PropertiesUtil.getProperties("defaultMaxPerRoute"));
 	private static final int TOTALCOUNT = Integer.parseInt(PropertiesUtil.getProperties("maxTotal"));
 	private static final int HTTP_DEFAULT_KEEP_TIME = Integer.parseInt(PropertiesUtil.getProperties("Http_Default_Keep_Time"));
