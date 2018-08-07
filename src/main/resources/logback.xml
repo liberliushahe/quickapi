@@ -31,13 +31,11 @@
     <logger name="org.hibernate.engine.QueryParameters" level="DEBUG" />  
     <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG" />  
    -->
-  <!-- mongo 日志 -->  
-    <appender name="MONGO" class="com.vitea.util.MongoAppender">    
-    </appender> 
-    
+    <!-- mongo 日志 -->  
+    <appender name="MONGO" class="com.vitea.util.MongoAppender"></appender> 
     <!--  过滤第三方日志-->
     <logger name="org.apache.cxf" level="error"/>
-   <logger name="MONGODB" level="INFO">
+    <logger name="MONGODB" level="INFO" additivity="false">
         <appender-ref ref="MONGO"/>
     </logger>
     <!-- 日志输出级别 -->
@@ -46,5 +44,5 @@
        <!-- <appender-ref ref="STDOUT" /> -->            
     </root> 
      
-     <!--日志异步到数据库 -->  
+    <!--日志异步到数据库 -->  
 </configuration>
