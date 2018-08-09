@@ -1,5 +1,6 @@
 package com.vitea.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.bson.Document;
@@ -18,9 +19,10 @@ public  class MongoAppender extends UnsynchronizedAppenderBase<ILoggingEvent>{
 	@Override  
     protected void append(ILoggingEvent eventObject) {
 		MongoTemplate mongoTemplate = (MongoTemplate) SpringUtil.getApplicationContext().getBean("mongoTemplate");
+		SimpleDateFormat format =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 		final Document doc = new Document();
 		Object[] obj=eventObject.getArgumentArray();
-		doc.append("timestamp", new Date(eventObject.getTimeStamp()));
+		doc.append("timestamp",format.format(new Date(eventObject.getTimeStamp())));
 		doc.append("level", eventObject.getLevel().toString());
 		doc.append("logger", eventObject.getLoggerName());
 		doc.append("thread", eventObject.getThreadName());
