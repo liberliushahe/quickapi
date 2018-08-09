@@ -20,11 +20,11 @@ public class InterfaceLog {
 	/**
 	 * 请求报文
 	 */
-	private String reqStr;
+	private String reqstr;
 	/**
 	 * 响应报文
 	 */
-	private String retSqr;
+	private String retstr;
 	/**
 	 * 花费时间
 	 */
@@ -32,7 +32,7 @@ public class InterfaceLog {
 	/**
 	 * 调用时间
 	 */
-	private String time;
+	private String timestamp;
 	public String getAccnum() {
 		return accnum;
 	}
@@ -51,17 +51,17 @@ public class InterfaceLog {
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
 	}
-	public String getReqStr() {
-		return reqStr;
+	public String getReqstr() {
+		return reqstr;
 	}
-	public void setReqStr(String reqStr) {
-		this.reqStr = reqStr;
+	public void setReqstr(String reqstr) {
+		this.reqstr = reqstr;
 	}
-	public String getRetSqr() {
-		return retSqr;
+	public String getRetsqr() {
+		return retstr;
 	}
-	public void setRetSqr(String retSqr) {
-		this.retSqr = retSqr;
+	public void setRetsqr(String retsqr) {
+		this.retstr = retsqr;
 	}
 	public String getCost() {
 		return cost;
@@ -69,12 +69,16 @@ public class InterfaceLog {
 	public void setCost(String cost) {
 		this.cost = cost;
 	}
-	public String getTime() {
-		return time;
+	public String getTimestamp() {
+		return timestamp;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+	@Override
+	public String toString() {
+		return "InterfaceLog [accnum=" + accnum + ", starttime=" + starttime + ", endtime=" + endtime + ", reqstr="
+				+ reqstr + ", retsqr=" + retstr + ", cost=" + cost + ", timestamp=" + timestamp + "]";
 	}
 	
-
 }
