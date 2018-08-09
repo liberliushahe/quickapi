@@ -8,6 +8,7 @@
 <title>后台管理登录</title>
 <link rel="shortcut icon" href="${ctx }/resources/images/icon.ico">
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="${ctx }/resources/css/login.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${ctx }/resources/framework/jquery-3.3.1.min.js"></script>
@@ -20,16 +21,17 @@ input.error {border: 1px solid red !important;}
 .tooltip-inner {color: white;}
 </style>
 <body>
-	<div class="login_box">
-		<div class="login_l_img">
-			<img src="${ctx }/resources/images/login-img.png" />
+<div class="container">
+	<div class="row" style="margin-top:10rem">
+		<div class="login_l_img col-lg-5">
+			<img src="${ctx }/resources/images/login-img.png" class="img-responsive center-block" />
 		</div>
-		<div class="login">
+		<div class="login col-lg-7">
 			<div class="login_logo">
-				<a href="#"><img src="${ctx }/resources/images/login_logo.png" /></a>
+				<a href="#"><img src="${ctx }/resources/images/login_logo.png" class="img-responsive center-block" /></a>
 			</div>
 			<div class="login_name">
-				<p>QuickApi后台管理系统</p>
+				<p>QuickApi管理系统</p>
 			</div>
 			<div class=" col-sm-12">
 				<span class="error">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</span>
@@ -64,6 +66,7 @@ input.error {border: 1px solid red !important;}
 			</form>
 		</div>
 	</div>
+</div>
 	<div class="copyright">Copyright © 2017-2018 jijiuxue All rightsReserved quickapi v1.0</div>
 	<script type="text/javascript" src="${ctx }/resources/framework/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="${ctx }/resources/js/login.js"></script>
