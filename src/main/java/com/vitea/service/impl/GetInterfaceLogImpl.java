@@ -18,9 +18,12 @@ public class GetInterfaceLogImpl implements IGetInterfaceLog {
 	@Autowired
 	protected InterfaceLogDao interfaceLogDao;
 	@Override
-	public List<InterfaceLog> getInterfaceLogByKey(String key) {
-		System.out.println("hrhhrrh"+interfaceLogDao);
-		return interfaceLogDao.findForRequery(key);
+	public List<InterfaceLog> getInterfaceLogByKey(String start, String end, String accnum, int index, int size) {
+		return interfaceLogDao.findForRequeryByParam(start, end, accnum, index, size);
+	}
+	@Override
+	public long findAllCount(String start,String end,String accnum) {
+		return interfaceLogDao.findAllCount(start,end,accnum);
 	}
 
 }

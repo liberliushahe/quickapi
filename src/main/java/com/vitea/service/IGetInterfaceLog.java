@@ -15,6 +15,10 @@ public interface IGetInterfaceLog {
 	 * @param key
 	 * @return
 	 */
-	public List<InterfaceLog> getInterfaceLogByKey(String key);
-
+	public List<InterfaceLog> getInterfaceLogByKey(String start, String end, String accnum, int index, int size);
+	/**
+	 * 查询总记录
+	 * @return
+	 */
+	public long findAllCount(String start,String end,String accnum);
 }
