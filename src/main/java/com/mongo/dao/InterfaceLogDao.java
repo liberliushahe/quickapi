@@ -8,16 +8,19 @@ import com.mongo.domain.InterfaceLog;
  * @author liushahe
  *
  */
-public interface InterfaceLogDao {
+public interface InterfaceLogDao { 
 	/**
-	 * 条件查询
+	 * 根据时间周期和号码查询分页展示
+	 * @param start
+	 * @param end
 	 * @param accnum
 	 * @return
 	 */
-	public List<InterfaceLog> findForRequery(String accnum); 
+	public List<InterfaceLog> findForRequeryByParam(String start,String end,String accnum,int index,int size);
 	/**
-	 * 查询所有记录
+	 * 返回记录总数
 	 * @return
 	 */
-	public List<InterfaceLog> findAll(); 
+	public long findAllCount(String start,String end,String accnum);
+
 }
