@@ -65,20 +65,11 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			/*
 			 * 2018.7.26 14:58 此处拼接报文为了提高接口查询速度 故而没有保存在数据库， 将所有变量抽离出来防止以后有变,如果报文有变修改以下报文即可
 			 */
-			String reqStr = "{\r\n" + "	\"Envelope\": {\r\n" + "		\"Header\": {\r\n" + "			\"Esb\": {\r\n"
-					+ "				\"Router\": {\r\n" + "					\"Sender\": \"" + sender + "\",\r\n"
-					+ "					\"AuthCode\": \"\",\r\n" + "					\"Time\": \"" + time + "\",\r\n"
-					+ "					\"ServTestFlag\": \"\",\r\n" + "					\"CarryType\": \"\",\r\n"
-					+ "					\"TransId\": \"" + transid + "\",\r\n" + "					\"MsgId\": \""
-					+ msgid + "\",\r\n" + "					\"MsgType\": \"\",\r\n"
-					+ "					\"EsbId\": \"\",\r\n" + "					\"AuthType\": \"\",\r\n"
-					+ "					\"ServCode\": \"" + servcode + "\",\r\n" + "					\"Version\": \""
-					+ version + "\"\r\n" + "				}\r\n" + "			}\r\n" + "		},\r\n"
-					+ "		\"Body\": {\r\n" + "			\"mdn\": \"" + busivalue + "\",\r\n"
-					+ "			\"type\": \"" + type + "\"\r\n" + "		}\r\n" + "	}\r\n" + "}";
+			
+			String reqStr="{\"Envelope\":{\"Header\":{\"Esb\":{\"Router\":{\"Sender\":\"" +sender+"\",\"AuthCode\":\"\",\"Time\":\"" + time + "\",\"ServTestFlag\":\"\",\"CarryType\":\"\",\"TransId\":\"" + transid + "\",\"MsgId\":\"" + msgid + "\",\"MsgType\":\"\",\"EsbId\":\"\",\"AuthType\":\"\",\"ServCode\":\"" + servcode +"\",\"Version\":\"" + version + "\"}}},\"Body\":{\"mdn\":\"" + busivalue +"\",\"type\":\"" + type + "\"}}}";
 			long startTime = System.currentTimeMillis();
 			retStr = HttpClientUtil.execute(inter.getUrl(), reqStr, inter.getType(), inter.getTimeout());
-			this.logger.info("volte信息查询：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{}", new Object[] { busivalue, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime)});
+			this.logger.info("volte信息查询：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] { busivalue, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201804"});
 
 			if (retStr == "" || "".equals(retStr)) {
 				retStr = "<response><code>-1<code><msg>返回值为空<msg></response>";
