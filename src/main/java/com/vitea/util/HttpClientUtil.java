@@ -159,6 +159,7 @@ public class HttpClientUtil {
             if(code==CODE) {
             	JedisClientUtil.setInc("success");
             }else {
+            	method.abort();
             	JedisClientUtil.setInc("fail");
             }
             httpEntity = httpResponse.getEntity();
