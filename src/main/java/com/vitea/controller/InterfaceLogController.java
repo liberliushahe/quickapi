@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mongo.domain.InterfaceLog;
-import com.vitea.dto.PageResult;
+import com.vitea.endpoint.dto.PageResult;
 import com.vitea.service.IGetInterfaceLog;
 /**
  * 日志查询控制器
