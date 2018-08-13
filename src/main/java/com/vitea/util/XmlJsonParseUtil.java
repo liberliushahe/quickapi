@@ -4,8 +4,8 @@ import org.json.JSONObject;
 import org.json.XML;
 
 import com.thoughtworks.xstream.XStream;
-import com.vitea.dto.Report;
-import com.vitea.dto.Result;
+import com.vitea.endpoint.dto.Report;
+import com.vitea.endpoint.dto.Result;
 
 /**
  * 比较快的方法
