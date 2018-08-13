@@ -16,7 +16,6 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
 import com.vitea.endpoint.service.IGetChargeList;
@@ -45,7 +44,7 @@ public class GetChargeListImpl implements IGetChargeList {
 				Socket sock = new Socket(inter.getUrl(), Integer.parseInt(inter.getPort()));
 				if (sock.isConnected()) {
 					JedisClientUtil.setInc("success");
-				     long startTime = System.currentTimeMillis();
+				    long startTime = System.currentTimeMillis();
 					String[] arr = getArrayForReq(listQryBSN);
 					byte[] reqBytes = SocketTools.arraYtoBytes(arr);
 					DataOutputStream dataOutputStream = new DataOutputStream(
@@ -72,7 +71,6 @@ public class GetChargeListImpl implements IGetChargeList {
 								this.logger.debug("listInfo:{}", SocketTools.getRealTrueValue(byteSrc, y, 198));
 								String[] item = SocketTools.getRealTrueValue(byteSrc, y, 198).split(",");
 								sbout.append(SocketTools.joinItemInfo(item, getListTypeId(listQryBSN)));
-
 								y += 200;
 							}
 							int length = SocketTools.getRealTrueShort(byteSrc, x + 2, 2);
@@ -82,7 +80,7 @@ public class GetChargeListImpl implements IGetChargeList {
 					}
 					sbout.append("</root>");
 					this.resultcode = sbout.toString();
-					this.logger.info("计费清单：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] {listQryBSN.getAccNbr(), startTime, System.currentTimeMillis(),arr,sbout.toString(),(System.currentTimeMillis() - startTime),"201803"});
+					this.logger.info("计费清单：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] {listQryBSN.getAccNbr(), startTime, System.currentTimeMillis(),accNmr.trim().replaceAll("[\\s&&[^\r\n]]*(?:[\r\n][\\s&&[^\r\n]]*)+", ""),resultcode,(System.currentTimeMillis() - startTime),"201803"});
 				    dataOutputStream.close();
 				    dataInputStream.close();
 				    sock.close();
