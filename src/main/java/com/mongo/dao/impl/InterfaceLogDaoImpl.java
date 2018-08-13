@@ -23,16 +23,17 @@ import com.mongo.domain.InterfaceLog;
 public class InterfaceLogDaoImpl  implements InterfaceLogDao {
     @Autowired
     MongoTemplate mongoTemplate;
+    private static String ISNULL="null";
 	
 	@Override
 	public List<InterfaceLog> findForRequeryByParam(String start, String end, String accnum, int index, int size) {
         //设置查询条件
         Query query = new Query();
         
-        if(!"null".equals(accnum)) {
+        if(!ISNULL.equals(accnum)) {
             query.addCriteria(Criteria.where("accnum").is(accnum));
         }
-        if(!"null".equals(start)&& !"null".equals(end)) {
+        if(!ISNULL.equals(start)&& !ISNULL.equals(end)) {
             query.addCriteria(Criteria.where("timestamp").gte(start).lt(end));
         }
         Pageable pageable = new PageRequest(index-1, size);
@@ -46,10 +47,10 @@ public class InterfaceLogDaoImpl  implements InterfaceLogDao {
 	@Override
 	public long findAllCount(String start,String end,String accnum) {
 		Query query = new Query();
-		 if(!"null".equals(accnum)) {
+		 if(!ISNULL.equals(accnum)) {
 	            query.addCriteria(Criteria.where("accnum").is(accnum));
 	     }
-	    if(!"null".equals(start)&& !"null".equals(end)) {
+	    if(!ISNULL.equals(start)&& !ISNULL.equals(end)) {
 	            query.addCriteria(Criteria.where("timestamp").gte(start).lt(end));
 	     }
 		return mongoTemplate.count(query, InterfaceLog.class,"logback");
