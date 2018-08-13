@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -90,27 +89,20 @@ public class SocketTools
   public static byte[] getBytesFromStream(DataInputStream dataInputStream)
     throws IOException
   {
-    byte[] retBytes = new byte[0];
-    byte[] newBytes = (byte[])null;
+   // byte[] retBytes = new byte[0];
+   // byte[] newBytes = (byte[])null;
     logger.info("reading response started!");
-    try
-    {
-      for (;;)
-      {
-        byte tempByte = dataInputStream.readByte();
-        byte[] tempBytes = { tempByte };
-        newBytes = new byte[1 + retBytes.length];
-        
-        System.arraycopy(retBytes, 0, newBytes, 0, retBytes.length);
-        
-        System.arraycopy(tempBytes, 0, newBytes, retBytes.length, 1);
-        retBytes = newBytes;
-      }
+    //缓存数组
+    byte[] bytes=new byte[1024];
+    StringBuilder builder=new StringBuilder();
+    int n=0;
+    //改造此处网络延迟
+    while((n=(dataInputStream.read(bytes)))!=-1) {
+    	 String w=new String(bytes,0,n);
+    	 builder.append(w);
     }
-    catch (EOFException localEOFException) {}
-    return newBytes;
+   return  builder.toString().getBytes();
   }
-  
   public static byte[] arraYtoBytes(String[] arr)
   {
     byte[] retBytes = new byte[0];
