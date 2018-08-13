@@ -23,8 +23,6 @@ public  class MongoAppender extends UnsynchronizedAppenderBase<ILoggingEvent>{
 		final Document doc = new Document();
 		Object[] obj=eventObject.getArgumentArray();
 		doc.append("timestamp",format.format(new Date(eventObject.getTimeStamp())));
-		doc.append("level", eventObject.getLevel().toString());
-		doc.append("logger", eventObject.getLoggerName());
 		doc.append("thread", eventObject.getThreadName());
 		doc.append("accnum", obj[0].toString());
 		doc.append("starttime", obj[1].toString());
@@ -32,9 +30,10 @@ public  class MongoAppender extends UnsynchronizedAppenderBase<ILoggingEvent>{
 		doc.append("reqstr", obj[3].toString());
 		doc.append("retstr", obj[4].toString());
 		doc.append("cost", obj[5].toString());
+		doc.append("interid", obj[6].toString());
+		doc.append("ip", IpAddressUtil.getIpRealAddress());
 		mongoTemplate.insert(doc,"logback");
     }  
- 
 }
 
 
