@@ -6,6 +6,14 @@ package com.mongo.domain;
  */
 public class InterfaceLog {
 	/**
+	 * 接口编号
+	 */
+	private String interid;
+	/**
+	 * ip
+	 */
+	private String ip;
+	/**
 	 * 号码
 	 */
 	private String accnum;
@@ -33,6 +41,19 @@ public class InterfaceLog {
 	 * 调用时间
 	 */
 	private String timestamp;
+	
+	public String getInterid() {
+		return interid;
+	}
+	public void setInterid(String interid) {
+		this.interid = interid;
+	}
+	public String getRetstr() {
+		return retstr;
+	}
+	public void setRetstr(String retstr) {
+		this.retstr = retstr;
+	}
 	public String getAccnum() {
 		return accnum;
 	}
@@ -74,6 +95,13 @@ public class InterfaceLog {
 	}
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
+	}
+	
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	@Override
 	public String toString() {
