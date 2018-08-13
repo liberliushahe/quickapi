@@ -8,8 +8,8 @@ import java.util.Set;
 import org.junit.Test;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.vitea.dto.Report;
-import com.vitea.dto.Result;
+import com.vitea.endpoint.dto.Report;
+import com.vitea.endpoint.dto.Result;
 /**
  * json转xml
  * @author liushahe
