@@ -154,14 +154,6 @@ public class HttpClientUtil {
             method.setEntity(new StringEntity(data,"UTF-8"));
             HttpContext context = HttpClientContext.create();
             CloseableHttpResponse httpResponse = httpClient.execute(method, context);
-           //接口调用成功则redis计数增加
-            int code=httpResponse.getStatusLine().getStatusCode();
-            if(code==CODE) {
-            	JedisClientUtil.setInc("success");
-            }else {
-            	method.abort();
-            	JedisClientUtil.setInc("fail");
-            }
             httpEntity = httpResponse.getEntity();
             if (httpEntity != null) {
                 responseBody = EntityUtils.toString(httpEntity, "UTF-8");
