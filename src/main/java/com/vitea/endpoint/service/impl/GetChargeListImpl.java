@@ -16,6 +16,7 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vitea.dao.InterfaceDao;
 import com.vitea.domain.InterFace;
 import com.vitea.endpoint.service.IGetChargeList;
@@ -43,7 +44,6 @@ public class GetChargeListImpl implements IGetChargeList {
 			try {
 				Socket sock = new Socket(inter.getUrl(), Integer.parseInt(inter.getPort()));
 				if (sock.isConnected()) {
-					JedisClientUtil.setInc("success");
 				    long startTime = System.currentTimeMillis();
 					String[] arr = getArrayForReq(listQryBSN);
 					byte[] reqBytes = SocketTools.arraYtoBytes(arr);
@@ -53,7 +53,9 @@ public class GetChargeListImpl implements IGetChargeList {
 					dataOutputStream.flush();
 					DataInputStream dataInputStream = new DataInputStream(
 							new BufferedInputStream(sock.getInputStream()));
+					long start=System.currentTimeMillis();
 					byte[] byteSrc = SocketTools.getBytesFromStream(dataInputStream);
+					System.out.println(System.currentTimeMillis()-start);
 					StringBuffer sbout = new StringBuffer();
 					sbout.append("<root><public>");
 					String totalInfo = "";
@@ -82,10 +84,8 @@ public class GetChargeListImpl implements IGetChargeList {
 					this.resultcode = sbout.toString();
 					this.logger.info("计费清单：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] {listQryBSN.getAccNbr(), startTime, System.currentTimeMillis(),accNmr.trim().replaceAll("[\\s&&[^\r\n]]*(?:[\r\n][\\s&&[^\r\n]]*)+", ""),resultcode,(System.currentTimeMillis() - startTime),"201803"});
 				    dataOutputStream.close();
-				    dataInputStream.close();
 				    sock.close();
 				} else {
-					JedisClientUtil.setInc("fail");
 					this.resultcode = "<root><public><result>-2</result><desc>连接失败</desc></public><data/></root>";
 				}
 			} catch (ConnectException e) {
@@ -97,7 +97,7 @@ public class GetChargeListImpl implements IGetChargeList {
 		}
 		return getCleanXML(this.resultcode);
 	}
-
+    
 	private ListQryBsn parseInput(String accNmr) {
 		ListQryBsn lqb = null;
 		Document doc = null;
