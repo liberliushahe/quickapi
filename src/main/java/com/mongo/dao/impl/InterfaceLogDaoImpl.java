@@ -55,6 +55,20 @@ public class InterfaceLogDaoImpl  implements InterfaceLogDao {
 	     }
 		return mongoTemplate.count(query, InterfaceLog.class,"logback");
 	}
+
+	@Override
+	public long successCount() {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("retstr").ne("retstr"));
+		return mongoTemplate.count(query, InterfaceLog.class,"logback");
+	}
+
+	@Override
+	public long failCount() {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("retstr").is(""));
+		return mongoTemplate.count(query, InterfaceLog.class,"logback");
+	}
 	
 }
 
