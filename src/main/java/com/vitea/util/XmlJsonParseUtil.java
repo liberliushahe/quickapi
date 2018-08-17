@@ -2,7 +2,6 @@ package com.vitea.util;
 
 import org.json.JSONObject;
 import org.json.XML;
-
 import com.thoughtworks.xstream.XStream;
 import com.vitea.endpoint.dto.Report;
 import com.vitea.endpoint.dto.Result;
@@ -47,9 +46,10 @@ public class XmlJsonParseUtil {
 		 XStream xStream = new XStream();
 	     //将对象转成字符串
 		 //设置根别名
-		 xStream.alias("report",Report.class);
+		 xStream.alias("response",Report.class);
 		 xStream.alias("result",Result.class);
 	     String s = xStream.toXML(object);
+	     s=s.replace("&quot;","\"");
 		 return s;
 		
 	}
