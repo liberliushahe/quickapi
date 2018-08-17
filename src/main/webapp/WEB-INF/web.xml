@@ -125,20 +125,20 @@
  --> 
  <!-- session N分钟超时 -->
 	<session-config>
-		<session-timeout>60</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 	
 	<!-- 404 500 Throwable 基于安全考虑-->
 	<error-page> 
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/500.jsp</location>
+		<location>/resources/html/error/500.html</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/404.jsp</location>
+		<location>/resources/html/error/404.html</location>
 	</error-page>
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
-		<location>/WEB-INF/views/500.jsp</location>
+		<location>/resources/html/error/500.html</location>
 	</error-page>
 </web-app>

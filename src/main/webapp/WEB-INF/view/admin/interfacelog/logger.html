@@ -19,6 +19,10 @@ background-color:#FFF;
 border:none;
 color:#000;
 }
+.table th, .table td { 
+text-align: center;
+vertical-align: middle!important;
+}
 </style>
 <body class="app sidebar-mini rtl">
 	<header th:replace="admin/fragments/nav :: head" />
@@ -43,27 +47,22 @@ color:#000;
 		<div class="row">
 			<div class="col-sm-1 col-lg-2"></div>
 			<div class="col-sm-10 form-inline col-lg-8">
-			<div class="col-sm-7">
-			<input
-							type="text" class="form-control" placeholder="开始时间"
+			<div class="col-sm-12">
+			
+			          <input type="text" class="form-control" placeholder="开始时间"
 							onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-							name="starttime" id="starttime" />-----<input type="text"
+							name="starttime" id="starttime" />----<input type="text"
 							class="form-control"  placeholder="结束时间"
 							onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
-							name="endtime" id="endtime" /> 
-		</div>
-		<div class="col-sm-3">
-		<div class="form-horizontal">
-		 <input type="text"
+							name="endtime" id="endtime" /> 							
+							 <input type="text"
 							class="form-control input-lg" id="number" name="number"
 							placeholder="请输入号码" /> 
-		</div>
-				          
-		</div>
-		<div class="col-sm-2">
-			   <button class="btn btn-primary" id="searchlog">
+							
+							 <button class="btn btn-primary" id="searchlog">
 				<i class="fa fa-search" aria-hidden="true"></i>查询
 			   </button>
+		</div>
 		</div>
 			</div>
 			<div class="col-sm-1 col-lg-2"></div>
@@ -93,141 +92,8 @@ color:#000;
 		th:src="@{/resources/framework/layer/layer.js}"></script>
 	<script src="/resources/js/knowledge.js"
 		th:src="@{/resources/framework/preetify.js}"></script>
-<script>
 
-$(function(){
-
-	 $("#searchlog").bind("click", function () {
-			//getData();
-			setProperty();
-		    //$('#table').bootstrapTable('refresh');
-     })
-});
-//ajax获取数据
-function getData(){
-	var datas=[];
-	url = "getInterfaceLogByPage.do";
-	var start=$("#starttime").val();
-    var end=$("#endtime").val();
-    var number=$("#number").val();
-	$.ajax({
-		url:url,
-		type:"post",
-		dateType:"json",
-		data:{pageNumber:0,pageSize:20,starttime:start,endtime:end,number:number},
-		beforeSend: function () {
-			layer.load(0, {shade: false});
-	        // 禁用按钮防止重复提交，发送前响应
-	        $("#searchlog").attr({ disabled: "disabled" });
-	    },
-		success : function(res) {			
-			console.log(res)
-			datajson=eval("("+res+")"); 
-			
-			for (let i in datajson.rows) {
-			    datas.push(datajson.rows[i]); 
-			}
-			var total=datajson.total;
-			setProperty(datas,total);
-		},
-		complete: function () {
-			  layer.closeAll('loading');
-		       $("#searchlog").removeAttr("disabled");
-		       //替换旧数据
-		       $('#table').bootstrapTable('load', datas);
-		     }
-	});	
-}
-//设置表格属性
-function setProperty(){
-	$('#table').bootstrapTable('destroy');
-	$('#table').bootstrapTable({
-		 url:'getInterfaceLogByPage.do',
-		 method:'post',
-		 dataType: "json",
-		 contentType: "application/x-www-form-urlencoded",
-         striped:true,//隔行变色
-         cache:false,  //是否使用缓存
-         //showColumns:false,// 列
-         //toobar:'#toolbar',
-         locale: "zh-CN", //中文支持
-         pagination: true, //分页
-         paginationLoop:false,
-         paginationPreText:'上一页',
-         paginationNextText:'下一页',
-         showFooter:false,//显示列脚
-         showPaginationSwitch:false,//是否显示数据条数选择框
-         sortable: false,           //是否启用排序
-         singleSelect: false,
-         onDblClickCell: function (field, value, row, $element) {
-        	 if(isJsonString(value)){
-        		 value=formatJson(value);
-        	 }else{
-        		 value=formatXml(value);
-             	 value=value.replace(new RegExp("<","g"),"&lt;").replace(new RegExp(">","g"),"&gt;");
-
-        	 }
-        	layer.open({
-        		  title:'日志信息',
-        	      type: 1,
-        	      area: ['700px', '380px'],
-        	      shadeClose: true,
-        	      content: '\<\div style="padding:20px;text-align:left;">\<\pre>'+value+'\<\/pre>\<\/div>'
-        	    });
-             return false;
-         },         
-          queryParamsType:"",//查询参数组织方式
-          queryParams:queryParams,//请求服务器时所传的参数
-         //search:true, //显示搜索框
-         //buttonsAlign: "right", //按钮对齐方式
-         //paginationVAlign:"bottom",
-         showRefresh:false,//是否显示刷新按钮
-         sidePagination: "server", //服务端处理分页
-         pageNumber:1,
-         pageSize:10,
-         pageList:[10,15],
-         undefinedText:'--',
-         //uniqueId: "id", //每一行的唯一标识，一般为主键列
-         columns: [
-        	    {field: 'accnum', title: '号码', sortable: false, halign: 'center'},
-        	    {field: 'timestamp', title: '调用时间', sortable: true, halign: 'center'},
-        	    {field: 'reqstr', title: '请求报文', sortable: false, halign: 'left', cellStyle:{ 
-        		 css:{ 
-        			 "overflow": "hidden", 
-        			 "text-overflow": "ellipsis", 
-        			 "white-space": "nowrap" 
-        			 } 
-        			 }},
-        	    {field: 'retsqr', title: '响应报文', sortable: false, halign: 'left', cellStyle:{ 
-        		 css:{ 
-        			 "overflow": "hidden", 
-        			 "text-overflow": "ellipsis", 
-        			 "white-space": "nowrap" 
-        			 } 
-        			 }},
-        	    {field: 'cost', title: '消耗时间(单位:毫秒)', sortable: false, halign: 'center'}
-
-        	]
-	 });
-}
-//请求服务数据时所传参数
-function queryParams(params){
-    return{
-    	pageSize : params.pageSize, 
-        pageNumber : params.pageNumber,
-        number:$('#number').val(),
-        starttime:$('#starttime').val(),
-        endtime:$('#endtime').val(),
-    }
-}
-function isJsonString(str) {
-	  try {
-	    JSON.parse(str)
-	    return true
-	  } catch (err) {
-	    return false
-	  }
-	}
-</script>
+   <script src="/resources/js/interfacelog.js"
+		th:src="@{/resources/js/interfacelog.js}"></script>
 </body>
 </html>
