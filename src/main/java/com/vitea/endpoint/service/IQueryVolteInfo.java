@@ -1,6 +1,5 @@
 package com.vitea.endpoint.service;
 
-import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
@@ -12,13 +11,19 @@ import javax.jws.WebService;
 @WebService
 public abstract interface IQueryVolteInfo
 {
-  @WebMethod(operationName="queryVolteInfo")
-  @WebResult(name="response")
+ 
+ 
   /**
    * webservice
    * @param paramString
    * @return
    */
-  public abstract String queryVolteInfo(@WebParam(name="cmd") String paramString);
-  
+  @WebResult(name="platformQryReturn")
+  public abstract String platformQryVolteHss(@WebParam(name="cmd") String paramString);
+  @WebResult(name="platformQryReturn")
+  public abstract String platformQryVolteCsCf(@WebParam(name="cmd") String paramString);
+  @WebResult(name="platformQryReturn")
+  public abstract String platformQryVolteAs(@WebParam(name="cmd") String paramString);
+  @WebResult(name="platformQryReturn")
+  public abstract String platformQryVolteEnumDns(@WebParam(name="cmd") String paramString);
 }
