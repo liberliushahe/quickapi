@@ -28,4 +28,14 @@ public interface IGetInterfaceLog {
       * @return
       */
 	public long findAllCount(String start,String end,String accnum);
+	/**
+	 * 统计调用成功数量
+	 * @return
+	 */
+	public long successCount();
+	/**
+	 * 统计调用失败数量
+	 * @return
+	 */
+	public long failCount();
 }
