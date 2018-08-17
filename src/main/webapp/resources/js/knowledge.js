@@ -20,6 +20,7 @@ function addKnowledge() {
 		//没有通过验证
 		return;
 	}
+	
 	//获取需要提交的内容
 	var title = $("#title").val();
 	var copyfrom = $("#copyfrom").val();

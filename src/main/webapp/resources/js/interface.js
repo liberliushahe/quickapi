@@ -1,6 +1,7 @@
 $(function() {
 //编辑接口
 $("#interfacetable").on("click",".edit-interface",function(){
+
 	$.ajax({
 		url:"editInterface.do?id="+$(this).attr("id"),
 		success:function(data){
@@ -13,8 +14,10 @@ $("#interfacetable").on("click",".edit-interface",function(){
 });
 //删除接口
 $("#interfacetable").on("click",".del-interface",function(){
+	
 	$.ajax({
 		url:"deleteInterface.do?id="+$(this).attr("id"),
+		
 		success:function(data){
 			toastr.success("删除成功");
 		},
@@ -28,6 +31,7 @@ $("#submitEdit").click(function() {
 	$.ajax({ 
 		 url: "updateInterface.do", 
 		 type: 'POST',
+		
 		 data:$('#interfaceForm').serialize(),
 		 success: function(data){
 			 $('#interfaceForm')[0].reset();  

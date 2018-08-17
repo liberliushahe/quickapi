@@ -202,6 +202,7 @@ option = {
 	         url:"currentmemory.do",
 	           type:"POST",
 	           dataType:"JSON",
+	          
 	           success:function(data){ 
 	        	   option.series[0].data[0].value =(data.usedpercent) - 0;
 	       	       memoryChart.setOption(option,true);
@@ -240,9 +241,11 @@ function currentMemoryInfo(){
 
 
 		timeTicket = setInterval(function (){
+
 			$.ajax({
 		         url:"currentcpu.do",
 		           type:"POST",
+		       
 		           dataType:"JSON",
 		           success:function(data){ 
 		        	  option.series[0].data[0].value =(data.combined).toFixed(2) - 0;
@@ -275,9 +278,11 @@ var option={
        ]
 }
 	var info=[];
+   
 	$.ajax({
         url:"currentmemory.do",
           type:"POST",
+        
           dataType:"JSON",
           success:function(data){ 
         	  console.log(data);
