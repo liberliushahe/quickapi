@@ -12,16 +12,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vitea.model.ServerCpuInfo;
 import com.vitea.service.IGetInterface;
+import com.vitea.service.IGetInterfaceLog;
+import com.alibaba.fastjson.JSONObject;
 import com.vitea.model.Ethernet;
 import com.vitea.model.FileSystemInfo;
 import com.vitea.model.HostInfo;
 import com.vitea.model.MemoryBean;
 import com.vitea.model.MemoryInfo;
 import com.vitea.model.NetInfo;
-import com.vitea.util.JedisClientUtil;
 import com.vitea.util.SystemInfoUtil;
 /**
- * 
+ * 管理员首页
  * @author liushahe
  *
  */
@@ -29,6 +30,27 @@ import com.vitea.util.SystemInfoUtil;
 public class AdminController {
 	@Autowired
 	IGetInterface iGetInterface;
+	@Autowired
+	IGetInterfaceLog iGetInterfaceLog;
+	@RequestMapping(value= {"/","login.do"})
+	public String login() {
+		return "admin/login";
+	}
+	
+	
+	@RequestMapping("interfaceStatis.do")
+	@ResponseBody
+	public String interfaceStatis(){
+		long success=iGetInterfaceLog.successCount();
+		long fail=iGetInterfaceLog.failCount();
+        Integer count=iGetInterface.getAllInterfaceCount();
+        JSONObject json=new JSONObject();
+        json.put("count", count);
+        json.put("success", success); 
+        json.put("fail", fail);
+		return json.toJSONString();
+		
+	}
 	@RequestMapping("admin.do")
 	public ModelAndView getIndex(Model model){
 		HostInfo hostInfo=null;
@@ -36,8 +58,8 @@ public class AdminController {
 		List<MemoryBean> memoryBean=null;
 		List<MemoryBean> memoryPoolBean=null;
 		List<Ethernet> ethernet=null;
-		String success=JedisClientUtil.getString("success");
-		String fail=JedisClientUtil.getString("fail");
+		long success=iGetInterfaceLog.successCount();
+		long fail=iGetInterfaceLog.failCount();
         Integer count=iGetInterface.getAllInterfaceCount();
 		try {
 			hostInfo=SystemInfoUtil.getProperty();
