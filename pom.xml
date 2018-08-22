@@ -262,11 +262,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<!--jstl -->
-		<dependency>
+		<!--  <dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		-->
 		<!--thymeleaf -->
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
@@ -394,7 +395,7 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<phase>generate</phase>
+						<phase>deploy</phase>
 						<configuration>
 							<verbose>true</verbose>
 							<overwrite>true</overwrite>
