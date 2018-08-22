@@ -27,6 +27,6 @@
    select ID,SYSID,NAME,URL,PORT,METHOD,STAT,TYPE,TIMEOUT,INPUT,DESCRIPTION from QK_INTERFACE  order BY ID ASC
 </select>	
 <select id="getAllInterfaceCount" resultType="java.lang.Integer">
-select count(id) from qk_interface
+select count(0) from qk_interface
 </select>
 </mapper>
