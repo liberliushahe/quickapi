@@ -22,7 +22,7 @@ public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailure
 	private static Logger logger = LoggerFactory.getLogger(UserAuthenticationSuccessHandler.class);
 
 	public AuthenticationFailureHandler(){
-    	this.setDefaultFailureUrl("/login.html?error=true");
+    	this.setDefaultFailureUrl("/login.do?error=true");
     }
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
