@@ -25,5 +25,13 @@ public class GetInterfaceLogImpl implements IGetInterfaceLog {
 	public long findAllCount(String start,String end,String accnum) {
 		return interfaceLogDao.findAllCount(start,end,accnum);
 	}
+	@Override
+	public long successCount() {
+		return interfaceLogDao.successCount();
+	}
+	@Override
+	public long failCount() {
+		return interfaceLogDao.failCount();
+	}
 
 }

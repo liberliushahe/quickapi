@@ -38,5 +38,21 @@ public class GetKnowledgeImpl implements IGetKnowledge {
 	public void hits(short id) {
 		iKnowledgeDao.hits(id);
 	}
+	@Override
+	public int deleteKnowledgeById(short id) {
+		
+		return iKnowledgeDao.deleteKnowledgeById(id);
+	}
+	@Override
+	public int editKnowledgeById(Knowledge knowledge) {
+		return iKnowledgeDao.updateKnowledgeById(knowledge);
+	}
+	@Override
+	public PageInfo<Knowledge> findAllKnowledgeByParam(String starttime, String endtime, String title,int index,int size) {
+		PageHelper.startPage(index, size);
+	      List<Knowledge> list = iKnowledgeDao.findAllKnowledgeByParam(starttime, endtime, title);
+	      PageInfo<Knowledge> pageInfo = new PageInfo<Knowledge>(list);
+		  return pageInfo;
+	}
 
 }
