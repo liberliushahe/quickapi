@@ -1,10 +1,5 @@
 package com.vitea.endpoint.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.ws.Response;
-
 import com.vitea.endpoint.dto.CustInfo;
 import com.vitea.endpoint.service.IGetCustInfo;
 /**
