@@ -1,10 +1,7 @@
 package com.vitea.endpoint.service;
 
-import java.util.List;
-
 import javax.jws.WebService;
 import javax.websocket.server.PathParam;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
