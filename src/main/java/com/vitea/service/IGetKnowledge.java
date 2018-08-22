@@ -1,5 +1,7 @@
 package com.vitea.service;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.pagehelper.PageInfo;
 import com.vitea.domain.Knowledge;
 /**
@@ -32,5 +34,25 @@ public interface IGetKnowledge {
      * @param id
      */
     void hits(short id);
+    /**
+     * 删除知识库
+     * @param id
+     * @return
+     */
+   int  deleteKnowledgeById(short id);
+   /**
+    * 更新知识库
+    * @param id
+    * @return
+    */
+   int  editKnowledgeById(Knowledge knowledge);
+   /**
+    * 根据条件查询
+    * @param starttime
+    * @param endtime
+    * @param title
+    * @return
+    */
+   PageInfo<Knowledge> findAllKnowledgeByParam(@Param("starttime")String starttime,@Param("endtime")String endtime,@Param("title")String title,int index,int size);
 
 }
