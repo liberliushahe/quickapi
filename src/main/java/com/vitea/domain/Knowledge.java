@@ -1,14 +1,11 @@
 package com.vitea.domain;
 
 import java.util.Date;
-
-import javax.xml.bind.annotation.XmlRootElement;
 /**
  * 知识库实体
  * @author liushahe
  *
  */
-@XmlRootElement(name = "Knowledge")
 public class Knowledge {
     /**
      *
