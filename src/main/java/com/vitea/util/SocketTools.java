@@ -3,6 +3,7 @@ package com.vitea.util;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -93,15 +94,18 @@ public class SocketTools
    // byte[] newBytes = (byte[])null;
     logger.info("reading response started!");
     //缓存数组
-    byte[] bytes=new byte[1024];
-    StringBuilder builder=new StringBuilder();
+    byte[] bytes=new byte[2048];
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
     int n=0;
     //改造此处网络延迟
     while((n=(dataInputStream.read(bytes)))!=-1) {
-    	 String w=new String(bytes,0,n);
-    	 builder.append(w);
+    	baos.write(bytes, 0, n);    	 
     }
-   return  builder.toString().getBytes();
+    byte[] b = baos.toByteArray();
+    dataInputStream.close();
+	baos.close();
+	return b;
+
   }
   public static byte[] arraYtoBytes(String[] arr)
   {
