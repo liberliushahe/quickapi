@@ -20,10 +20,16 @@ color:#000;
 text-align: center;
 vertical-align: middle!important;
 }
+.layui-layer-content{
+padding:15px;
+text-align:center;
+}
 </style>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/bootstrap-table.min.css"
 	th:href="@{/resources/css/bootstrap-table.min.css}" />
+<script src="/resources/framework/date/WdatePicker.js"
+		th:src="@{/resources/framework/date/WdatePicker.js}"></script>
 <body class="app sidebar-mini rtl">
 <header th:replace="admin/fragments/nav :: head"/>
 <aside th:replace="admin/fragments/menu :: aside"/>
@@ -54,10 +60,10 @@ vertical-align: middle!important;
 							onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
 							name="endtime" id="endtime" /> 							
 							 <input type="text"
-							class="form-control input-lg" id="title" name="number"
+							class="form-control input-lg" id="querytitle" name="querytitle"
 							placeholder="请输入文章标题" /> 
 							
-							 <button class="btn btn-primary" id="searchlog">
+							 <button class="btn btn-primary" id="searchKnowledge">
 				<i class="fa fa-search" aria-hidden="true"></i>查询
 			   </button>
 		</div>
@@ -73,133 +79,12 @@ vertical-align: middle!important;
               <table id="table" style="table-layout: fixed">
             
               </table>  
-
-   <!-- 编辑模态开始 -->
-	<div class="modal fade"  id="editknowledge"  tabindex="-1" role="dialog" aria-labelledby="addtipLabel" aria-hidden="true">
-	
-		<div class="modal-dialog" role="document">
-		<div class="modal-content" style="width:680px;">
-		<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				
-			</div>
-			
-			<div class=" modal-body" id="interfaceFormContainer">
-			
-			</div>
-			<div class="modal-footer text-center">    
-           <button type="button" class="btn btn-primary" data-dismiss="modal" id="submitEdit">
-					提交
-				</button>
-           <button type="button" class="btn btn_red" data-dismiss="modal">取消</button>
-        </div>
-
-		</div><!-- modal-content -->
-	  </div><!-- modal-dialog -->	
-	</div>
-   <!-- 编辑模态框结束-->	
             </div>
           </div>
         </div>
       </div>
     </main>
-<script type="text/javascript">
-$(function(){
-setProperty();	
-});
-//界面设置表格属性
-function setProperty(){
-	$('#table').bootstrapTable('destroy');
-	$('#table').bootstrapTable({
-		 url:'getKnowledgeListByPage.do',
-		 method:'post',
-		 dataType: "json",
-		 contentType: "application/x-www-form-urlencoded",
-         striped:true,//隔行变色
-         cache:false,  //是否使用缓存
-         //showColumns:false,// 列
-         //toobar:'#toolbar',
-         locale: "zh-CN", //中文支持
-         pagination: true, //分页
-         paginationLoop:false,
-         paginationPreText:'上一页',
-         paginationNextText:'下一页',
-         showFooter:false,//显示列脚
-         showPaginationSwitch:false,//是否显示数据条数选择框
-         sortable: false,           //是否启用排序
-         singleSelect: false,        
-          queryParamsType:"",//查询参数组织方式
-          queryParams:queryParams,//请求服务器时所传的参数
-         //search:true, //显示搜索框
-         //buttonsAlign: "right", //按钮对齐方式
-         //paginationVAlign:"bottom",
-         showRefresh:false,//是否显示刷新按钮
-         sidePagination: "server", //服务端处理分页
-         pageNumber:1,
-         pageSize:10,
-         pageList:[10,15],
-         undefinedText:'--',
-         //uniqueId: "id", //每一行的唯一标识，一般为主键列
-         columns: [
-        	     {field: 'id', title: '文章编号', sortable: false, halign: 'center'},
-        	    {field: 'title', title: '文章标题', sortable: false, halign: 'center', cellStyle:{ 
-        		 css:{ 
-        			 "overflow": "hidden", 
-        			 "text-overflow": "ellipsis", 
-        			 "white-space": "nowrap" 
-        			 } 
-        			 }},
-        	    {field: 'title', title: '文章内容', sortable: false, halign: 'center', cellStyle:{ 
-        		 css:{ 
-        			 "overflow": "hidden", 
-        			 "text-overflow": "ellipsis", 
-        			 "white-space": "nowrap" 
-        			 } 
-        			 }},
-        	    {field: 'time', title: '发布时间', sortable: false, halign: 'center'},
-        	    {field: 'author', title: '文章作者', sortable: true, halign: 'center'},
-        	    {field: 'hits', title: '点击量', sortable: false, halign: 'center'},
-        	    {field: 'copyfrom', title: '文章来源', sortable: false, halign: 'center'},
-        	    {field: 'filepath', title: '文件路径', sortable: false, halign: 'center'},
-        	    {field: 'operate', title: '操作', sortable: false, halign: 'center', formatter: formatterOperate}
 
-        	]
-	 });
-}
-//请求服务数据时所传参数
-function queryParams(params){
-    return{
-    	pageSize : params.pageSize, 
-        pageNumber : params.pageNumber,
-        number:$('#title').val(),
-        starttime:$('#starttime').val(),
-        endtime:$('#endtime').val(),
-    }
-}
-
-function formatterOperate(){
-	 return [
-         '<a href="#"><i class="fa fa-pencil fa-fw"></i> 编辑</a>', '&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="del-knowledge"><i class="fa fa-trash-o fa-fw"></i>删除</a>']
-         .join('');
-}
-
-//删除数据
-$("#table").on("click",".del-knowledge",function(){
-	
-	$.ajax({
-		url:"deleteInterface.do?id="+$(this).attr("id"),
-		
-		success:function(data){
-			toastr.success("删除成功");
-		},
-		error:function(){
-			toastr.error("删除出错");
-		}
-	})
-});
-</script>
 <!-- 主内容结束 -->
 <footer th:replace="admin/fragments/footer :: footer"/>
 <script type="text/javascript"
@@ -210,9 +95,8 @@ $("#table").on("click",".del-knowledge",function(){
 	<script src="/resources/js/knowledge.js"
 		th:src="@{/resources/framework/bootstrap-table-zh-CN.min.js}"></script>
 	<script src="/resources/js/knowledge.js"
-		th:src="@{/resources/framework/date/WdatePicker.js}"></script>
-	<script src="/resources/js/knowledge.js"
 		th:src="@{/resources/framework/layer/layer.js}"></script>
+  <script src="/resources/js/knowledge.js" th:src="@{/resources/js/knowledge/queryknowledge.js}"></script>
 
 </body>
 </html>
