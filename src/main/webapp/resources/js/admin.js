@@ -1,4 +1,5 @@
 $(function(){
+	interfaceStatis();
 	weekChart();
 	currentTrans();
 	currentCpu();
@@ -6,6 +7,26 @@ $(function(){
 	MemoryInfo();
 	currentNetInfo();
 });
+//接口统计
+function interfaceStatis(){
+	 $.ajax({
+         url:"interfaceStatis.do",
+           type:"POST",
+           dataType:"JSON", 
+           success:function(data){ 
+        	   var obj = eval('(' + data + ')');
+        	   $("#count").html(obj.count);
+        	   $("#success").html(obj.success);
+        	   $("#fail").html(obj.fail);
+           },
+           error:function(data){
+        	   console.log('error');
+           }
+          
+           })
+}
+
+
 //周调用量
 function weekChart(){
 var weekChart = echarts.init(document.getElementById('weekChart')); 
@@ -172,7 +193,7 @@ function currentTrans(){
 		            axisData  // 坐标轴标签
 		        ]
 		    ]);
-		}, 2100);                    
+		}, 6100);                    
 }
 //CPU实时信息
 function currentCpu(){
@@ -214,7 +235,7 @@ option = {
 	          
 	           })
 	    
-	},2000);
+	},6000);
 	                    	                		
 }
 
@@ -253,7 +274,7 @@ function currentMemoryInfo(){
 		           }
 			})
 		    
-		},4000);
+		},8000);
 	
 
 }
@@ -285,7 +306,6 @@ var option={
         
           dataType:"JSON",
           success:function(data){ 
-        	  console.log(data);
              info = [{
                	    value: parseInt(data.total),
                	    name: '内存总大小'
@@ -444,7 +464,7 @@ function currentNetInfo(){
 		            axisData  // 坐标轴标签
 		        ]
 		    ]);
-		}, 3100);                    
+		}, 8100);                    
 }
 
 
