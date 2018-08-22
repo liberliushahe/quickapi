@@ -4,8 +4,10 @@ import com.vitea.domain.Knowledge;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
- * 知识库操作
+ * 知识库操作接口
  * @author liushahe
  *
  */
@@ -29,8 +31,26 @@ public interface IKnowledgeDao {
      */
     Knowledge getKnowledgeById(Short id);
     /**
+     * 删除知识库
+     * @param id
+     * @return
+     */
+    int deleteKnowledgeById(Short id);
+    /**
+     * 更新知识库
+     * @param id
+     * @return
+     */
+    int updateKnowledgeById(Knowledge knowledge);
+    /**
      * 查询所有记录
      * @return
      */
     List<Knowledge> findAllKnowledge();
+    
+    /**
+     * 根据条件查询记录
+     * @return
+     */
+    List<Knowledge> findAllKnowledgeByParam(@Param("starttime")String starttime,@Param("endtime")String endtime,@Param("title")String title);
 }
