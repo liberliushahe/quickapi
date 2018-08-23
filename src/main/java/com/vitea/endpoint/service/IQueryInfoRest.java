@@ -10,12 +10,18 @@ import com.alibaba.fastjson.JSONObject;
 import com.vitea.endpoint.dto.CustInfo;
 
 /**
- * 查询客户信息接口
+ * /**
+ * 此接口主要负责将核心接口转为webservice服务返回xml格式数据
+ * 1.查询客户信息
+ * 2.查询用户信息
+ * 3.查询用户订购的套餐信息
+ * 4.查询用户订购主产品信息
+ * 5.查询用户订购的附属产品信息
  * @author liushahe
  *
  */
 @WebService
-public interface IGetCustInfo {
+public interface IQueryInfoRest {
     /**
      * GET获取客户部分信息restful接口
      * 接口地址:http://localhost:8888/quickapi/ws/info/custinfo/1
@@ -57,7 +63,7 @@ public interface IGetCustInfo {
 	@Produces({"application/json"}) 
 	public JSONObject queryDetailUserPackages(String paramString);
 	/**
-	 * POST获取用户套餐信息
+	 * POST获取主产品信息
 	 * @param paramString
 	 * @return
 	 */
@@ -67,7 +73,7 @@ public interface IGetCustInfo {
 	public JSONObject queryDetailProdList(String paramString);
 	
 	/**
-	 * POST获取用户套餐信息
+	 * POST获取附属产品信息
 	 * @param paramString
 	 * @return
 	 */

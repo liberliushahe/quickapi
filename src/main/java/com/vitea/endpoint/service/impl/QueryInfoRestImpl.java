@@ -2,13 +2,13 @@ package com.vitea.endpoint.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.vitea.endpoint.dto.CustInfo;
-import com.vitea.endpoint.service.IInfoQuery;
+import com.vitea.endpoint.service.IQueryInfoRest;
 /**
  * restful接口get方法返回知识库数据格式json
  * @author liushahe
  *
  */
-public class InfoQueryImpl  implements IInfoQuery {
+public class QueryInfoRestImpl  implements IQueryInfoRest {
 
 	@Override
 	public CustInfo queryCustInfo(String id) {
