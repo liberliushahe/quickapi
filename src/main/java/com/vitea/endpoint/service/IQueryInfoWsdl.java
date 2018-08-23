@@ -17,7 +17,7 @@ import javax.jws.WebService;
  *
  */
 @WebService
-public interface IQueryInfoWSDL {
+public interface IQueryInfoWsdl {
 
 	  /**
 	   * 查询客户信息 
