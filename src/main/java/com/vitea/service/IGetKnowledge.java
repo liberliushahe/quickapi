@@ -40,17 +40,19 @@ public interface IGetKnowledge {
      * @return
      */
    int  deleteKnowledgeById(short id);
-   /**
-    * 更新知识库
-    * @param id
-    * @return
-    */
+  /**
+   * 更新知识库
+   * @param knowledge
+   * @return
+   */
    int  editKnowledgeById(Knowledge knowledge);
    /**
     * 根据条件查询
     * @param starttime
     * @param endtime
     * @param title
+    * @param index
+    * @param size
     * @return
     */
    PageInfo<Knowledge> findAllKnowledgeByParam(@Param("starttime")String starttime,@Param("endtime")String endtime,@Param("title")String title,int index,int size);
