@@ -42,7 +42,21 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 	private final String CFNRC="m:DSP_CFNRC";
 	private final String CFB="m:DSP_CFB";
 	private final String EPS="EPS动态APN信息";
-	
+	private final String IS="1";
+	private final String NO="0";
+	private final String CSRFROUTE="m:CSREROUTE";
+	private final String US="m:US";
+	private final String USDEFAULT0="0";
+	private final String USDEFAULT1="1";
+	private final String USDEFAULT2="2";
+	private final String CTH="m:CHT";
+	private final String ODBBICTYPE="m:ODBBICTYPE";
+	private final String ODBBOCTYPE="m:ODBBOCTYPE";
+	private final String NS="m:NS";
+	private final String MASTERMULTIDEV="m:MASTERMULTIDEV";
+	private final String SLAVEMULTIDEV="m:SLAVEMULTIDEV";
+	private final String FAULT="Fault";
+
 	
 	@Autowired
 	private InterfaceDao iPortDao;
@@ -269,7 +283,11 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 		//List对象转xml
 		return XmlJsonParseUtil.object2XmlOfVolte(reportArray);
 	}
-	//替换AS标签下编码key含义
+	/**
+	 * 替换AS标签下编码key含义
+	 * @param key
+	 * @return
+	 */
    private String objectParamTranslateKey(String key) {
 	 //新建map集合用来存放对应关系
 	  Map<String,String> map=getMapData();
@@ -279,49 +297,54 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 	  }
 	  return key;	
 	}
- //替换AS标签下编码value含义
+ /**
+  * 替换AS标签下编码value含义
+  * @param key
+  * @param value
+  * @return
+  */
    private String objectParamTranslateValue(String key,String value) {
-	   if(value.equals("1")) {
+	   if(IS.equals(value)) {
 			 value="是";
 		 }else {
 			 value="否";
 		 }
-	 if(key.equals("m:CSREROUTE")) {
-		 if(value.equals("1")) {
+	 if(CSRFROUTE.equals(key)) {
+		 if(IS.equals(value)) {
 			 value="是";
 		 }else {
 			 value="否";
 		 }
 	 }
-	 if(key.equals("m:US")) {
-		 if(value.equals("0")) {
+	 if(US.equals(key)) {
+		 if(USDEFAULT0.equals(value)) {
 			 value="用户可以正常呼出呼入";
-		 }else if(value.equals("1")){
+		 }else if(USDEFAULT1.equals(value)){
 			 value="用户只允许呼入，不允许呼出";
-		 }else if(value.equals("2")){
+		 }else if(USDEFAULT2.equals(value)){
 			 value="用户只允许呼出，不允许呼入";
 		 }else {
 			 value="用户既不允许呼出，也不允许呼入";
 		 }
 	 }
-	 if(key.equals("m:CHT")) {
-		 if(value.equals("0")) {
+	 if(CTH.equals(key)) {
+		 if(NO.equals(value)) {
 			 value="离线计费用户";
 		 }else {
 			 value="在线计费用户";
 		 }
 	 }
-	 if(key.equals("m:ODBBICTYPE") ||key.equals("m:ODBBOCTYPE")) {
-		 if(value.equals("0")) {
+	 if(ODBBICTYPE.equals(key) ||ODBBOCTYPE.equals(key)) {
+		 if(NO.equals(value)) {
 			 value="不限制呼出";
-		 }else if(value.equals("1")){
+		 }else if(IS.equals(value)){
 			 value="限制所有呼出";
 		 }else {
 			 value="限制国际呼出";
 		 }
 	 }
-	 if(key.contains("m:NS")||key.equals("m:MASTERMULTIDEV")||key.equals("m:SLAVEMULTIDEV")) {
-		 if(value.equals("0")) {
+	 if(NS.contains(key)||MASTERMULTIDEV.equals(key)||SLAVEMULTIDEV.equals(key)) {
+		 if(NO.equals(value)) {
 			 value="无业务权限";
 		 }else {
 			 value="有业务权限";
@@ -338,7 +361,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
    public Map<String,String> getMapData(){
 	   Map<String,String> map = null;
 	   if(map==null) {
-		   map=new HashMap<String,String>();
+		   map=new HashMap<String,String>(60);
 		   map.put("MessageID", "消息标识");
 		   map.put("m:CHT", "计费类别");
 		   map.put("m:US", "用户状态");
@@ -387,7 +410,11 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 	
 	  return map;
    }
-//解析接口入参数据和调用接口
+/**
+ * 解析接口入参数据和调用接口
+ * @param xml
+ * @return
+ */
 	public String parseParamAndGetDataInfo(String xml) {
 		InterFace inter = iPortDao.getPortById(201804);
 		Element rootElt = null;
@@ -414,7 +441,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			if (retStr == "" || "".equals(retStr)) {
 				retStr = "<response><code>-1<code><msg>返回值为空<msg></response>";
 
-			}else if(retStr.contains("Fault")){
+			}else if(FAULT.contains(retStr)){
 				retStr = "<response><code>-1<code><msg>其他异常<msg></response>";
 
 			}else {

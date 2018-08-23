@@ -6,6 +6,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+
+import com.alibaba.fastjson.JSONObject;
 import com.vitea.endpoint.dto.CustInfo;
 /**
  * 查询客户信息接口
@@ -26,19 +28,13 @@ public interface IGetCustInfo {
 	public CustInfo  queryCustInfo(@PathParam("id") String id);
 	
 	/**
-	 * 客户详细信息查询
-	 * @param id
+	 * POST获取客户信息
+	 * @param paramString
 	 * @return
 	 */
-	@GET
-    @Path("/custinfo")
-	//@Consumes("application/json")  
-	@Produces({"application/json"}) 
-	public CustInfo queryDetailCustInfoGet(String paramString);
-	
 	@POST
     @Path("/custinfo")  
 	@Produces({"application/json"}) 
-	public CustInfo queryDetailCustInfoPost(String paramString);
+	public JSONObject queryDetailCustInfoPost(String paramString);
 	
 }
