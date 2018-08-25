@@ -14,20 +14,22 @@ public class InterFace {
 	private String method;
 	private String type;
 	private int timeout;
-	private String input;
+	private String inparam;
 	private String description;
-	
+	private int istemp;
+	private String template;
 	public int getTimeout() {
 		return timeout;
 	}
 	public void setTimeout(int timeout) {
 		this.timeout = timeout;
 	}
-	public String getInput() {
-		return input;
+	
+	public String getInparam() {
+		return inparam;
 	}
-	public void setInput(String input) {
-		this.input = input;
+	public void setInparam(String inparam) {
+		this.inparam = inparam;
 	}
 	public int getSysid() {
 		return sysid;
@@ -84,10 +86,24 @@ public class InterFace {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public int getIstemp() {
+		return istemp;
+	}
+	public void setIstemp(int istemp) {
+		this.istemp = istemp;
+	}
+	public String getTemplate() {
+		return template;
+	}
+	public void setTemplate(String template) {
+		this.template = template;
+	}
 	@Override
 	public String toString() {
-		return "InterFace [url=" + url + ", requestport=" + port + ", method=" + method + ", type=" + type
-				+ ", description=" + description + "]";
+		return "InterFace [id=" + id + ", sysid=" + sysid + ", name=" + name + ", stat=" + stat + ", url=" + url
+				+ ", port=" + port + ", method=" + method + ", type=" + type + ", timeout=" + timeout + ", inparam="
+				+ inparam + ", description=" + description + ", istemp=" + istemp + ", template=" + template + "]";
 	}
 	
 	
