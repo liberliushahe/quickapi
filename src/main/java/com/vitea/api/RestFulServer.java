@@ -1,24 +1,24 @@
 package com.vitea.api;
 
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitea.apimodel.Sheet;
-import com.vitea.domain.User;
+import com.alibaba.fastjson.JSONObject;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 /**
- * 对外提供API服务
- * API文档服务地址：http://localhost:8080/quickapi/api/swagger-ui.html
- * 具体服务地址为：http://localhost:8080/quickapi/api/v1/sheet/2
- * 具体服务地址为：https://localhost:8080/quickapi/api/v1/sheet/2
- * swagger接口文档注解说明
+ *   对外提供API服务
+ *   API文档服务地址：http://localhost:8080/quickapi/api/swagger-ui.html
+ *   具体服务地址为：http://localhost:8080/quickapi/api/v1/custinfo
+ *   API文档生成方式 ：spring-swagger2markup mvn test 即可 需修改pom.xml中地址
+ *   文档地址：target/asciidoc
+ *   swagger接口文档注解说明
  * - @Api()用于类； 
  *   表示标识这个类是swagger的资源 
  * - @ApiOperation()用于方法； 
@@ -38,21 +38,44 @@ import io.swagger.annotations.ApiParam;
  *   @author liushahe
  *
  */
-@Api(value = "/sheet", tags = "通过工单号获取工单接口")
+@Api(value = "/info", tags = "获取用户相关信息")
 @RestController
 @RequestMapping("/v1")
 public class RestFulServer {
-    @ApiOperation(value = "获取工单接口", notes = "通过编号获取工单", response = User.class)
-    @RequestMapping(value="/sheet/{id}",method= RequestMethod.GET)
-    public @ResponseBody Sheet sayHello( @ApiParam(value = "sheetid" ,required=true ) @PathVariable(value="sheetid") String sheetid) {
-    	Sheet sheet=new Sheet();
-    	sheet.setSheetid("GS201809871267");
-    	sheet.setBusivalue("180XXXXXXX");
-    	sheet.setAreacode("937");
-    	sheet.setCreateoperator("1098");
-    	sheet.setRemark("获取工单号");
-        return sheet;
+    @ApiOperation(value = "获取客户信息", notes = "通过请求参数获取客户信息",response=JSONObject.class)
+    @RequestMapping(value="/custinfo",method= RequestMethod.POST)
+    public @ResponseBody JSONObject getCustInfo( @ApiParam(value = "传入json格式" ,required=true )@RequestBody JSONObject jsonObject) {
+    	String json="{\"Message\":\"成功\",\"Code\":\"0000\",\"ExchangeId\":\" fwqzjk201806111006586681522662\",\"QueryResults\":{\"Cust\":[{\"custBrand\":\"我的E家\",\"linkPhone\":\"100\",\"cardType\":\"户口本/居住证\",\"accountManger\":\"\",\"custName\":\"平凉电信分公司\",\"custLevel\":\"312\",\"cardNo\":\"13321306888\",\"areaCode\":\"0931\",\"vipName\":\"钻\",\"cardId\":\"2BI\",\"custId\":\"3432432423342\",\"accMngContactNo\":\"\",\"channelTypeId\":\"2\",\"channelTypeName\":\"家庭客户\",\"vipCode\":\"4\",\"sumUsableScore\":\"\"}]}}";
+		JSONObject object=JSONObject.parseObject(json);
+		return object;
     }
-
-
+    
+    @ApiOperation(value = "获取用户信息", notes = "通过请求参数获取用户信息",response=JSONObject.class)
+    @RequestMapping(value="/userinfo",method= RequestMethod.POST)
+    public @ResponseBody JSONObject getUserInfo( @ApiParam(value = "传入json格式" ,required=true )@RequestBody JSONObject jsonObject) {
+		String json="{\"Message\":\"成功\",\"Code\":\"0000\",\"ExchangeId\":\" fwqzjk201806111006586681522672\",\"QueryResults\":{\"User\":[{\"areaCode\":\"0937\",\"areaName\":\"酒泉市本地网\",\"openTime\":\"2014-03-02 15:41:15\",\"userType\":\"住宅用户\",\"installAddr\":\"瓜州县三道沟镇三道沟村八组\",\"prdInstState\":\"0\",\"prdInstStateName\":\"在用\",\"payType\":\"现金\",\"userName\":\"马晓燕\",\"availableScore\":\"3960\",\"isPrePay\":\"2\",\"payName\":\"预付费\",\"prdInstId\":\"937417998393\",\"serviceNbr\":\"13321371899\",\"accId\":\"937223553607\",\"feeType\":\"1201\",\"g_imsi\":\"204043146846022\",\"iccid\":\"89860314109372773128\",\"prdCode\":\"900000001\",\"prdName\":\"移动电话\",\"expDate\":\"20300101 00:00:00\",\"certiType\":\"身份证\",\"certiNumber\":\"622126197402120629\"}]}}";
+		JSONObject object=JSONObject.parseObject(json);
+		return object;
+    }
+    @ApiOperation(value = "获取套餐信息", notes = "通过请求参数获取套餐信息",response=JSONObject.class)
+    @RequestMapping(value="/userpkgs",method= RequestMethod.POST)
+    public @ResponseBody JSONObject getUserPackage( @ApiParam(value = "传入json格式" ,required=true )@RequestBody JSONObject jsonObject) {
+		String json="{\"Message\":\"成功\",\"Code\":\"0000\",\"ExchangeId\":\" fwqzjk201806111006586681522682\",\"QueryResults\":{\"OfferList\":[{\"pkg\":[{\"pkgName\":\"乐享3G易通卡（全能版）-129元\",\"pkgID\":\"11107745\",\"pkgGrade\":\"129\",\"GroupId\":\"129\",\"pkgInstID\":\"200076267\",\"ProdOfferName\":\"乐享3G易通卡（全能版）-129元\",\"ProdOfferId\":\"11107745\",\"effectiveTime\":\"2012-07-01 00:00:00\",\"expireTime\":\"2030-01-01 00:00:00\",\"pkgDetails\":{\"pkgDetail\":{}}},{\"pkgName\":\"乐享3G易通卡（全能版）-通话时长300分钟\",\"pkgID\":\"11107752\",\"pkgGrade\":\"0\",\"GroupId\":\"0\",\"pkgInstID\":\"200076268\",\"ProdOfferName\":\"乐享3G易通卡（全能版）-通话时长300分钟\",\"ProdOfferId\":\"11107752\",\"effectiveTime\":\"2012-07-01 00:00:00\",\"expireTime\":\"2030-01-01 00:00:00\",\"pkgDetails\":{\"pkgDetail\":{}}},{\"pkgName\":\"赠送30小时省内Wlan免费时长\",\"pkgID\":\"11105677\",\"pkgGrade\":\"0\",\"GroupId\":\"0\",\"pkgInstID\":\"15058747882\",\"ProdOfferName\":\"赠送30小时省内Wlan免费时长\",\"ProdOfferId\":\"11105677\",\"effectiveTime\":\"2010-02-01 00:00:00\",\"expireTime\":\"2010-06-30 23:59:59\",\"pkgDetails\":{\"pkgDetail\":{}}}]}]}}";
+		JSONObject object=JSONObject.parseObject(json);
+		return object;
+    }
+    @ApiOperation(value = "获取主产品信息", notes = "通过请求参数获取主产品信息",response=JSONObject.class)
+    @RequestMapping(value="/prodlist",method= RequestMethod.POST)
+    public @ResponseBody JSONObject getProdList( @ApiParam(value = "传入json格式" ,required=true )@RequestBody JSONObject jsonObject) {
+		String json="{\"Message\":\"成功\",\"Code\":\"0000\",\"ExchangeId\":\"HNBSS3201806111006586621624482\",\"QueryResults\":{\"ProdList\":[{\"prdCode\":\"80000045\",\"prdName\":\"移动电话\",\"prdcharacters\":{\"prdcharacter\":[{\"characterName\":\"是否预开通\",\"characterValue\":\"0\",\"characterValueName\":\"非预开通\",\"characterCode\":\"992036601\"},{\"characterName\":\"业务号码\",\"characterValue\":\"\",\"characterValueName\":\"\",\"characterCode\":\"990000017\"}]}}]}}";
+		JSONObject object=JSONObject.parseObject(json);
+		return object;
+    }
+    @ApiOperation(value = "获取附属产品信息", notes = "通过请求参数获取附属产品信息",response=JSONObject.class)
+    @RequestMapping(value="/subproduct",method= RequestMethod.POST)
+    public @ResponseBody JSONObject getSubProduct( @ApiParam(value = "传入json格式" ,required=true )@RequestBody JSONObject jsonObject) {
+		String json="{\"Message\":\"成功\",\"Code\":\"0000\",\"ExchangeId\":\"HNBSS3201806111006586622524482\",\"QueryResults\":{\"subProducts\":[{\"subProduct\":[{\"receiveTime\":\"receiveTime\",\"finishTime\":\"finishTime\",\"subPrdName\":\"subPrdName\",\"subPrdStateName\":\"subPrdStateName\",\"subPrdCharacters\":{\"subPrdCharacter\":[{\"characterName\":\"上行速率\",\"characterValue\":\"1100\",\"characterValueName\":\"5M\",\"characterCode\":\"800027684\"},{\"characterName\":\"下行速率\",\"characterValue\":\"1200\",\"characterValueName\":\"10M\",\"characterCode\":\"800027685\"},{\"characterName\":\"QOS等级\",\"characterValue\":\"1300\",\"characterValueName\":\"普通\",\"characterCode\":\"800027686\"}]},\"subPrdCode\":\"subPrdCode\",\"subPrdState\":\"subPrdState\"},{\"receiveTime\":\"receiveTime\",\"finishTime\":\"finishTime\",\"subPrdCode\":\"subPrdCode\",\"subPrdName\":\"subPrdName\",\"subPrdStateName\":\"subPrdStateName\",\"subPrdState\":\"subPrdState\"},{\"receiveTime\":\"receiveTime\",\"finishTime\":\"finishTime\",\"subPrdCode\":\"subPrdCode\",\"subPrdName\":\"subPrdName\",\"subPrdStateName\":\"subPrdStateName\",\"subPrdState\":\"subPrdState\"},{\"receiveTime\":\"receiveTime\",\"finishTime\":\"finishTime\",\"subPrdCode\":\"subPrdCode\",\"subPrdName\":\"subPrdName\",\"subPrdStateName\":\"subPrdStateName\",\"subPrdState\":\"subPrdState\"},{\"receiveTime\":\"receiveTime\",\"finishTime\":\"finishTime\",\"subPrdName\":\"subPrdName\",\"subPrdStateName\":\"subPrdStateName\",\"subPrdCharacters\":{\"subPrdCharacter\":[{\"characterName\":\"使用状态\",\"characterValue\":\"1\",\"characterValueName\":\"正常\",\"characterCode\":\"600002471\"}]},\"subPrdCode\":\"subPrdCode\",\"subPrdState\":\"subPrdState\"},{\"receiveTime\":\"receiveTime\",\"finishTime\":\"finishTime\",\"subPrdCode\":\"subPrdCode\",\"subPrdName\":\"subPrdName\",\"subPrdStateName\":\"subPrdStateName\",\"subPrdState\":\"subPrdState\"},{\"receiveTime\":\"receiveTime\",\"finishTime\":\"finishTime\",\"subPrdCode\":\"subPrdCode\",\"subPrdName\":\"subPrdName\",\"subPrdStateName\":\"subPrdStateName\",\"subPrdState\":\"subPrdState\"}]}]}}";
+		JSONObject object=JSONObject.parseObject(json);
+		return object;
+    }
 }
