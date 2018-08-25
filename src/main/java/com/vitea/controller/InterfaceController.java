@@ -3,13 +3,12 @@ package com.vitea.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.vitea.domain.InterFace;
+import com.vitea.endpoint.dto.PageResult;
 import com.vitea.model.Response;
 import com.vitea.service.IGetInterface;
 /**
@@ -23,54 +22,87 @@ public class InterfaceController {
 	IGetInterface iGetInterface;
 	
 	/**
-	 * 获取接口列表
-	 * @param model
-	 * @param id
-	 * @param url
-	 * @param index
-	 * @param size
+	 * 获取接口界面
 	 * @return
 	 */
 	@RequestMapping("getInterfaceList")
-	public ModelAndView getIndex(Model model,@RequestParam(required = false) Integer id,@RequestParam(required = false) String url, @RequestParam(defaultValue = "1") Integer index, @RequestParam(defaultValue = "10") Integer size){		
-		PageInfo<InterFace> pagelist=iGetInterface.getInterfaceByPage(index, size);
-		model.addAttribute("pagelist", pagelist);
-		return new ModelAndView("admin/interface/list","model",model);
+	public String getIndex(){		
+		return "admin/interface/list";
 
 	}
 	/**
-	 * 增加接口
-	 * @param model
+	 * 获取分页接口数据
 	 * @param id
-	 * @param url
+	 * @param method
+	 * @param name
 	 * @param index
 	 * @param size
 	 * @return
 	 */
-	@RequestMapping("/addInterface")
-	public String addInterface(Model model,@RequestParam(required = false) Integer id,@RequestParam(required = false) String url, @RequestParam(defaultValue = "1") Integer index, @RequestParam(defaultValue = "10") Integer size){		
-		PageInfo<InterFace> pagelist=iGetInterface.getInterfaceByPage(index, size);
-		model.addAttribute("pagelist", pagelist);
-		return "admin/interface/add";
-
+	@RequestMapping("getInterfaceListByPage")
+	@ResponseBody()
+	public PageResult<InterFace> getInterfaceListByPage(@RequestParam(defaultValue = "0",required = false) int interfaceid,@RequestParam(defaultValue = "0",required = false) String interfacemethod,@RequestParam(defaultValue = "0",required = false) String interfacename, @RequestParam(defaultValue = "1") Integer index, @RequestParam(defaultValue = "10") Integer size){		
+		PageInfo<InterFace> pagelist=iGetInterface.findAllInterfaceByParam(interfaceid, interfacemethod, interfacename,index,size);		
+		PageResult<InterFace> pageResult=new PageResult<InterFace>();
+		Long total=pagelist.getTotal();
+		pageResult.setTotal(total.intValue());
+		pageResult.setRows(pagelist.getList());
+		return pageResult;
 	}
 	/**
-	 * 编辑接口
+	 * 通过编号查询接口信息
 	 * @param id
-	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/editInterface")
-	public ModelAndView editInterface(@RequestParam(required = false) Integer id,Model model){	
-		InterFace inter=iGetInterface.getInterfaceById(id);
-		model.addAttribute("interface", inter);
-		return new ModelAndView("admin/interface/edit","interfaceModel",model);
-       
+	@RequestMapping("getInterfaceById")
+	@ResponseBody()
+	public InterFace getInterfaceById(@RequestParam(required = true) int id){
+		System.out.println(iGetInterface.getInterfaceById(id).toString());
+		return iGetInterface.getInterfaceById(id);
 	}
-	
-	@RequestMapping("/updateInterface")
-	public ResponseEntity<Response> updateInterface(InterFace interFace){	
-		
-		return ResponseEntity.ok().body(new Response(true, "处理成功", "ok"));
+	/**
+	 * 增加接口
+	 * @param interFace
+	 * @return
+	 */
+	@RequestMapping("addInterface")
+	public ResponseEntity<Response> addInterface(InterFace interFace){
+		System.out.println(interFace.toString());
+		int i=iGetInterface.addInterface(interFace);
+		if(i==1) {
+			 return ResponseEntity.ok().body(new Response(true, "处理成功", "ok"));
+		}else {
+			 return ResponseEntity.ok().body(new Response(false, "处理失败", "no"));
+		}
+	}
+	/**
+	 * 更新接口
+	 * @param interFace
+	 * @return
+	 */
+	@RequestMapping("updateInterface")
+	public ResponseEntity<Response> updateInterface(InterFace interFace){
+		boolean b=iGetInterface.updateInterface(interFace);
+		if(b) {
+			  return ResponseEntity.ok().body(new Response(true, "处理成功", "ok"));
+		}else {
+			  return ResponseEntity.ok().body(new Response(false, "处理失败", "ok"));
+		}
+	}
+	/**
+	 * 删除接口
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("deleteInterface")
+	public ResponseEntity<Response> deleteInterface(@RequestParam(required = true) int id){	
+	boolean b=	iGetInterface.deleteInterface(id);
+	if(b) {
+		  return ResponseEntity.ok().body(new Response(true, "处理成功", "ok"));
+
+	}else {
+		  return ResponseEntity.ok().body(new Response(false, "处理失败", "ok"));
+
+	}
 	}
 }
