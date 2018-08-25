@@ -43,7 +43,7 @@ public class SwaggerConfig{
            }};
         return new Docket(DocumentationType.SWAGGER_2)
         		.apiInfo(apiInfo()) 
-        		.select() 
+        		.select()
         		.apis(RequestHandlerSelectors.basePackage("com.vitea.api")) 
         		.paths(PathSelectors.any()) 
         		.build(); 
@@ -55,6 +55,7 @@ public class SwaggerConfig{
                 .version("1.0.0")
                 .termsOfServiceUrl("")
                 .license("")
+                
                 .licenseUrl("")
                 .build();
     }
