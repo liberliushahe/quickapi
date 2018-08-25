@@ -6,7 +6,7 @@
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="sysid" jdbcType="INTEGER" property="sysid" />
 		<result column="timeout" jdbcType="INTEGER" property="timeout" />
-		<result column="input" jdbcType="VARCHAR" property="input" />
+		<result column="input" jdbcType="VARCHAR" property="inparam" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="stat" jdbcType="INTEGER" property="stat" />
 		<result column="url" jdbcType="VARCHAR" property="url" />
@@ -14,19 +14,66 @@
 		<result column="method" jdbcType="VARCHAR" property="method" />
 		<result column="type" jdbcType="VARCHAR" property="type" />
 		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="istemp" jdbcType="INTEGER" property="istemp" />
+		<result column="template" jdbcType="VARCHAR" property="template" />
 	</resultMap>
+<insert id="insert" parameterType="com.vitea.domain.InterFace">
+insert into QK_INTERFACE (ID,SYSID,NAME,URL,PORT,METHOD,STAT,TYPE,TIMEOUT,INPUT,DESCRIPTION,ISTEMP,TEMPLATE)
+    values (#{id,jdbcType=DECIMAL},#{sysid,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{port,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{stat,jdbcType=DECIMAL}, 
+      #{type,jdbcType=VARCHAR},#{timeout,jdbcType=VARCHAR},#{inparam,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{istemp,jdbcType=DECIMAL},#{template,jdbcType=VARCHAR})
+
+</insert>
+
+<delete id="delete" parameterType="java.lang.Integer">
+delete from QK_INTERFACE  where id=#{id,jdbcType=INTEGER}
+</delete>
+
+<update id="updateByPrimaryKeySelective">
+
+ update  QK_INTERFACE
+   <set>
+ <if test="id != null">id = #{id,jdbcType=DECIMAL},</if>
+ <if test="sysid != null">sysid = #{sysid,jdbcType=DECIMAL},</if>
+ <if test="name != null">name =#{name,jdbcType=VARCHAR},</if>
+ <if test="url != null">url =#{url,jdbcType=VARCHAR},</if>
+ <if test="port != null">port = #{port,jdbcType=VARCHAR},</if>
+ <if test="method != null">method = #{method,jdbcType=VARCHAR},</if>
+  <if test="type != null">type = #{type,jdbcType=VARCHAR},</if>
+  <if test="stat != null">stat =#{stat,jdbcType=DECIMAL},</if>
+ <if test="timeout != null">timeout = #{timeout,jdbcType=VARCHAR},</if>
+ <if test="inparam != null">input =#{inparam,jdbcType=VARCHAR},</if>
+ <if test="description != null">description =#{description,jdbcType=VARCHAR},</if>
+ <if test="istemp != null">istemp =#{istemp,jdbcType=DECIMAL},</if>
+ <if test="template != null">template =#{template,jdbcType=VARCHAR},</if>
+   </set>
+   where id=#{id}
+
+</update>
 <!-- 查找用户通过编号 -->
-	<select id="getPortById" resultMap="BaseResultMap"
+	<select id="getInterfaceById" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
-		id,url,method,port,description,type,name,stat,timeout,input
+		id,url,method,port,description,type,name,stat,timeout,input,istemp,template
 		from qk_interface
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-<select id="findAll" resultMap="BaseResultMap">
-   select ID,SYSID,NAME,URL,PORT,METHOD,STAT,TYPE,TIMEOUT,INPUT,DESCRIPTION from QK_INTERFACE  order BY ID ASC
-</select>	
 <select id="getAllInterfaceCount" resultType="java.lang.Integer">
 select count(0) from qk_interface
+</select>
+<select id="findAllInterfaceByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+select ID,SYSID,NAME,URL,PORT,METHOD,STAT,TYPE,TIMEOUT,INPUT,DESCRIPTION,ISTEMP,TEMPLATE from QK_INTERFACE
+      <where>
+       <if test='id!="0"'>       
+        and id=#{id}       
+        </if>
+        <if test='method!="0"'>      
+        and method=#{method}        
+        </if>
+          <if test='name!="0" '>
+        and  name like '%'||#{name}||'%'
+        </if>
+       </where>
+       ORDER BY id desc
 </select>
 </mapper>
