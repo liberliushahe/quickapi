@@ -5,6 +5,10 @@
 	 
 <head th:replace="admin/fragments/header :: header"/>
 <body class="app sidebar-mini rtl">
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/bootstrap-table.min.css"
+	th:href="@{/resources/css/bootstrap-table.min.css}" />
+
 <header th:replace="admin/fragments/nav :: head"/>
 <aside th:replace="admin/fragments/menu :: aside"/>
 <!-- 主内容开始 -->
@@ -20,75 +24,52 @@
           <li class="breadcrumb-item active"><a href="#">接口查询</a></li>
         </ul>
       </div>
+            	<!-- 搜索框-->
+	<div class="tile text-center">
+		<div class="row">
+			<div class="col-sm-1 col-lg-2"></div>
+			<div class="col-sm-10 form-inline col-lg-8">
+			<div class="col-sm-12">
+			       
+			       
+			        
+			        编号:<input type="text"
+							class="form-control input-lg" id="queryid" name="queryid"
+							placeholder="请输入接口编号 "/>
+			       
+					 &nbsp;&nbsp;
+					方法:<select type="text"
+							class="form-control input-lg" id="querymethod" name="querymethod"
+							placeholder="请输入接口方法"> 
+			        <option value="">-------请选择方法-------</option>	
+					<option value="http2form">http2form</option>		
+					<option value="http2json">http2json</option>
+					<option value="socket">socket</option>
+					</select>   &nbsp;&nbsp;   						
+					名称:<input type="text"
+							class="form-control input-lg" id="queryname" name="queryname"
+							placeholder="请输入接口名称" /> 
+							
+							 <button class="btn btn-primary" id="searchInterfaceByParam">
+				<i class="fa fa-search" aria-hidden="true"></i>查询
+			   </button>&nbsp;&nbsp;
+			    <button class="btn btn-primary" id="resetInterface">
+				重置
+			   </button>&nbsp;&nbsp;
+			   <button class="btn btn-primary" id="addInterface">
+				增加
+			   </button>
+		</div>
+		</div>
+			</div>
+			<div class="col-sm-1 col-lg-2"></div>
+			
+		</div>
       <div class="row" >
         <div class="col-md-12">
           <div class="tile">
             <div class="tile-body">
-              <table class="table table-hover table-bordered text-center" id="sampleTable">
-                <thead>
-                  <tr>
-                    <th>接口编号</th>
-                     <th>所属系统</th>
-                    <th>接口名称</th>
-                    <th>接口地址</th>
-                    <th>接口端口</th>
-                    <th>类型</th>
-                    <th>接口方法</th>
-                    <th>状态</th>
-                    <th>接口描述</th> 
-                    <th>超时时间(s)</th>              
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody id="interfacetable">      
-                	<tr th:each="interface : ${pagelist.list}">
-					<td th:text="${interface.id}"></td>
-					<td th:text="${interface.sysid}"></td>
-					<td th:text="${interface.name}"></td>
-					<td th:text="${interface.url}"></td>
-					<td th:text="${interface.port}"></td>
-					<td th:text="${interface.type}"></td>
-					<td th:text="${interface.method}"></td>
-					<td th:if="${interface.stat} eq 1"> <i class="fa fa-check" aria-hidden="true"></i></td>
-					<td th:if="${interface.stat} eq 0"> <i class="fa fa-times" aria-hidden="true"></i></td>
-					<td th:text="${interface.description}"></td>
-					<td th:text="${interface.timeout}"></td>
-					<td>
-					  <a href="#" class="edit-interface" data-toggle="modal" data-target="#addinterface" data-th-attr="id=${interface.id}"><i class="fa fa-pencil fa-fw"></i> 编辑</a> &nbsp;&nbsp;
-                   <a href="#" class="del-interface" data-th-attr="id=${interface.id}"><i class="fa fa-trash-o fa-fw"></i> 删除</a> &nbsp;&nbsp;
-                   <a href="#"><i title="测试" class="fa fa-filter" aria-hidden="true"></i>测试</a>                
-					</td>
-				</tr>
-                </tbody>
-               
-              </table>  
-               <nav  th:replace="admin/fragments/page :: page"/>
-   <!-- 编辑模态开始 -->
-	<div class="modal fade"  id="addinterface"  tabindex="-1" role="dialog" aria-labelledby="addtipLabel" aria-hidden="true">
-	
-		<div class="modal-dialog" role="document">
-		<div class="modal-content" style="width:680px;">
-		<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				
-			</div>
-			
-			<div class=" modal-body" id="interfaceFormContainer">
-			
-			</div>
-			<div class="modal-footer text-center">    
-           <button type="button" class="btn btn-primary" data-dismiss="modal" id="submitEdit">
-					提交
-				</button>
-           <button type="button" class="btn btn_red" data-dismiss="modal">取消</button>
-        </div>
-
-		</div><!-- modal-content -->
-	  </div><!-- modal-dialog -->	
-	</div>
-   <!-- 编辑模态框结束-->	
+               <table id="interfacetable">
             </div>
           </div>
         </div>
@@ -96,7 +77,11 @@
     </main>
 
 <!-- 主内容结束 -->
+<script src="resources/framework/jquery.validate.min.js" th:src="@{/resources/framework/jquery.validate.min.js}"></script>
 <footer th:replace="admin/fragments/footer :: footer"/>
+<script src="/resources/js/knowledge.js" th:src="@{/resources/framework/bootstrap-table.min.js}"></script>
+<script src="/resources/js/knowledge.js" th:src="@{/resources/framework/bootstrap-table-zh-CN.min.js}"></script>
+<script src="/resources/js/knowledge.js" th:src="@{/resources/framework/layer/layer.js}"></script>
 <script src="/resources/js/interface.js" th:src="@{/resources/js/interface/interface.js}"></script>
 
 </body>
