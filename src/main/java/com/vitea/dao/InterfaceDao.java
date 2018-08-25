@@ -2,6 +2,8 @@ package com.vitea.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.vitea.domain.InterFace;
 
 
@@ -26,37 +28,26 @@ public interface InterfaceDao {
 	 * @param id
 	 * @return
 	 */
-	public InterFace getPortById(int id);
-	/**
-	 *  插入接口信息
-	 * @param inter
-	 */
-	void insertSelective(InterFace inter);
+	public InterFace getInterfaceById(int id);
+
 	/**
 	 * 保存接口
 	 * @param inter
 	 */
-	void save(InterFace inter);
-
-	/**
-	 * 更新接口
-	 * @param inter
-	 * @return
-	 */
-	boolean update(InterFace inter);
+	int insert(InterFace inter);
 
 	/**
 	 * 删除接口
 	 * @param id
 	 * @return
 	 */
-	boolean delete(String id);
+	boolean delete(int id);
 
 	/**
 	 * 查询所有接口
 	 * @return
 	 */
-	List<InterFace> findAll();
+    List<InterFace> findAllInterfaceByParam(@Param("id")int id,@Param("method")String method,@Param("name")String name);
 	/**
 	 * 更新接口
 	 * @param inter

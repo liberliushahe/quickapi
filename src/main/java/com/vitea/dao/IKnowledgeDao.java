@@ -36,11 +36,11 @@ public interface IKnowledgeDao {
      * @return
      */
     int deleteKnowledgeById(Short id);
-    /**
-     * 更新知识库
-     * @param id
-     * @return
-     */
+   /**
+    * 更新知识库
+    * @param knowledge
+    * @return
+    */
     int updateKnowledgeById(Knowledge knowledge);
     /**
      * 查询所有记录
@@ -50,6 +50,9 @@ public interface IKnowledgeDao {
     
     /**
      * 根据条件查询记录
+     * @param starttime
+     * @param endtime
+     * @param title
      * @return
      */
     List<Knowledge> findAllKnowledgeByParam(@Param("starttime")String starttime,@Param("endtime")String endtime,@Param("title")String title);
