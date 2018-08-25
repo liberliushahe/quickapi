@@ -1,7 +1,7 @@
 $(function(){
 	setProperty();
 	$("#searchKnowledge").bind("click", function () {
-		setProperty();
+		$('#table').bootstrapTable('refresh');
  })
 	
 });
