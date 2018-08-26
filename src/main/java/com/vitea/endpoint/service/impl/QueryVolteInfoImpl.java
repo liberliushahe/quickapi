@@ -416,7 +416,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
  * @return
  */
 	public String parseParamAndGetDataInfo(String xml) {
-		InterFace inter = iPortDao.getPortById(201804);
+		InterFace inter = iPortDao.getInterfaceById(201804);
 		Element rootElt = null;
 		String retStr = null;
 		try {
@@ -428,6 +428,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			String servcode = rootElt.elementTextTrim("servcode");
 			String msgid = rootElt.elementTextTrim("msgid");
 			String version = rootElt.elementTextTrim("version");
+			String areacode = rootElt.elementTextTrim("areacode");
 			String time = DateFormatUtil.getFormatDateMill();
 			/*
 			 * 2018.7.26 14:58 此处拼接报文为了提高接口查询速度 故而没有保存在数据库， 将所有变量抽离出来防止以后有变,如果报文有变修改以下报文即可
@@ -436,7 +437,7 @@ public class QueryVolteInfoImpl implements IQueryVolteInfo {
 			String reqStr="{\"Envelope\":{\"Header\":{\"Esb\":{\"Router\":{\"Sender\":\"" +sender+"\",\"AuthCode\":\"\",\"Time\":\"" + time + "\",\"ServTestFlag\":\"\",\"CarryType\":\"\",\"TransId\":\"" + transid + "\",\"MsgId\":\"" + msgid + "\",\"MsgType\":\"\",\"EsbId\":\"\",\"AuthType\":\"\",\"ServCode\":\"" + servcode +"\",\"Version\":\"" + version + "\"}}},\"Body\":{\"mdn\":\"" + busivalue +"\",\"type\":\"" + type + "\"}}}";
 			long startTime = System.currentTimeMillis();
 			retStr = HttpClientUtil.execute(inter.getUrl(), reqStr, inter.getType(), inter.getTimeout());
-			this.logger.info("volte信息查询：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] { busivalue, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201804"});
+			this.logger.info("volte信息查询：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{},区域编码:{}", new Object[] { busivalue, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201804",areacode});
 
 			if (retStr == "" || "".equals(retStr)) {
 				retStr = "<response><code>-1<code><msg>返回值为空<msg></response>";

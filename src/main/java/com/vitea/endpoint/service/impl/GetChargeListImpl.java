@@ -38,7 +38,7 @@ public class GetChargeListImpl implements IGetChargeList {
 
 	@Override
 	public String endpointReset(String accNmr) throws IOException, DocumentException {
-		InterFace inter=iPortDao.getPortById(201803);
+		InterFace inter=iPortDao.getInterfaceById(201803);
 		ListQryBsn listQryBSN = parseInput(accNmr);
 		if (listQryBSN != null) {
 			try {
@@ -82,7 +82,7 @@ public class GetChargeListImpl implements IGetChargeList {
 					}
 					sbout.append("</root>");
 					this.resultcode = sbout.toString();
-					this.logger.info("计费清单：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] {listQryBSN.getAccNbr(), startTime, System.currentTimeMillis(),accNmr.trim().replaceAll("[\\s&&[^\r\n]]*(?:[\r\n][\\s&&[^\r\n]]*)+", ""),resultcode,(System.currentTimeMillis() - startTime),"201803"});
+					this.logger.info("计费清单：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{},区域编码:{}", new Object[] {listQryBSN.getAccNbr(), startTime, System.currentTimeMillis(),accNmr.trim().replaceAll("[\\s&&[^\r\n]]*(?:[\r\n][\\s&&[^\r\n]]*)+", ""),resultcode,(System.currentTimeMillis() - startTime),"201803",listQryBSN.getAreaCode()});
 				    dataOutputStream.close();
 				    sock.close();
 				} else {

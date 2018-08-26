@@ -46,7 +46,7 @@ public class SendMessageImpl implements ISendMessage {
 	 */
 	@Override
 	public String sendMessage(String xml) {
-		InterFace inter1 = iPortDao.getPortById(201801);
+		InterFace inter1 = iPortDao.getInterfaceById(201801);
 		String retStr = "";
 		Element rootElt=null;
 		try {
@@ -54,6 +54,7 @@ public class SendMessageImpl implements ISendMessage {
 			String msisdn = rootElt.elementTextTrim("msisdn");
 			String actionCode = rootElt.elementTextTrim("actionCode");
 			String msgcontent = rootElt.elementTextTrim("msgcontent");
+			String areacode = rootElt.elementTextTrim("areacode");
 				// 拼接请求报文
 				String reqStr = "smsmsg=<sms><systemid>10000</systemid><smstype>smspush</smstype><msisdn>" + msisdn
 						+ "</msisdn><actionCode>" + actionCode + "</actionCode><msgcontent>" + msgcontent
@@ -61,7 +62,7 @@ public class SendMessageImpl implements ISendMessage {
 		        long startTime = System.currentTimeMillis();
 		        System.out.println();
 				retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,inter1.getType(),inter1.getTimeout());
-				this.logger.info("代发指令短信：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] { msisdn, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201801"});
+				this.logger.info("代发指令短信：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{},区域编码:{}", new Object[] { msisdn, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201801",areacode});
 
 		} catch (DocumentException e) {
 
@@ -74,7 +75,7 @@ public class SendMessageImpl implements ISendMessage {
 	@Override
 	public String queryMessageLog(String xml) {
 
-		InterFace inter2 = iPortDao.getPortById(201802);
+		InterFace inter2 = iPortDao.getInterfaceById(201802);
 		String retStr = "";
 		Element rootElt=null;
 		try {
@@ -87,6 +88,7 @@ public class SendMessageImpl implements ISendMessage {
 		        String endDate = rootElt.elementTextTrim("endDate");
 		        String index = rootElt.elementTextTrim("index");
 		        String pageSize = rootElt.elementTextTrim("pageSize");
+		        String areacode = rootElt.elementTextTrim("areacode");
 		        String reqStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><sms><systemID>" + 
 		          systemID + "</systemID><smsType>" + 
 		          smsType + "</smsType><queryType>" + queryType + 
@@ -97,7 +99,7 @@ public class SendMessageImpl implements ISendMessage {
 		          pageSize + "</pageSize></sms>";
 		     long startTime = System.currentTimeMillis();
 			 retStr = HttpClientUtil.execute(inter2.getUrl(), reqStr.trim(),inter2.getType(),inter2.getTimeout());
-			 this.logger.info("短厅日志查询报文：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] { serviceNbr, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201801"});
+			 this.logger.info("短厅日志查询报文：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{},区域编码:{}", new Object[] { serviceNbr, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201801",areacode});
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,7 +109,7 @@ public class SendMessageImpl implements ISendMessage {
 
 	@Override
 	public String sendRealTimeMsg(String xml) {
-		InterFace inter1 = iPortDao.getPortById(1);
+		InterFace inter1 = iPortDao.getInterfaceById(1);
 		String retStr = "";
 		Element rootElt=null;
 		try {
@@ -115,13 +117,14 @@ public class SendMessageImpl implements ISendMessage {
 			String msisdn = rootElt.elementTextTrim("msisdn");
 			String srctermid = rootElt.elementTextTrim("srctermid");
 			String msgcontent = rootElt.elementTextTrim("msgcontent");
+			String areacode = rootElt.elementTextTrim("areacode");
 			// 拼接请求报文
 			String reqStr = "smsmsg=<sms><systemid>wss_wap</systemid><smstype>test</smstype><msisdn>" + msisdn
 					+ "</msisdn><srctermid>" + srctermid + "</srctermid><msgcontent>" + msgcontent
 					+ "</msgcontent></sms>";
 		     long startTime = System.currentTimeMillis();
 			retStr = HttpClientUtil.execute(inter1.getUrl(), reqStr,inter1.getType(),inter1.getTimeout());
-		    this.logger.info("短厅指令短信报文：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{}", new Object[] { msisdn, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201801"});
+		    this.logger.info("短厅指令短信报文：号码：{},开始时间：{},结束时间：{},请求报文：{},返回报文：{},调用时间:{},接口编号:{},区域编码:{}", new Object[] { msisdn, startTime, System.currentTimeMillis(),reqStr,retStr,(System.currentTimeMillis() - startTime),"201801",areacode});
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
