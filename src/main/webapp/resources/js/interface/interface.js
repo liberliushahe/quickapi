@@ -203,7 +203,7 @@ function editItem(id){
 				  content:'<form role="form" id="updateinterfacetable"><table class="table border  text-center" id="sampleTable">'+
 				  '<tr><td>接口编号</td><td><input name="id" id="interfaceid" class="form-control form-control-lg" value='+obj.id+' /></td><td>系统分类</td><td><select name="sysid" id="sysid" class="form-control form-control-lg" >'+
 	            '        <option value="1">短信平台</option>'+
-	            '        <option value="2">计费系统</option>'+
+	            '        <option value="2" selected="selected">计费系统</option>'+
 	            '        <option value="3">智能网管</option>'+
 	            '        <option value="4">CRM系统</option>'+
 	            '</select></td></tr>'+
