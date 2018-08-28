@@ -41,7 +41,27 @@ public class InterfaceLog {
 	 * 调用时间
 	 */
 	private String timestamp;
+	/**
+	 * 区域编码
+	 */
+	private String areacode;
+	/**
+	 * 产品编码
+	 */
+	private String paratype;
 	
+	public String getAreacode() {
+		return areacode;
+	}
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
+	}
+	public String getParatype() {
+		return paratype;
+	}
+	public void setParatype(String paratype) {
+		this.paratype = paratype;
+	}
 	public String getInterid() {
 		return interid;
 	}
