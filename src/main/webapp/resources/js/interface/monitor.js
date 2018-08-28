@@ -1,12 +1,60 @@
 //监控界面js
 $(function(){
-	currentTrans();
+	productScatter();
 	mapStamp();
-	dayTrans();
-	transScatter();
+	interfaceScatter();
+	daySuccessTrans();
+	dayFailTrans();
+	currentTrans();
 })
+//产品分布
+function productScatter(){
+	var productScatter = echarts.init(document.getElementById("productScatter"));	
+	var option = {
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+		    },
+		    calculable : true,
+		    series : [
+		        {
+		            name:'产品分布',
+		            type:'pie',
+		            radius : '50%',
+		            center: ['50%', '40%'],
+		            itemStyle: {
+		    			normal: {
+		                 label:{
+		                        show: true,
+		                        position:'outer',
+		                        formatter: "{b}:{c}"
+		                    } 
+		              }
+			     }
+		           
+		        }
+		    ]
+		   
+		};	
+	$.ajax({
+        url:"productGroupScatter.do",
+          type:"POST",
+          dataType:"JSON",
+          before:function(){
+        	  productScatter.showLoading();  
+          },
+          success:function(data){   
+       	   option.series[0].data =data;
+       	   productScatter.setOption(option,true);
+       	   productScatter.hideLoading();
+          }
+	})
+
+}
+
+//区域调用量
 function mapStamp(){
-	var mychar = echarts.init(document.getElementById("area"));
+	var area = echarts.init(document.getElementById("area"));
 	var option = {
 		    legend: {
 		        data:['调用量']
@@ -18,7 +66,6 @@ function mapStamp(){
 		    xAxis : [
 		        {
 		            type : 'category',
-		            data : ['兰州','天水','武威','张掖','酒泉','甘南','兰州','天水','武威','张掖','酒泉','甘南']
 		        }
 		    ],
 		    yAxis : [
@@ -30,12 +77,12 @@ function mapStamp(){
 		        {
 		            name:'调用量',
 		            type:'bar',
+		            barWidth: 15,
 		            itemStyle: {
 		            	normal: {
 		    				color: '#45ccf2',
 		    			}
 	                    },
-		            data:[200, 400, 7, 23, 25, 76, 135, 162, 32, 20, 6, 3],
 		            markPoint : {
 		                data : [
 		                    {type : 'max', name: '最大值'},
@@ -48,87 +95,133 @@ function mapStamp(){
 		    ]
 		};
 		                    
-	mychar.setOption(option);
+	$.ajax({
+        url:"areacodeGroupScatter.do",
+          type:"POST",
+          dataType:"JSON",
+          success:function(data){ 
+        	  option.xAxis[0].data =data.name;
+       	      option.series[0].data =data.value;
+       	   area.setOption(option,true);
+          }
+	})
 }
-function transScatter(){
+//接口分布
+function interfaceScatter(){
 	var scatter = echarts.init(document.getElementById("scatter"));
 	var option = {
 		    tooltip : {
 		        trigger: 'item',
 		        formatter: "{a} <br/>{b} : {c} ({d}%)"
-		    },
-		    legend: {
-		        orient : 'vertical',
-		        x : 'left',
-		        data:['客户信息','用户信息','短信发送','volte信息','计费清单']
-		    },
-		    toolbox: {
-		        show : true,
-		        feature : {
-		            mark : {show: true},
-		            dataView : {show: true, readOnly: false},
-		            magicType : {
-		                show: true, 
-		                type: ['pie', 'funnel'],
-		                option: {
-		                    funnel: {
-		                        x: '25%',
-		                        width: '50%',
-		                        funnelAlign: 'center',
-		                        max: 1548
-		                    }
-		                }
-		            }
-		         
-		           
-		        }
-		    },
+		    },		   
 		    calculable : true,
 		    series : [
 		        {
-		            name:'访问来源',
+		            name:'产品分布',
 		            type:'pie',
-		            radius : ['50%', '70%'],
-		            itemStyle : {
-		                normal : {
-		                    label : {
-		                        show : false
-		                    },
-		                    labelLine : {
-		                        show : false
-		                    }
-		                },
-		                emphasis : {
-		                    label : {
-		                        show : true,
-		                        position : 'center',
-		                        textStyle : {
-		                            fontSize : '30',
-		                            fontWeight : 'bold'
-		                        }
-		                    }
-		                }
-		            },
-		            data:[
-		                {value:335, name:'客户信息'},
-		                {value:310, name:'用户信息'},
-		                {value:234, name:'短信发送'},
-		                {value:135, name:'volte信息'},
-		                {value:1548, name:'计费清单'}
-		            ]
+		            radius : '50%',
+		            center: ['50%', '40%'],
+		            itemStyle: {
+		    			normal: {
+		                 label:{
+		                        show: true,
+		                        position:'outer',
+		                        formatter: "{b}:{c}"
+		                    } 
+		              }
+		            }
 		        }
 		    ]
 		};
-	scatter.setOption(option);	                    
+	//获取接口分布数据
+	$.ajax({
+        url:"interfaceScatter.do",
+          type:"POST",
+          dataType:"JSON",
+          success:function(data){ 
+       	      option.series[0].data =data;
+         	  scatter.setOption(option,true);
+          }
+	})
+	
+	
 }
-//近期调用情况
-function dayTrans(){
-	var dayTrans = echarts.init(document.getElementById("dayTrans"));
+//成功量情况
+function daySuccessTrans(){
+	var daySuccessTrans = echarts.init(document.getElementById("daySuccessTrans"));
 	var option = {
+			noDataLoadingOption: {
+                text: '十分钟内接口未调用',
+                effect: 'bubble',
+                effectOption: {
+                    effect: {
+                        n: 0
+                    }
+                }
+            },
 		    tooltip : {
 		        trigger: 'axis',
 		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+		            type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+		        }
+		    },
+		    legend: {
+		        data:['成功量']
+		    },
+		    calculable : true,
+		    xAxis : [
+		        {
+		            type : 'value'
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'category',
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'成功量',
+		            type:'line',
+		            stack: '总量',
+		            itemStyle : { normal: {
+		            	lineStyle:{
+		            		 color: '#66ea69', 
+		            	 },
+		            	
+		            	label : {show: true, position: 'insideRight'}}},
+		        }
+
+		    ]
+		};		                      
+	$.ajax({
+        url:"daySuccessTrans.do",
+          type:"POST",
+          dataType:"JSON",
+          success:function(data){ 
+        	  option.yAxis[0].data =data.name;
+       	      option.series[0].data =data.value;
+       	   daySuccessTrans.setOption(option,true);
+          }
+	})
+}
+//失败量情况
+function dayFailTrans(){
+	var dayFailTrans = echarts.init(document.getElementById("dayFailTrans"));
+	var option = {
+			noDataLoadingOption: {
+                text: '十分钟内接口不存在调用失败数据',
+                effect: 'bubble',
+                effectOption: {
+                    effect: {
+                        n: 0
+                    }
+                }
+            },
+		    tooltip : {
+		        trigger: 'axis',
+		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		            type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
 		        }
 		    },
 		    legend: {
@@ -143,48 +236,52 @@ function dayTrans(){
 		    yAxis : [
 		        {
 		            type : 'category',
-		            data : ['客户信息','用户信息','用户信息','用户信息','用户信息','用户信息','用户信息','客户信息','用户信息','用户信息','用户信息','用户信息','用户信息','用户信息','客户信息','用户信息','用户信息','用户信息','用户信息','用户信息','用户信息','客户信息','用户信息','用户信息','用户信息','用户信息','用户信息','用户信息']
 		        }
 		    ],
 		    series : [
 		        {
 		            name:'失败量',
-		            type:'bar',
-		            itemStyle: {
-		            	normal: {
-		    				color: '#45ccf2',
-		    			}
-	                    },
+		            type:'line',
 		            stack: '总量',
-		            itemStyle : { normal: {label : {show: true, position: 'insideRight'}}},
-		            data:[120, 132, 101, 134, 90, 230, 210,320, 302, 301, 334, 390, 330, 320,120, 132, 101, 134, 90, 230, 210,320, 302, 301, 334, 390, 330, 320]
+		            itemStyle : { normal: {
+		            	 lineStyle:{
+		            		 color: '#ff383e', 
+		            	 },
+		            	 areaStyle:{
+		            		 color: '#ff383e', 
+		            	 },
+		            	 label : {show: true, position: 'insideRight'}
+		            }},
 		        }
 
 		    ]
-		};
-		                    
-    dayTrans.setOption(option);                    
+		};		                    
+	$.ajax({
+        url:"dayFailTrans.do",
+          type:"POST",
+          dataType:"JSON",
+          success:function(data){ 
+        	  option.yAxis[0].data =data.name;
+       	      option.series[0].data =data.value;
+       	   dayFailTrans.setOption(option,true);
+          }
+	})
 }
-
-
+//当月调用量
 function currentTrans(){
 	var currentTrans = echarts.init(document.getElementById('currentTrans')); 
 	var option = {
-		    title : {
-		        text: '当月接口调用情况',
-		        subtext: '接口监控界面'
-		    },
+		   
 		    tooltip : {
 		        trigger: 'axis'
 		    },
 		    legend: {
-		        data:['成功量','失败量']
+		        data:['成功量']
 		    },
 		    calculable : true,
 		    xAxis : [
 		        {
 		            type : 'category',
-		            data : ['客户信息查询','用户信2息查询','用户1信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','客户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询','用户信息查询']
 		        }
 		    ],
 		    yAxis : [
@@ -196,6 +293,7 @@ function currentTrans(){
 		        {
 		            name:'成功量',
 		            type:'bar',
+		            barWidth: 18,
 		            itemStyle: {
 		            	normal: {
 		    				color: '#45ccf2',
@@ -213,25 +311,19 @@ function currentTrans(){
 		                    {type : 'average', name: '平均值'}
 		                ]
 		            }
-		        },
-		        {
-		            name:'失败量',
-		            type:'bar',
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-		            markPoint : {
-		                data : [
-		                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-		                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-		                ]
-		            },
-		            markLine : {
-		                data : [
-		                    {type : 'average', name : '平均值'}
-		                ]
-		            }
 		        }
+		       
 		    ]
 		};
 		                    
-	currentTrans.setOption(option);
+	$.ajax({
+        url:"currentTrans.do",
+          type:"POST",
+          dataType:"JSON",
+          success:function(data){ 
+        	  option.xAxis[0].data =data.name;
+       	      option.series[0].data =data.success;
+       	      currentTrans.setOption(option,true);
+          }
+	})
 }

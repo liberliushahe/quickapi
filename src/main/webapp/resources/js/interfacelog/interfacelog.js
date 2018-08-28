@@ -76,7 +76,9 @@ function setProperty(){
         			 "white-space": "nowrap" 
         			 } 
         			 }},
-        	    {field: 'cost', title: '消耗时间(单位:毫秒)', sortable: false, halign: 'center'}
+        	    {field: 'cost', title: '消耗时间(单位:毫秒)', sortable: false, halign: 'center'},
+                {field: 'areacode', title: '区域编码', sortable: false, halign: 'center'},
+                {field: 'paratype', title: '产品类型', sortable: false, halign: 'center'}
 
         	]
 	 });

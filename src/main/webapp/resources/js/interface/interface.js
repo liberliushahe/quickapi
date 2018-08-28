@@ -193,7 +193,6 @@ function editItem(id){
 		url:"getInterfaceById.do?id="+id,
 		method:'post',
 		success:function(data){
-			console.log(data)
 			var obj = eval('(' + data + ')');
 			layer.open({
 				  title : '接口编辑',
