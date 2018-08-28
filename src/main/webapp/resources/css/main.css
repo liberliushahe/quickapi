@@ -15218,3 +15218,7 @@ be a descendant of the grid when it is being dragged.
 .user .user-settings label {
   color: #666;
 }
+.table th, .table td { 
+text-align: center;
+vertical-align: middle!important;
+}
