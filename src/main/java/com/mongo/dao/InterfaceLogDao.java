@@ -1,8 +1,10 @@
 package com.mongo.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.mongo.domain.InterfaceLog;
+import com.mongodb.BasicDBObject;
 /**
  * 接口日志查询 FROM MONGO
  * @author liushahe
@@ -37,6 +39,28 @@ public interface InterfaceLogDao {
 	 * @return
 	 */
 	public long failCount();
+	/**
+	 * 通过区域编码分组统计
+	 */
+	public Iterator<BasicDBObject> groupByMapReduceOfAreaCode();
+	/**
+	 * 通过产品编码分组统计
+	 */
+	public Iterator<BasicDBObject> groupByMapReduceOfProduct();
+	/**
+	 * 近期调用成功量
+	 * @return
+	 */
+	public Iterator<BasicDBObject> daySuccessTrans();
+	/**
+	 * 近期调用失败量
+	 * @return
+	 */
+	public Iterator<BasicDBObject> dayFailTrans();
+	/**
+	 * 当月30天内接口调用情况
+	 * @return
+	 */
+	public Iterator<BasicDBObject> currentTrans(String flag);
 	
-
 }
