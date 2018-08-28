@@ -3,6 +3,14 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="admin/fragments/header :: header" />
+<style>
+#mapbg{
+background-color:#023663;
+background: url(resources/images/bg.png);
+}
+
+
+</style>
 <body class="app sidebar-mini rtl">
 	<header th:replace="admin/fragments/nav :: head" />
 	<aside th:replace="admin/fragments/menu :: aside" />
@@ -21,20 +29,73 @@
 			<li class="breadcrumb-item active"><a href="#">接口监控</a></li>
 		</ul>
 	</div>
+	</div>
+	<!-- 实时接口调用展示内容-->
+ <div class="row">
+        <div class="col-md-4">
+          <div class="tile">
+           <h3 class="tile-title">产品分布</h3>
+            <div class="embed-responsive embed-responsive-4by3">
+              <div class="embed-responsive-item" id="productScatter">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tile">
+           <h3 class="tile-title">区域调用量</h3>
+            <div class="embed-responsive embed-responsive-4by3">
+              <div class="embed-responsive-item" id="area"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="tile">
+           <h3 class="tile-title">接口分布</h3>
+            <div class="embed-responsive embed-responsive-4by3">
+              <div class="embed-responsive-item" id="scatter"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- 当日接口调用展示内容-->
+	<div class="row">
+	<div class="col-md-6">
+	<div class="tile" >
+	 <h3 class="tile-title">成功量监控</h3>
+	 <div class="embed-responsive embed-responsive-21by9" style="height:700px">
+		 <div  class="embed-responsive-item" id="daySuccessTrans"></div>
+	</div>
+	</div>
+	</div>
+	<div class="col-md-6">
+	<div class="tile" >
+	 <h3 class="tile-title">失败量监控</h3>
+	 <div class="embed-responsive embed-responsive-21by9" style="height:700px">
+		 <div  class="embed-responsive-item" id="dayFailTrans"></div>
+	</div>
+	</div>
+	</div>
+    </div>
+	<!-- 当月接口调用展示内容-->
+	<div class="row">
+	<div class="col-md-12">
+	<div class="tile" >
+	 <h3 class="tile-title">当月调用量</h3>
+	 <div class="embed-responsive embed-responsive-21by9">
+		 <div  class="embed-responsive-item" id="currentTrans"></div>
+	</div>
+	</div>
+	</div>
+    </div>
 
-	</div>
-	<!-- 展示内容-->
-	<div class="tile mb-4">
-		hello此处为监控屏幕
-	</div>
-	</div>
 	</main>
-
 	<!-- 主内容结束 -->
 
-	<footer th:replace="admin/fragments/footer :: footer" />
-
-   <script src="/resources/js/interfacelog.js"
+<script src="/resources/framework/echarts.all.js" th:src="@{/resources/framework/echarts-all.js}"></script>
+<footer th:replace="admin/fragments/footer :: footer" />
+<script src="/resources/js/interfacelog.js"
 		th:src="@{/resources/js/interface/monitor.js}"></script>
+
 </body>
 </html>
