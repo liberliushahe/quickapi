@@ -76,4 +76,12 @@ select ID,SYSID,NAME,URL,PORT,METHOD,STAT,TYPE,TIMEOUT,INPUT,DESCRIPTION,ISTEMP,
        </where>
        ORDER BY id desc
 </select>
+
+<!-- 接口分布数据查询 -->
+<select id="queryInterfaceScatter" resultType="java.util.Map">
+select count(0) as "value",sysname as "name" from (
+select q.sysid,q.sysname from qk_interface_system q,qk_interface t where q.sysid=t.sysid
+) group by sysname
+
+</select>
 </mapper>

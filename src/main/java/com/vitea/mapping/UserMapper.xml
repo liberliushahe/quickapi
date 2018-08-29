@@ -3,6 +3,7 @@
 <mapper namespace="com.vitea.dao.IUserDao">
 	<resultMap id="BaseResultMap" type="com.vitea.domain.User">
 		<id column="username" property="username" jdbcType="VARCHAR" />
+		<id column="realname" property="realname" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -40,7 +41,7 @@
 		from qk_users
 		where username = #{username,jdbcType=VARCHAR}
 	</select>
-	<select id="findAll" resultMap="BaseResultMap">
+	<select id="findAllUserByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		username,
 		password,
@@ -52,5 +53,13 @@
 		register,
 		phone
 		from qk_users
+		  <where>
+        <if test='username!="0"'>      
+        and username like '%'||#{username}||'%'        
+        </if>
+          <if test='realname!="0" '>
+        and  realname like '%'||#{realname}||'%'
+        </if>
+       </where>
 	</select>
 </mapper>
