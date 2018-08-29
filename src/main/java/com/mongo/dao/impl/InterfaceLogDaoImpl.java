@@ -30,6 +30,7 @@ import com.mongodb.BasicDBObject;
 public class InterfaceLogDaoImpl  implements InterfaceLogDao {
     @Autowired
     MongoTemplate mongoTemplate;
+
     private static String ISNULL="null";
 	
 	@Override
@@ -108,7 +109,7 @@ public class InterfaceLogDaoImpl  implements InterfaceLogDao {
 	    Query query = new Query();
 	    query.addCriteria(Criteria.where("retstr").ne("retstr"));
 	    //格式化日期获取当前时间和10分钟前的时间
-	    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Calendar c=Calendar.getInstance();
 	    Date currentDate=c.getTime();
 	    c.add(Calendar.MINUTE, -10);
@@ -130,10 +131,10 @@ public class InterfaceLogDaoImpl  implements InterfaceLogDao {
 	    Query query = new Query();
 	    query.addCriteria(Criteria.where("retstr").is(""));
 	    //格式化日期获取当前时间和10分钟前的时间
-	    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Calendar c=Calendar.getInstance();
 	    Date currentDate=c.getTime();
-	    c.add(Calendar.MONTH, -30);
+	    c.add(Calendar.MINUTE, -10);
 	    Date beforeDate=c.getTime();
 	    String end=format.format(currentDate);
 	    String start=format.format(beforeDate);
@@ -159,10 +160,13 @@ public class InterfaceLogDaoImpl  implements InterfaceLogDao {
 		  query.addCriteria(Criteria.where("retstr").is(""));
 	    }
 	    //格式化日期获取当前时间和10分钟前的时间
-	    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Calendar c=Calendar.getInstance();
 	    Date currentDate=c.getTime();
-	    c.add(Calendar.DAY_OF_MONTH,-28);
+	    c.set(Calendar.DATE, 1);
+	    c.roll(Calendar.DATE, -1);
+	    int maxDate = c.get(Calendar.DATE); 
+	    c.add(Calendar.DAY_OF_MONTH,-(maxDate));
 	    Date beforeDate=c.getTime();
 	    String end=format.format(currentDate);
 	    String start=format.format(beforeDate);
