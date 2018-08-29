@@ -1,11 +1,15 @@
 package com.vitea.controller;
 
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.vitea.domain.InterFace;
 import com.vitea.endpoint.dto.PageResult;
@@ -57,7 +61,6 @@ public class InterfaceController {
 	@RequestMapping("getInterfaceById")
 	@ResponseBody()
 	public InterFace getInterfaceById(@RequestParam(required = true) int id){
-		System.out.println(iGetInterface.getInterfaceById(id).toString());
 		return iGetInterface.getInterfaceById(id);
 	}
 	/**
@@ -67,7 +70,6 @@ public class InterfaceController {
 	 */
 	@RequestMapping("addInterface")
 	public ResponseEntity<Response> addInterface(InterFace interFace){
-		System.out.println(interFace.toString());
 		int i=iGetInterface.addInterface(interFace);
 		if(i==1) {
 			 return ResponseEntity.ok().body(new Response(true, "处理成功", "ok"));
@@ -105,4 +107,12 @@ public class InterfaceController {
 
 	}
 	}
+	@RequestMapping("interfaceScatter")
+	@ResponseBody()
+	public Object interfaceScatter() {
+		List<Map<String,String>> list=iGetInterface.queryInterfaceScatter();
+		return JSONObject.toJSON(list);
+		
+	}
+	
 }
